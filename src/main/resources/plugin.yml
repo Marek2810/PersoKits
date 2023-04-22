@@ -1,0 +1,5 @@
+name:  ${project.name}
+author: Marek2810
+main: me.Marek2810.${project.name}.${project.name} 
+version: ${project.version} 
+api-version: 1.13

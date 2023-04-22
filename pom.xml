@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>me.Marek2810</groupId>
+  <artifactId>PersoKits</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>PersoKits</name>
+  
+<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+  	<maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+	<maven.compiler.release>17</maven.compiler.release>
+</properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.spigotmc</groupId>
+      <artifactId>spigot-api</artifactId>
+      <version>1.17.1-R0.1-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  <!-- Here we tell maven where it should look for the defined dependencies. -->
+  <!-- Right now, we only need the Spigot repository because we don't have other dependencies -->
+  <repositories>
+    <repository>
+      <id>spigot-snapshots</id>
+      <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+    </repository>
+  </repositories>
+  <build>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-shade-plugin</artifactId>
+			<version>3.2.4</version>
+			<executions>
+				<execution>
+					<phase>package</phase>
+					<goals>
+						<goal>shade</goal>
+					</goals>
+					<configuration>
+						<createDependencyReducedPom>false</createDependencyReducedPom>
+						<outputFile>D:\MC\Plugins\MyPlugins\Spigot\${project.name}-${project.version}.jar</outputFile>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+	</plugins>
+    <resources>
+      <!-- This tells Maven that it should "filter" all files in the resource directory. More on that later. -->
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+  </build>
+  
+</project>
