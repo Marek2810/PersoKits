@@ -1,18 +1,19 @@
 package me.Marek2810.PersoKits;
 
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.md_5.bungee.api.ChatColor;
+import me.Marek2810.PersoKits.Files.CustomConfig;
 
 public class PersoKits extends JavaPlugin {
 	
 	public static PersoKits inst;
+	
+	public static CustomConfig kits;
 
 	@Override
 	public void onEnable() {
-		inst = this;
-		Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&6PIČOVINA FUNGUJE"));
+		inst = this;		
+		kits = new CustomConfig(this, "kits.yml");
 	}
 	
 	@Override

@@ -1,0 +1,11 @@
+newbie:
+  cooldown: 0
+  items:
+    1: STONE_SWORD
+    1: STONE_PICKAXE
+    1: STONE_SHOVEL
+    4:
+      ==: org.bukkit.inventory.ItemStack
+      v: 3120
+      type: STONE_AXE
+
