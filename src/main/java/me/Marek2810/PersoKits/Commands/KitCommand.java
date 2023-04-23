@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import me.Marek2810.PersoKits.PersoKits;
+import me.Marek2810.PersoKits.Utils.ChatUtils;
 import me.Marek2810.PersoKits.Utils.KitUtils;
 import me.Marek2810.PersoKits.Utils.PersoKit;
 
@@ -18,7 +19,7 @@ public class KitCommand implements TabExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage("This command can be run only by player.");
+			sender.sendMessage(ChatUtils.format("&cThis command can be run only by player."));
 			return true;			
 		}
 		Player p = (Player) sender;
@@ -29,11 +30,11 @@ public class KitCommand implements TabExecutor {
 		}
 		String kitName = args[0];
 		if (!PersoKits.kits.containsKey(kitName)){
-			p.sendMessage("kit neexistuje");
+			p.sendMessage(ChatUtils.format("&cKit not exist."));
 			return true;
 		}
 		if (!KitUtils.hasPermission(p, kitName)) {
-			p.sendMessage("You have no permissions to get this kit.");
+			p.sendMessage(ChatUtils.format("&cYou have no permissions to get this kit."));
 			return true;
 		}
 		
@@ -41,7 +42,7 @@ public class KitCommand implements TabExecutor {
 		for (ItemStack item : kit.getItems()) {
 			p.getInventory().addItem(item);
 		}
-		p.sendMessage("You recived kit " + kitName + ".");
+		p.sendMessage(ChatUtils.format("&aYou recived kit &e" + kitName + "&a."));
 		return true;
 	}
 	
