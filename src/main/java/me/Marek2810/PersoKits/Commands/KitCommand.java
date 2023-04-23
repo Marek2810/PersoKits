@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 import me.Marek2810.PersoKits.PersoKits;
 import me.Marek2810.PersoKits.Utils.ChatUtils;
+import me.Marek2810.PersoKits.Utils.InventoryUtils;
 import me.Marek2810.PersoKits.Utils.KitUtils;
 import me.Marek2810.PersoKits.Utils.PersoKit;
 
@@ -22,8 +23,7 @@ public class KitCommand implements TabExecutor {
 			sender.sendMessage(ChatUtils.format("&cThis command can be run only by player."));
 			return true;			
 		}
-		Player p = (Player) sender;
-		
+		Player p = (Player) sender;		
 		if (args.length == 0) {
 			p.sendMessage("todo :( list of kits");
 			return true;
@@ -37,8 +37,12 @@ public class KitCommand implements TabExecutor {
 			p.sendMessage(ChatUtils.format("&cYou have no permissions to get this kit."));
 			return true;
 		}
-		
 		PersoKit kit = PersoKits.kits.get(kitName);
+		if (!InventoryUtils.canBeAdded(p.getInventory(), kit.getItems())) {
+			p.sendMessage(ChatUtils.format("&cYou dont have enought space in inventory."));
+			return true;
+		}
+				
 		for (ItemStack item : kit.getItems()) {
 			p.getInventory().addItem(item);
 		}
