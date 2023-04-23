@@ -3,3 +3,12 @@ author: Marek2810
 main: me.Marek2810.${project.name}.${project.name} 
 version: ${project.version} 
 api-version: 1.13
+
+commands:
+  kit:
+    permission-message: You do not have permission! 
+  
+permissions:
+  persokits.kit.*:
+    description: Allows to get all kits
+    default: op
