@@ -37,6 +37,14 @@ public class KitCommand implements TabExecutor {
 			p.sendMessage(ChatUtils.format("&cYou have no permissions to get this kit."));
 			return true;
 		}
+		if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId().toString() + "." + kitName + ".availableAt") != null) {
+			long availableAt = PersoKits.dataFile.getConfig().getLong("players." + p.getUniqueId() + "." + kitName + ".availableAt");
+			if (availableAt > System.currentTimeMillis()) {
+				long secs = (availableAt-System.currentTimeMillis())/1000;
+				p.sendMessage(ChatUtils.format("&cKit is on cooldonw for &e" + secs + " &cseconds." ));
+				return true;
+			}
+		}		
 		PersoKit kit = PersoKits.kits.get(kitName);
 		if (!InventoryUtils.canBeAdded(p.getInventory(), kit.getItems())) {
 			p.sendMessage(ChatUtils.format("&cYou dont have enought space in inventory."));
@@ -46,6 +54,9 @@ public class KitCommand implements TabExecutor {
 		for (ItemStack item : kit.getItems()) {
 			p.getInventory().addItem(item);
 		}
+		long at = (kit.getCooldwon()*1000)+System.currentTimeMillis();		
+		PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + "." + kitName + ".availableAt", at);
+		PersoKits.dataFile.saveConfig();
 		p.sendMessage(ChatUtils.format("&aYou recived kit &e" + kitName + "&a."));
 		return true;
 	}

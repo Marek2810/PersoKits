@@ -1,5 +1,5 @@
 newbie:
-  cooldown: 0
+  cooldown: 10
   items:
     1: STONE_SWORD
     2: STONE_PICKAXE

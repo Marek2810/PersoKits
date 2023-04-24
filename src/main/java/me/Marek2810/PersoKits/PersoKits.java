@@ -21,6 +21,7 @@ public class PersoKits extends JavaPlugin {
 	public static ConsoleCommandSender console;
 	
 	public static CustomConfig kitsFile;
+	public static CustomConfig dataFile;
 	
 	public static HashMap<String, PersoKit> kits = new HashMap<>();
 
@@ -30,6 +31,7 @@ public class PersoKits extends JavaPlugin {
 		console = getServer().getConsoleSender();
 		
 		kitsFile = new CustomConfig(this, "kits.yml");
+		dataFile = new CustomConfig(this, "data.yml");
 		loadKits();
 	
 		this.getCommand("kit").setExecutor(new KitCommand());
@@ -63,7 +65,7 @@ public class PersoKits extends JavaPlugin {
 					items.add(itemSection.getItemStack(itemKey));
 				}
 			}
-			kits.put(name, new PersoKit(name, items, kitsFile.getConfig().getInt("cooldown")));
+			kits.put(name, new PersoKit(name, items, kitsFile.getConfig().getInt(name + ".cooldown")));
 		}
 	}
 	
