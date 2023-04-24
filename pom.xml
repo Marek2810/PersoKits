@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>me.Marek2810</groupId>
   <artifactId>PersoKits</artifactId>
-  <version>0.0.5-SNAPSHOT</version>
+  <version>0.1.5-SNAPSHOT</version>
   <name>PersoKits</name>
   
 <properties>

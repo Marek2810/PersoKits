@@ -65,7 +65,7 @@ public class PersoKits extends JavaPlugin {
 					items.add(itemSection.getItemStack(itemKey));
 				}
 			}
-			kits.put(name, new PersoKit(name, items, kitsFile.getConfig().getInt(name + ".cooldown")));
+			kits.put(name, new PersoKit(name, items, kitsFile.getConfig().getInt(name + ".cooldown"), kitsFile.getConfig().getInt(name + ".uses")));
 		}
 	}
 	

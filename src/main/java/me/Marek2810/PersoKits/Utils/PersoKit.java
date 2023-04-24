@@ -9,11 +9,13 @@ public class PersoKit {
 	protected String name;
 	protected List<ItemStack> items;
 	protected int cooldwon;	
-
-	public PersoKit(String name, List<ItemStack> items, int cd) {
+	protected int uses;
+	
+	public PersoKit(String name, List<ItemStack> items, int cd, int uses) {
 		this.name = name;
 		this.items = items;
 		this.cooldwon = cd;
+		this.uses = uses;
 	}
 	
 	public String getName() {
@@ -32,6 +34,14 @@ public class PersoKit {
 		this.items = item;
 	}
 	
+	public int getUses() {
+		return uses;
+	}
+
+	public void setUses(int uses) {
+		this.uses = uses;
+	}
+
 	public int getCooldwon() {
 		return cooldwon;
 	}
