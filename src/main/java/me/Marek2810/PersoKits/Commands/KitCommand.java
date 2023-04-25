@@ -14,9 +14,13 @@ import me.Marek2810.PersoKits.Utils.ChatUtils;
 import me.Marek2810.PersoKits.Utils.InventoryUtils;
 import me.Marek2810.PersoKits.Utils.KitUtils;
 import me.Marek2810.PersoKits.Utils.PersoKit;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
 
 public class KitCommand implements TabExecutor {
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
@@ -25,10 +29,50 @@ public class KitCommand implements TabExecutor {
 		}
 		// /kit - show all aviable kits for player
 		Player p = (Player) sender;		
-		if (args.length == 0) {
-			p.sendMessage("todo :( list of kits");
-			return true;
+		if (args.length == 0) {		
+			List<String> playerKits = KitUtils.getAviableKitsForPlayer(p);
+			if (playerKits.size() > 0) {
+				ComponentBuilder builder = new ComponentBuilder();
+				builder.append(new ComponentBuilder(ChatUtils.format("&6Kits: ")).create());					
+				int i = 1;
+				
+				for (String name : playerKits) {
+					ComponentBuilder hoverBuilder = new ComponentBuilder();	
+					String color = "&a";				
+					if (!KitUtils.haveUsses(p, PersoKits.kits.get(name))) {
+						color = "&c";
+						hoverBuilder.append(new ComponentBuilder(
+								ChatUtils.format("&cYou have no usses left for this kit."))
+							.create());					
+					}
+					else if (!KitUtils.isAviable(p, name)) {
+						color = "&e";
+						hoverBuilder.append(new ComponentBuilder(
+								ChatUtils.format("&cKit is on cooldonw for &e" + KitUtils.aviableAt(p, name) + " &cseconds." ))
+							.create());
+					}
+					else {
+						hoverBuilder.append(new ComponentBuilder(
+								ChatUtils.format("&aKit is available." ))
+							.create());
+					}
+					
+					BaseComponent[] line = new ComponentBuilder(ChatUtils.format(color + name))
+							.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverBuilder.create()))
+							.create();
+					builder.append(line);
+					if (i != playerKits.size()) builder.append(", ");					
+					i++;
+				}
+				sender.spigot().sendMessage(builder.create());	
+				return true;
+			}	
+			else {
+				p.sendMessage(ChatUtils.format("&cThere is no kits available."));
+				return true;
+			}			
 		}
+
 		// /kit <name> 
 			//kot not exist
 		String kitName = args[0];
@@ -43,22 +87,16 @@ public class KitCommand implements TabExecutor {
 		}		
 			// kit is on cooldown
 		if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId().toString() + "." + kitName + ".availableAt") != null) {
-			long availableAt = PersoKits.dataFile.getConfig().getLong("players." + p.getUniqueId() + "." + kitName + ".availableAt");
-			if (availableAt > System.currentTimeMillis()) {
-				long secs = (availableAt-System.currentTimeMillis())/1000;
-				p.sendMessage(ChatUtils.format("&cKit is on cooldonw for &e" + secs + " &cseconds." ));
+			if (!KitUtils.isAviable(p, kitName)) {
+				p.sendMessage(ChatUtils.format("&cKit is on cooldonw for &e" + KitUtils.aviableAt(p, kitName) + " &cseconds." ));
 				return true;
-			}
+			}			
 		}
-		PersoKit kit = PersoKits.kits.get(kitName);
 		
+		PersoKit kit = PersoKits.kits.get(kitName);		
 			//check for uses
 		if (kit.getUses() >= 0) {
-			int playerUses = 0;
-			if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId() + "." + kitName + ".uses") != null) {
-				playerUses = PersoKits.dataFile.getConfig().getInt("players." + p.getUniqueId() + "." + kitName + ".uses");
-			}
-			if (playerUses >= kit.getUses()) {
+			if (!KitUtils.haveUsses(p, kit)) {
 				p.sendMessage(ChatUtils.format("&cYou have no usses left for this kit."));
 				return true;
 			}
