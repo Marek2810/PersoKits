@@ -1,0 +1,25 @@
+messages:
+  # If there is error in item configuration of kit
+  error: "&6[PersoKits] &cError while loading kit &e%name% &cwith item &e%itemKey%&c. Item is not loaded in kit."
+  # Only player can run this command.
+  only-player-command: "&cThis command can be run only by player."
+  no-permission: "&cYou have no permissions to get this kit."
+  # Text at the start of kits list (/kit command)
+  kits: "&6Kits: "
+  # Message show it kits list while hovering on kit if kit is available
+  available: "&aKit is available."
+  # Message show if player has not permission for any kit
+  no-kits: "&cThere is no kits available."
+  # Message show if kit not exist
+  no-exist: "&cKit not exist."
+  # No usses left for kit
+  no-usses: "&cYou have no usses left for this kit."
+  # No space in iventory
+  no-space: "&cYou dont have enought space in inventory."
+  # Kit is on cooldown
+  on-cooldown: "&cKit is on cooldonw for &e%time-left% &cseconds."
+  # Message when player recive kit
+  on-kit-recive: "&aYou recived kit &e%name%&a."
+  
+  
+  

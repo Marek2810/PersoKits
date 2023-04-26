@@ -24,7 +24,7 @@ public class KitCommand implements TabExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatUtils.format("&cThis command can be run only by player."));
+			sender.sendMessage(ChatUtils.format(ChatUtils.getMessage("only-player-command")));
 			return true;			
 		}
 		// /kit - show all aviable kits for player
@@ -33,7 +33,7 @@ public class KitCommand implements TabExecutor {
 			List<String> playerKits = KitUtils.getAviableKitsForPlayer(p);
 			if (playerKits.size() > 0) {
 				ComponentBuilder builder = new ComponentBuilder();
-				builder.append(new ComponentBuilder(ChatUtils.format("&6Kits: ")).create());					
+				builder.append(new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("kits"))).create());					
 				int i = 1;
 				
 				for (String name : playerKits) {
@@ -42,18 +42,22 @@ public class KitCommand implements TabExecutor {
 					if (!KitUtils.haveUsses(p, PersoKits.kits.get(name))) {
 						color = "&c";
 						hoverBuilder.append(new ComponentBuilder(
-								ChatUtils.format("&cYou have no usses left for this kit."))
+//								ChatUtils.format("&cYou have no usses left for this kit."))
+								ChatUtils.format(ChatUtils.getMessage("no-usses")))
 							.create());					
 					}
 					else if (!KitUtils.isAviable(p, name)) {
 						color = "&e";
+						String msg = ChatUtils.getMessage("on-cooldown");
+						msg = msg.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, name)));
 						hoverBuilder.append(new ComponentBuilder(
-								ChatUtils.format("&cKit is on cooldonw for &e" + KitUtils.aviableAt(p, name) + " &cseconds." ))
+//								ChatUtils.format("&cKit is on cooldonw for &e" + KitUtils.aviableAt(p, name) + " &cseconds." ))
+								ChatUtils.format(msg))
 							.create());
 					}
 					else {
 						hoverBuilder.append(new ComponentBuilder(
-								ChatUtils.format("&aKit is available." ))
+								ChatUtils.format(ChatUtils.getMessage("available")))
 							.create());
 					}
 					
@@ -68,7 +72,7 @@ public class KitCommand implements TabExecutor {
 				return true;
 			}	
 			else {
-				p.sendMessage(ChatUtils.format("&cThere is no kits available."));
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-kits")));
 				return true;
 			}			
 		}
@@ -77,18 +81,21 @@ public class KitCommand implements TabExecutor {
 			//kot not exist
 		String kitName = args[0];
 		if (!PersoKits.kits.containsKey(kitName)){
-			p.sendMessage(ChatUtils.format("&cKit not exist."));
+			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-exist")));
 			return true;
 		}
 			// no permissions for kit
 		if (!KitUtils.hasPermission(p, kitName)) {
-			p.sendMessage(ChatUtils.format("&cYou have no permissions to get this kit."));
+			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-permission")));
 			return true;
 		}		
 			// kit is on cooldown
 		if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId().toString() + "." + kitName + ".availableAt") != null) {
 			if (!KitUtils.isAviable(p, kitName)) {
-				p.sendMessage(ChatUtils.format("&cKit is on cooldonw for &e" + KitUtils.aviableAt(p, kitName) + " &cseconds." ));
+//				p.sendMessage(ChatUtils.format("&cKit is on cooldonw for &e" + KitUtils.aviableAt(p, kitName) + " &cseconds." ));
+				String msg = ChatUtils.getMessage("on-cooldown");
+				msg = msg.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, kitName)));
+				p.sendMessage(ChatUtils.format(msg));
 				return true;
 			}			
 		}
@@ -97,14 +104,14 @@ public class KitCommand implements TabExecutor {
 			//check for uses
 		if (kit.getUses() >= 0) {
 			if (!KitUtils.haveUsses(p, kit)) {
-				p.sendMessage(ChatUtils.format("&cYou have no usses left for this kit."));
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-usses")));
 				return true;
 			}
 		}
 		
 			// no space in inventory
 		if (!InventoryUtils.canBeAdded(p.getInventory(), kit.getItems())) {
-			p.sendMessage(ChatUtils.format("&cYou dont have enought space in inventory."));
+			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-space")));
 			return true;
 		}
 				
@@ -127,7 +134,10 @@ public class KitCommand implements TabExecutor {
 			PersoKits.dataFile.saveConfig();
 		}		
 		
-		p.sendMessage(ChatUtils.format("&aYou recived kit &e" + kitName + "&a."));
+//		p.sendMessage(ChatUtils.format("&aYou recived kit &e" + kitName + "&a."));
+		String msg = ChatUtils.getMessage("on-kit-recive");
+		msg = msg.replace("%name%", kitName);
+		p.sendMessage(ChatUtils.format(msg));
 		return true;
 	}
 	
