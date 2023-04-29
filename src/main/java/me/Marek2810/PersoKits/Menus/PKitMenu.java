@@ -150,9 +150,8 @@ public class PKitMenu extends PaginatedMenu {
 				//TODO
 				return;
 			}	
-			else if (function.equals("nextPage")) {
-				List<ItemStack> options = PersoKits.kits.get(pMenuUtil.getpKit()).getOptions();				
-				if ((index +1) >= options.size()) {
+			else if (function.equals("nextPage")) {	
+				if ((index+1) >= varOptionItems.size()) {
 					p.sendMessage(ChatUtils.format("&cYou are on last page."));
 					return;
 				}

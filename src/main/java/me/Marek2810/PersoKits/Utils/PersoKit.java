@@ -128,12 +128,6 @@ public class PersoKit {
 	}
 	
 	public void setPersoKitVariant(UUID uuid, List<ItemStack> items) {		
-//		int i = 1;
-//		for (ItemStack item : items) {
-//			PersoKits.pKitsFile.getConfig().set(name + "." + uuid + "." +  i, item);
-//			i++;
-//		}		
-//		PersoKits.pKitsFile.saveConfig();		
 		this.persokits.put(uuid, items);
 		Set<String> keys = PersoKits.pKitsFile.getConfig().getConfigurationSection(name + "." + uuid).getKeys(false);
 		int i = 1;
