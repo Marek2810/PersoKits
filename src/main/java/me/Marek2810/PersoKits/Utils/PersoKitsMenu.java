@@ -46,13 +46,6 @@ public abstract class PersoKitsMenu implements InventoryHolder {
 			inv.setItem(i, blackGlass);
 		}
 		
-//		//border
-//		for (int i = 1; i < getRows(); i++) {
-//			inv.setItem(i*9, blackGlass);
-//			inv.setItem(9*i+8, blackGlass);
-//		}		
-		
-		//last row
 		int slots = getRows()*9;
 		for (int i = slots-9; i < slots; i++) {
 			inv.setItem(i, blackGlass);

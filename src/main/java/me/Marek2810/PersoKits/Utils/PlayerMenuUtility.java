@@ -9,6 +9,8 @@ public class PlayerMenuUtility {
 	private String kit;
 	private boolean editingKit;
 	private String kitSetting;	
+	
+	private String pKit;
 
 	public PlayerMenuUtility(Player p) {
 		this.owner = p;
@@ -40,6 +42,14 @@ public class PlayerMenuUtility {
 
 	public void setKitSetting(String setting) {
 		this.kitSetting = setting;
+	}
+
+	public String getpKit() {
+		return pKit;
+	}
+
+	public void setpKit(String pKit) {
+		this.pKit = pKit;
 	}
 
 }

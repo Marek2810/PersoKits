@@ -9,6 +9,8 @@ commands:
     permission-message: You do not have permission! 
   kiteditor:
     permission-message: You do not have permission! 
+  pkit:
+    permission-message: You do not have permission! 
     
 permissions:
   persokits.kit.*:

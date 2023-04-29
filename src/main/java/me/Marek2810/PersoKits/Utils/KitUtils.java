@@ -15,6 +15,12 @@ public class KitUtils {
 		return false;
 	}
 	
+	public static boolean hasPersoPermission(Player p, String name) {
+		if (p.hasPermission("persokits.pkit.*")) return true;
+		if (p.hasPermission("persokits.pkit." + name)) return true;
+		return false;
+	}
+	
 	public static boolean isAviable(Player p, String kitName) {
 		long availableAt = PersoKits.dataFile.getConfig().getLong("players." + p.getUniqueId() + "." + kitName + ".availableAt");
 		if (availableAt < System.currentTimeMillis()) {

@@ -54,9 +54,9 @@ public class OptionsMenu extends PersoKitsMenu {
 			if (!kit.getOptions().isEmpty()) {
 				for (ItemStack optionItem : kit.getOptions()) {
 					inv.addItem(optionItem);
-				}	
-			}				
-		}		
+				}
+			}
+		}	
 		
 		ItemStack saveKit = new ItemBuilder(Material.GREEN_CONCRETE)
 				.name("&aSave options")
@@ -97,7 +97,7 @@ public class OptionsMenu extends PersoKitsMenu {
 				}							
 				PersoKits.kits.get(pMenuUtil.getKit()).setOptions(items);
 				p.closeInventory();
-				p.sendMessage(ChatUtils.format("&aYou saved options of kit &e" + pMenuUtil.getKit() + "&a."));
+				p.sendMessage(ChatUtils.format("&aYou saved option items of kit &e" + pMenuUtil.getKit() + "&a."));
 				return;
 			}						
 			else if (function.equals("close")) {
