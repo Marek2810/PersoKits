@@ -120,8 +120,9 @@ public class KitCommand implements TabExecutor {
 			p.getInventory().addItem(item);
 		}
 			//seting CD
-		if (kit.getCooldwon() != 0) {
-			long at = (kit.getCooldwon()*1000)+System.currentTimeMillis();		
+		if (kit.getCooldwon() != 0) {			
+			long time = System.currentTimeMillis();
+			long at = (int)(kit.getCooldwon()*1000)+time;						
 			PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + "." + kitName + ".availableAt", at);	
 			PersoKits.dataFile.saveConfig();
 		}

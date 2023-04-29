@@ -13,4 +13,30 @@ public class ChatUtils {
 		return PersoKits.messagesFile.getConfig().getString("messages." + name);
 	}
 	
+	@SuppressWarnings("unused")
+	public static boolean isInt(String msg) {
+		if (msg == null) {
+	        return false;
+	    }
+	    try {
+	        Integer num = Integer.parseInt(msg);
+	    } catch (NumberFormatException nfe) {
+	        return false;
+	    }
+	    return true;
+	}
+	
+	@SuppressWarnings("unused")
+	public static boolean isDouble(String msg) {
+		if (msg == null) {
+	        return false;
+	    }
+	    try {
+	    	Double num = Double.parseDouble(msg);
+	    } catch (NumberFormatException nfe) {
+	        return false;
+	    }
+	    return true;
+	}
+	
 }

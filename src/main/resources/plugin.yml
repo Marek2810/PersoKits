@@ -7,7 +7,9 @@ api-version: 1.13
 commands:
   kit:
     permission-message: You do not have permission! 
-  
+  kiteditor:
+    permission-message: You do not have permission! 
+    
 permissions:
   persokits.kit.*:
     description: Allows to get all kits
