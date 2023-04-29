@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import me.Marek2810.PersoKits.PersoKits;
 import me.Marek2810.PersoKits.Menus.PKitMenu;
+import me.Marek2810.PersoKits.Menus.PKitsMenu;
 import me.Marek2810.PersoKits.Utils.ChatUtils;
 import me.Marek2810.PersoKits.Utils.KitUtils;
 import me.Marek2810.PersoKits.Utils.PersoKit;
@@ -28,8 +29,7 @@ public class PKitCommand implements TabExecutor {
 		if (args.length == 0) {		
 			List<String> playerKits = KitUtils.getAviableKitsForPlayer(p);
 			if (playerKits.size() > 0) {
-				//TODO
-				
+				new PKitsMenu(PersoKits.getPlayerMenuUtility(p)).open();
 				return true;
 			}	
 			else {

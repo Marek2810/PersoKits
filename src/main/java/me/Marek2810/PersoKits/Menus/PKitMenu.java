@@ -29,9 +29,7 @@ public class PKitMenu extends PaginatedMenu {
 	
 	public PKitMenu(PlayerMenuUtility util) {
 		super(util);
-//		varaintItems.clear();
-//		varOptionItems.clear();
-		PersoKit pkit =PersoKits.kits.get(util.getpKit());
+		PersoKit pkit = PersoKits.kits.get(util.getpKit());
 		if (pkit.getPersokits().get(util.getOwner().getUniqueId()) != null) {
 			varaintItems = PersoKits.kits.get(util.getpKit()).getPersokits().get(util.getOwner().getUniqueId());
 		}
@@ -42,7 +40,7 @@ public class PKitMenu extends PaginatedMenu {
 	
 	@Override
 	public String getTitle() {
-		return "&0Kit options menu";
+		return "&0PersoKit editor";
 	}
 
 	@Override
@@ -147,7 +145,7 @@ public class PKitMenu extends PaginatedMenu {
 				return;
 			}
 			else if (function.equals("backMenu")) {
-				//TODO
+				new PKitsMenu(pMenuUtil).open();
 				return;
 			}	
 			else if (function.equals("nextPage")) {	

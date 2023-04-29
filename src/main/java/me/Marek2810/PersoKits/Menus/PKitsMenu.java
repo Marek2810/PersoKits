@@ -13,15 +13,15 @@ import me.Marek2810.PersoKits.Utils.MenuUtils;
 import me.Marek2810.PersoKits.Utils.PersoKitsMenu;
 import me.Marek2810.PersoKits.Utils.PlayerMenuUtility;
 
-public class KitsMenu extends PersoKitsMenu {
+public class PKitsMenu extends PersoKitsMenu {
 	
-	public KitsMenu(PlayerMenuUtility util) {
+	public PKitsMenu(PlayerMenuUtility util) {
 		super(util);
 	}
 	
 	@Override
 	public String getTitle() {
-		return "&0Kits editor";
+		return "&0PerosoKits editor";
 	}
 
 	@Override
@@ -33,6 +33,7 @@ public class KitsMenu extends PersoKitsMenu {
 	public void setMenuItems() {
 		Set<String> kits = PersoKits.kits.keySet();
 		for (String name : kits) {
+			if (!PersoKits.kits.get(name).isPersokit()) continue;
 			ItemStack item = MenuUtils.getMenuItem(name);
 			inv.addItem(item);
 		}
@@ -52,8 +53,8 @@ public class KitsMenu extends PersoKitsMenu {
 			}
 			else if (function.equals("editKit")) {
 				String name = item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(PersoKits.getPlugin(), "kitName"), PersistentDataType.STRING);
-				pMenuUtil.setKit(name);
-				new KitMenu(pMenuUtil).open();
+				pMenuUtil.setpKit(name);
+				new PKitMenu(pMenuUtil).open();
 				return;
 			}
 		}

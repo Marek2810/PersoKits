@@ -26,7 +26,7 @@ public class OptionsMenu extends PersoKitsMenu {
 	
 	@Override
 	public String getTitle() {
-		return "&0Kit options menu";
+		return "&0Kit options";
 	}
 
 	@Override
