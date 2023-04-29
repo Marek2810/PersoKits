@@ -20,6 +20,22 @@ messages:
   on-cooldown: "&cKit is on cooldonw for &e%time-left% &cseconds."
   # Message when player recive kit
   on-kit-recive: "&aYou recived kit &e%name%&a."
+  # Kit has no items
+  no-items: "&cThere are no items in kit."  
+  # If player tried recive kit, but not set PersoKit yet
+  no-persokit-set: "&eThis kit is PersoKit, but you did not set yours."
+  # If playere chose default variant of kit for PersoKit
+  persokit-default: "&aSetting default variant of kit as PersoKit."
+  # Create persokit button
+  create-option: "&7[&aCreate PersoKit&7]"
+  # Hover text for set create button
+  create-option-hover: "&7&oCreate own variant for kit"
+  # Set default option as PersoKit button
+  default-option: "&7[Default kit]"
+  # Hover text for set default button
+  default-option-hover: "&7&oSet default kit as your variant"
+  
+  
   
   
   

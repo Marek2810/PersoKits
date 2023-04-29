@@ -15,6 +15,7 @@ import me.Marek2810.PersoKits.Utils.InventoryUtils;
 import me.Marek2810.PersoKits.Utils.KitUtils;
 import me.Marek2810.PersoKits.Utils.PersoKit;
 import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 
@@ -27,7 +28,7 @@ public class KitCommand implements TabExecutor {
 			sender.sendMessage(ChatUtils.format(ChatUtils.getMessage("only-player-command")));
 			return true;			
 		}
-		// /kit - show all aviable kits for player
+		// /kit - show all available kits for player
 		Player p = (Player) sender;		
 		if (args.length == 0) {		
 			List<String> playerKits = KitUtils.getAviableKitsForPlayer(p);
@@ -42,7 +43,6 @@ public class KitCommand implements TabExecutor {
 					if (!KitUtils.haveUsses(p, PersoKits.kits.get(name))) {
 						color = "&c";
 						hoverBuilder.append(new ComponentBuilder(
-//								ChatUtils.format("&cYou have no usses left for this kit."))
 								ChatUtils.format(ChatUtils.getMessage("no-usses")))
 							.create());					
 					}
@@ -51,7 +51,6 @@ public class KitCommand implements TabExecutor {
 						String msg = ChatUtils.getMessage("on-cooldown");
 						msg = msg.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, name)));
 						hoverBuilder.append(new ComponentBuilder(
-//								ChatUtils.format("&cKit is on cooldonw for &e" + KitUtils.aviableAt(p, name) + " &cseconds." ))
 								ChatUtils.format(msg))
 							.create());
 					}
@@ -75,7 +74,7 @@ public class KitCommand implements TabExecutor {
 				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-kits")));
 				return true;
 			}			
-		}
+		}		
 
 		// /kit <name> 
 			//kot not exist
@@ -109,17 +108,58 @@ public class KitCommand implements TabExecutor {
 			}
 		}
 		
-			// no space in inventory
-		if (!InventoryUtils.canBeAdded(p.getInventory(), kit.getItems())) {
-			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-space")));
+		if (args.length > 1) {
+			if (args[1].equalsIgnoreCase("-default")) {
+				kit.setDefualtPersoKit(p.getUniqueId());
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("persokit-default")));
+			}
+		}
+		
+		List<ItemStack> items = new ArrayList<>();		
+		
+		if (kit.isPersokit()) {
+			if (kit.getPersokits().get(p.getUniqueId()) != null) {
+				items = kit.getPersokits().get(p.getUniqueId());
+			}
+			else {				
+				ComponentBuilder builder = new ComponentBuilder();		
+				builder.append(new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("no-persokit-set") + "\n")).create());			
+
+				BaseComponent[] setOption = new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("create-option")))
+						.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("create-option-hover"))).create()))
+						.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/pkit " + kit.getName()))
+						.create();
+				builder.append(setOption);
+				builder.append(new ComponentBuilder("    ").create());
+				
+				BaseComponent[] defaultOption = new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("default-option")))
+						.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("default-option-hover"))).create()))
+						.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/kit " + kit.getName() + " -default"))
+						.create();
+				builder.append(defaultOption);
+				sender.spigot().sendMessage(builder.create());				
+				return true;
+			}			
+		}
+		
+		//Is there items?
+		if (items.isEmpty()) {
+			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-items")));
 			return true;
 		}
-				
+		
+		// no space in inventory
+		if (!InventoryUtils.canBeAdded(p.getInventory(), items)) {
+			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-space")));
+			return true;
+		}	
+		
 			//getting kit
-		for (ItemStack item : kit.getItems()) {
+		for (ItemStack item : items) {
 			p.getInventory().addItem(item);
 		}
-			//seting CD
+		
+			//setting CD
 		if (kit.getCooldwon() != 0) {			
 			long time = System.currentTimeMillis();
 			long at = (int)(kit.getCooldwon()*1000)+time;						
@@ -134,8 +174,6 @@ public class KitCommand implements TabExecutor {
 			PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + "." + kitName + ".uses", playerUses+1);
 			PersoKits.dataFile.saveConfig();
 		}		
-		
-//		p.sendMessage(ChatUtils.format("&aYou recived kit &e" + kitName + "&a."));
 		String msg = ChatUtils.getMessage("on-kit-recive");
 		msg = msg.replace("%name%", kitName);
 		p.sendMessage(ChatUtils.format(msg));

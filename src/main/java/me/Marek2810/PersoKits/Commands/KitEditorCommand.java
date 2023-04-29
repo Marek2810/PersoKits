@@ -28,6 +28,7 @@ public class KitEditorCommand implements TabExecutor {
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 		List<String> results = new ArrayList<>();
+		//TODO!
 //		List<String> kits = new ArrayList<>();
 //		for (String name : PersoKits.kits.keySet()) {
 //			if (sender.hasPermission("persokits.kit.*") || sender.hasPermission("persokits.kit." + name)) 

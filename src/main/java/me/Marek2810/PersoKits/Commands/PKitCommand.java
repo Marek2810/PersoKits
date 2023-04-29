@@ -78,8 +78,7 @@ public class PKitCommand implements TabExecutor {
 		for (String kitName : kits) {
 			if (kitName.startsWith(args[0]))
 				results.add(kitName);
-		}
-		
+		}		
 		return results;
 	}
 

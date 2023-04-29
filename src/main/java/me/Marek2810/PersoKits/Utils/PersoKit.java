@@ -1,5 +1,6 @@
 package me.Marek2810.PersoKits.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -129,7 +130,10 @@ public class PersoKit {
 	
 	public void setPersoKitVariant(UUID uuid, List<ItemStack> items) {		
 		this.persokits.put(uuid, items);
-		Set<String> keys = PersoKits.pKitsFile.getConfig().getConfigurationSection(name + "." + uuid).getKeys(false);
+		List<String> keys = new ArrayList<>();
+		if (PersoKits.pKitsFile.getConfig().getConfigurationSection(name + "." + uuid) != null) {
+			keys = new ArrayList<>(PersoKits.pKitsFile.getConfig().getConfigurationSection(name + "." + uuid).getKeys(false));
+		}
 		int i = 1;
 		for (ItemStack item : items) {
 			if (keys.contains(String.valueOf(i))) keys.remove(String.valueOf(i));
@@ -141,6 +145,12 @@ public class PersoKit {
 		}
 		PersoKits.pKitsFile.saveConfig();
 		
+	}
+	
+	public void setDefualtPersoKit(UUID uuid) {
+		this.persokits.put(uuid, items);
+		PersoKits.pKitsFile.getConfig().set(name + "." + uuid, "default");
+		PersoKits.pKitsFile.saveConfig();
 	}
 		
 }

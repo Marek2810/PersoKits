@@ -126,12 +126,10 @@ public class PersoKits extends JavaPlugin {
 					Set<String> uuids = pKitsFile.getConfig().getConfigurationSection(name).getKeys(false);
 					for (String uuid : uuids) {
 						UUID uid = UUID.fromString(uuid);
-						if (pKitsFile.getConfig().getString(name + "." + uuid).equalsIgnoreCase("default")) continue;
-						if (pKitsFile.getConfig().getConfigurationSection(name + "." + uid) != null 
-								&& !pKitsFile.getConfig().getConfigurationSection(name + "." + uid).getKeys(false).isEmpty()) {
-							Set<String> uItems = pKitsFile.getConfig().getConfigurationSection(name + "." + uid).getKeys(false);
-							ConfigurationSection uItemsSection = pKitsFile.getConfig().getConfigurationSection(name + "." + uid);
-							List<ItemStack> variantItems = new ArrayList<>();
+						List<ItemStack> variantItems = new ArrayList<>();
+						if (pKitsFile.getConfig().getString(name + "." + uuid).equalsIgnoreCase("default")) {
+							Set<String> uItems = kitsFile.getConfig().getConfigurationSection(name + ".items").getKeys(false);
+							ConfigurationSection uItemsSection = kitsFile.getConfig().getConfigurationSection(name + ".items");							
 							for (String uItemKey : uItems ) {
 								if (!uItemsSection.isItemStack(uItemKey)) {
 									if (Material.matchMaterial(uItemsSection.getString(uItemKey)) == null) {							
@@ -150,11 +148,31 @@ public class PersoKits extends JavaPlugin {
 							}
 							persokits.put(uid, variantItems);
 						}
-					}
-					
+						else if (pKitsFile.getConfig().getConfigurationSection(name + "." + uid) != null 
+								&& !pKitsFile.getConfig().getConfigurationSection(name + "." + uid).getKeys(false).isEmpty()) {
+							Set<String> uItems = pKitsFile.getConfig().getConfigurationSection(name + "." + uid).getKeys(false);
+							ConfigurationSection uItemsSection = pKitsFile.getConfig().getConfigurationSection(name + "." + uid);							
+							for (String uItemKey : uItems ) {
+								if (!uItemsSection.isItemStack(uItemKey)) {
+									if (Material.matchMaterial(uItemsSection.getString(uItemKey)) == null) {							
+										String msg = ChatUtils.getMessage("error");
+										msg = msg.replace("%name%", name);
+										msg = msg.replace("%itemKey%", uItemKey);
+										console.sendMessage(ChatUtils.format(msg));				
+										continue;
+									}
+									ItemStack item = new ItemStack(Material.valueOf(uItemsSection.getString(uItemKey)));
+									variantItems.add(item);
+								}
+								else {
+									variantItems.add(uItemsSection.getItemStack(uItemKey));
+								}
+							}
+							persokits.put(uid, variantItems);
+						}
+					}					
 				}
-			}
-			
+			}			
 			
 			kits.put(name, new PersoKit(
 					name,
