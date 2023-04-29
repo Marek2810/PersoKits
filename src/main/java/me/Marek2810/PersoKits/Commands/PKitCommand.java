@@ -30,43 +30,6 @@ public class PKitCommand implements TabExecutor {
 			if (playerKits.size() > 0) {
 				//TODO
 				
-//				ComponentBuilder builder = new ComponentBuilder();
-//				builder.append(new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("kits"))).create());					
-//				int i = 1;
-//				
-//				for (String name : playerKits) {
-//					ComponentBuilder hoverBuilder = new ComponentBuilder();	
-//					String color = "&a";				
-//					if (!KitUtils.haveUsses(p, PersoKits.kits.get(name))) {
-//						color = "&c";
-//						hoverBuilder.append(new ComponentBuilder(
-////								ChatUtils.format("&cYou have no usses left for this kit."))
-//								ChatUtils.format(ChatUtils.getMessage("no-usses")))
-//							.create());					
-//					}
-//					else if (!KitUtils.isAviable(p, name)) {
-//						color = "&e";
-//						String msg = ChatUtils.getMessage("on-cooldown");
-//						msg = msg.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, name)));
-//						hoverBuilder.append(new ComponentBuilder(
-////								ChatUtils.format("&cKit is on cooldonw for &e" + KitUtils.aviableAt(p, name) + " &cseconds." ))
-//								ChatUtils.format(msg))
-//							.create());
-//					}
-//					else {
-//						hoverBuilder.append(new ComponentBuilder(
-//								ChatUtils.format(ChatUtils.getMessage("available")))
-//							.create());
-//					}
-//					
-//					BaseComponent[] line = new ComponentBuilder(ChatUtils.format(color + name))
-//							.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverBuilder.create()))
-//							.create();
-//					builder.append(line);
-//					if (i != playerKits.size()) builder.append(", ");					
-//					i++;
-//				}
-//				sender.spigot().sendMessage(builder.create());	
 				return true;
 			}	
 			else {
@@ -108,6 +71,7 @@ public class PKitCommand implements TabExecutor {
 		List<String> results = new ArrayList<>();
 		List<String> kits = new ArrayList<>();
 		for (String name : PersoKits.kits.keySet()) {
+			if (!PersoKits.kits.get(name).isPersokit()) continue;
 			if (sender.hasPermission("persokits.kit.*") || sender.hasPermission("persokits.kit." + name)) 
 				kits.add(name);			
 		}
