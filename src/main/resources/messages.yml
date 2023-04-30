@@ -26,16 +26,6 @@ messages:
   not-persokit: "&cKit is not PersoKit."
   # If player tried recive kit, but not set PersoKit yet
   no-persokit-set: "&eThis kit is PersoKit, but you did not set yours."
-  # If playere chose default variant of kit for PersoKit
-  persokit-default: "&aSetting default variant of kit as PersoKit."
-  # Create persokit button
-  create-option: "&7[&aCreate PersoKit&7]"
-  # Hover text for set create button
-  create-option-hover: "&7&oCreate own variant for kit"
-  # Set default option as PersoKit button
-  default-option: "&7[Default kit]"
-  # Hover text for set default button
-  default-option-hover: "&7&oSet default kit as your variant"
   # Message if player click on set cooldown option in KitMenu
   enter-cooldown: "&eEnter cooldown in seconds:"
   # Message if player click on set amount of uses option in KitEditor 
