@@ -116,7 +116,6 @@ public class KitCommand implements TabExecutor {
 		}
 		
 		List<ItemStack> items = new ArrayList<>();		
-		
 		if (kit.isPersokit()) {
 			if (kit.getPersokits().get(p.getUniqueId()) != null) {
 				items = kit.getPersokits().get(p.getUniqueId());

@@ -5,14 +5,23 @@ version: ${project.version}
 api-version: 1.13
 
 commands:
-  kit:
-    permission-message: You do not have permission! 
-  kiteditor:
-    permission-message: You do not have permission! 
+  kit:    
+    permission-message: You do not have permission!
   pkit:
+    permission-message: You do not have permission!  
+  kiteditor:
+    permission: persokits.editor
     permission-message: You do not have permission! 
+    aliases: [kite, keditor]
     
 permissions:
   persokits.kit.*:
     description: Allows to get all kits
     default: op
+  persokits.pkit.*:
+    description: Allows to set PersoKit for all kits
+    default: op
+  persokits.editor:
+    description: Allows edit kits
+    default: op
+

@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
 import me.Marek2810.PersoKits.PersoKits;
+import me.Marek2810.PersoKits.Utils.KitUtils;
 import me.Marek2810.PersoKits.Utils.MenuUtils;
 import me.Marek2810.PersoKits.Utils.PersoKitsMenu;
 import me.Marek2810.PersoKits.Utils.PlayerMenuUtility;
@@ -21,7 +22,7 @@ public class PKitsMenu extends PersoKitsMenu {
 	
 	@Override
 	public String getTitle() {
-		return "&0PerosoKits editor";
+		return MenuUtils.getText("pkitsmenu", "title");
 	}
 
 	@Override
@@ -34,6 +35,7 @@ public class PKitsMenu extends PersoKitsMenu {
 		Set<String> kits = PersoKits.kits.keySet();
 		for (String name : kits) {
 			if (!PersoKits.kits.get(name).isPersokit()) continue;
+			if (!KitUtils.hasPermission(owner, name)) continue;
 			ItemStack item = MenuUtils.getMenuItem(name);
 			inv.addItem(item);
 		}

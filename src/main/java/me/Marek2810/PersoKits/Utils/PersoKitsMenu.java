@@ -16,8 +16,8 @@ public abstract class PersoKitsMenu implements InventoryHolder {
 	
 	protected ItemStack blackGlass = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).name(" ").make();
 	protected ItemStack grayGlass = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).name(" ").make();
-	protected ItemStack closeItem = new ItemBuilder(Material.BARRIER).name("&cClose menu").function("close").make();
-	protected ItemStack backMenu = new ItemBuilder(Material.ARROW).name("&cPrevious menu").function("backMenu").make();
+	protected ItemStack closeItem = new ItemBuilder(Material.BARRIER).name(MenuUtils.getText("globalitems", "close-item-name")).function("close").make();
+	protected ItemStack backMenu = new ItemBuilder(Material.ARROW).name(MenuUtils.getText("globalitems", "back-item-name")).function("backMenu").make();
 	
 	public PersoKitsMenu(PlayerMenuUtility pMenuUtil) {
 		this.pMenuUtil = pMenuUtil;

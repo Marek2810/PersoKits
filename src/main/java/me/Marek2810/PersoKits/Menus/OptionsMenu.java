@@ -26,7 +26,7 @@ public class OptionsMenu extends PersoKitsMenu {
 	
 	@Override
 	public String getTitle() {
-		return "&0Kit options";
+		return MenuUtils.getText("optionsmenu", "title");
 	}
 
 	@Override
@@ -45,7 +45,8 @@ public class OptionsMenu extends PersoKitsMenu {
 		inv.setItem(4, item);
 		
 		ItemStack kitSlots = new ItemBuilder(Material.BOOKSHELF)
-				.name("&eSet slots amount")
+//				.name("&eSet slots amount")
+				.name((MenuUtils.getText("optionsmenu", "slots-item-name")))
 				.function("setSlots")
 				.make();
 		inv.setItem(1, kitSlots);
@@ -86,7 +87,7 @@ public class OptionsMenu extends PersoKitsMenu {
 				pMenuUtil.setEditingKit(true);
 				pMenuUtil.setKitSetting("slots");
 				p.closeInventory();
-				p.sendMessage(ChatUtils.format("&eEnter amout of slots for PersoKit:"));
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("enter-slots")));
 				return;
 			}
 			else if (function.equals("saveOptions")) {
@@ -96,8 +97,11 @@ public class OptionsMenu extends PersoKitsMenu {
 					items.add(e.getInventory().getItem(i));
 				}							
 				PersoKits.kits.get(pMenuUtil.getKit()).setOptions(items);
-				p.closeInventory();
-				p.sendMessage(ChatUtils.format("&aYou saved option items of kit &e" + pMenuUtil.getKit() + "&a."));
+				p.closeInventory();				
+//				p.sendMessage(ChatUtils.format("&aYou saved option items of kit &e" + pMenuUtil.getKit() + "&a."));
+				String msg = ChatUtils.getMessage("saved-options");
+				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
+				p.sendMessage(ChatUtils.format(msg));
 				return;
 			}						
 			else if (function.equals("close")) {

@@ -24,7 +24,8 @@ public class PKitMenu extends PaginatedMenu {
 	private List<ItemStack> varaintItems = new ArrayList<>();
 	private List<ItemStack> varOptionItems = new ArrayList<>();
 	private ItemStack green = new ItemBuilder(Material.GREEN_STAINED_GLASS_PANE)
-			.name("&aFree slot for item")
+//			.name("&aFree slot for item")
+			.name(MenuUtils.getText("pkitmenu", "free-slot-item-name"))
 			.make();
 	
 	public PKitMenu(PlayerMenuUtility util) {
@@ -40,7 +41,7 @@ public class PKitMenu extends PaginatedMenu {
 	
 	@Override
 	public String getTitle() {
-		return "&0PersoKit editor";
+		return MenuUtils.getText("pkitmenu", "title");
 	}
 
 	@Override
@@ -96,7 +97,8 @@ public class PKitMenu extends PaginatedMenu {
 		}
 		
 		ItemStack saveKit = new ItemBuilder(Material.GREEN_CONCRETE)
-				.name("&aSave PersoKit")
+//				.name("&aSave PersoKit")
+				.name(MenuUtils.getText("pkitmenu", "save-kit-item-name"))
 				.function("savePersoKit")
 				.make();		
 		inv.setItem(slots-5, saveKit);
@@ -113,12 +115,14 @@ public class PKitMenu extends PaginatedMenu {
 				PersoKit kit = PersoKits.kits.get(pMenuUtil.getpKit());
 				kit.setPersoKitVariant(p.getUniqueId(), varaintItems);
 				p.closeInventory();
-				p.sendMessage("saved");
+				String msg = ChatUtils.getMessage("saved-pkit");
+				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getpKit());
+				p.sendMessage(ChatUtils.format(msg));
 				return;
 			}
 			else if (function.equals("addItem")) {
 				if (PersoKits.kits.get(pMenuUtil.getpKit()).getSlots() <= varaintItems.size()) {
-					p.sendMessage(ChatUtils.format("&cNo slot."));
+					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-slot")));
 					return;
 				}	
 				ItemMeta meta = item.getItemMeta();
@@ -150,7 +154,8 @@ public class PKitMenu extends PaginatedMenu {
 			}	
 			else if (function.equals("nextPage")) {	
 				if ((index+1) >= varOptionItems.size()) {
-					p.sendMessage(ChatUtils.format("&cYou are on last page."));
+//					p.sendMessage(ChatUtils.format("&cYou are on last page."));
+					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("allready-last-page")));
 					return;
 				}
 				page += 1;
@@ -160,7 +165,8 @@ public class PKitMenu extends PaginatedMenu {
 			}
 			else if (function.equals("previousPage")) {
 				if (page == 0) {
-					p.sendMessage(ChatUtils.format("&cYou are allready on first page."));
+//					p.sendMessage(ChatUtils.format("&cYou are allready on first page."));
+					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("allready-first-page")));
 					return;
 				}
 				page -= 1;

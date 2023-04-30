@@ -50,7 +50,7 @@ public class PKitCommand implements TabExecutor {
 		
 			//is persokit?
 		if (!kit.isPersokit()) {
-			p.sendMessage(ChatUtils.format("&cKit is not PersoKit."));
+			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("not-persokit")));
 			return true;
 		}
 		

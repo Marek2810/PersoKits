@@ -21,7 +21,7 @@ public class KitsMenu extends PersoKitsMenu {
 	
 	@Override
 	public String getTitle() {
-		return "&0Kits editor";
+		return MenuUtils.getText("kitsmenu", "title");
 	}
 
 	@Override

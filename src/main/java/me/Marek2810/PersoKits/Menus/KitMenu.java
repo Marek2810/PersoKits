@@ -26,7 +26,7 @@ public class KitMenu extends PersoKitsMenu {
 	
 	@Override
 	public String getTitle() {
-		return "&0Kit editor";
+		return MenuUtils.getText("kitmenu", "title");
 	}
 
 	@Override
@@ -45,26 +45,29 @@ public class KitMenu extends PersoKitsMenu {
 		inv.setItem(4, item);
 		
 		ItemStack cdItem = new ItemBuilder(Material.CLOCK)
-				.name("&eSet cooldown for kit")
+				.name(MenuUtils.getText("kitmenu", "cooldown-item-name"))
 				.function("setCooldown")
 				.make();
 		inv.setItem(1, cdItem);
 		
 		ItemStack usesItem = new ItemBuilder(Material.DISPENSER)
-				.name("&eSet uses of kit")
+//				.name("&eSet uses of kit")
+				.name(MenuUtils.getText("kitmenu", "uses-item-name"))
 				.function("setUses")
 				.make();
 		inv.setItem(2, usesItem);
 		
 		ItemStack persoKit = new ItemBuilder(Material.PLAYER_HEAD)
-				.name("&eToggle if kit is PersoKit")
+//				.name("&eToggle if kit is PersoKit")
+				.name(MenuUtils.getText("kitmenu", "togglePersoKit-item-name"))
 				.function("togglePersoKit")
 				.make();
 		inv.setItem(3, persoKit);
 		
 		if (kit.isPersokit()) {
 			ItemStack persoItems = new ItemBuilder(Material.ENDER_CHEST)
-					.name("&eSet option items")
+//					.name("&eSet option items")
+					.name(MenuUtils.getText("kitmenu", "options-item-name"))
 					.function("setPersoKitItems")
 					.make();
 			inv.setItem(5, persoItems);
@@ -79,7 +82,8 @@ public class KitMenu extends PersoKitsMenu {
 		}	
 		
 		ItemStack saveKit = new ItemBuilder(Material.GREEN_CONCRETE)
-				.name("&aSave kit")
+//				.name("&aSave kit")
+				.name(MenuUtils.getText("kitmenu", "save-kit-item-name"))
 				.function("saveKit")
 				.make();
 		
@@ -106,25 +110,35 @@ public class KitMenu extends PersoKitsMenu {
 				pMenuUtil.setEditingKit(true);
 				pMenuUtil.setKitSetting("cooldown");
 				p.closeInventory();
-				p.sendMessage(ChatUtils.format("&eEnter cooldown in seconds:"));
+//				p.sendMessage(ChatUtils.format("&eEnter cooldown in seconds:"));
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("enter-cooldown")));
 				return;
 			}
 			else if (function.equals("setUses")) {
 				pMenuUtil.setEditingKit(true);
 				pMenuUtil.setKitSetting("uses");
 				p.closeInventory();
-				p.sendMessage(ChatUtils.format("&eEnter kit uses amount for each player:"));
+//				p.sendMessage(ChatUtils.format("&eEnter kit uses amount for each player:"));
+				String msg = ChatUtils.getMessage("persokit-enabled");
+				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
+				p.sendMessage(ChatUtils.format(msg));
 				return;
 			}
 			else if (function.equals("togglePersoKit")) {
 				PersoKit kit = PersoKits.kits.get(pMenuUtil.getKit());
 				if (kit.isPersokit()) {
-					kit.setPersokit(false);
-					p.sendMessage(ChatUtils.format("&cKit &e" + kit.getName() + " &cis no longer PersoKit!"));
+					kit.setPersokit(false);						
+//					p.sendMessage(ChatUtils.format("&cKit &e" + kit.getName() + " &cis no longer PersoKit!"));
+					String msg = ChatUtils.getMessage("persokit-disabled");
+					msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
+					p.sendMessage(ChatUtils.format(msg));
 				}
 				else {
 					kit.setPersokit(true);
-					p.sendMessage(ChatUtils.format("&aKit &e" + kit.getName() + " &ais now PersoKit!"));
+//					p.sendMessage(ChatUtils.format("&aKit &e" + kit.getName() + " &ais now PersoKit!"));
+					String msg = ChatUtils.getMessage("persokit-enabled");
+					msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
+					p.sendMessage(ChatUtils.format(msg));
 				}
 				return;
 			}	
@@ -140,7 +154,10 @@ public class KitMenu extends PersoKitsMenu {
 				}							
 				PersoKits.kits.get(pMenuUtil.getKit()).setItems(items);
 				p.closeInventory();
-				p.sendMessage(ChatUtils.format("&aYou saved kit &e" + pMenuUtil.getKit() + "&a."));
+//				p.sendMessage(ChatUtils.format("&aYou saved kit &e" + pMenuUtil.getKit() + "&a."));
+				String msg = ChatUtils.getMessage("persokit-enabled");
+				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
+				p.sendMessage(ChatUtils.format(msg));
 				return;
 			}						
 			else if (function.equals("close")) {
