@@ -55,9 +55,17 @@ Will display menu with specific kit to edit.
 **""persokit.editor"** - permission to edit kits (players with op will have this permission)
 
 # TODO:
+- If player is trying to claim PersoKit and not set own variant yet just open menu
+  
+- Add kit add/remove, rename future in kiteditor
+
+- Format of saved items in kit.yml (long term probably)
+  
+- Add bypass permission for CDs and usses (and slot amount for PersoKit?)
+  
 - Make on join kit.
 
-- Make hologram selection for PersoKit
+- Make hologram selection for PersoKit.
 
 - Make option to remove/add or rename kit in KitsEditor.
 
