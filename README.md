@@ -10,6 +10,7 @@ It will display all aviable kits for player. They need permission "persokit.kit.
 *can not be configurate now*
 
 **Green** - aviable
+
 **Strikethrough** - kit has no items
 
 **Red** - no usses left for kit
