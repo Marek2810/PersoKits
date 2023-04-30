@@ -29,7 +29,7 @@ newbie:
       ==: org.bukkit.inventory.ItemStack
       v: 3120
       type: STONE_AXE
-  # Items from player can select,
+  # Items from player can select for PersoKit
   options:
     1: STONE_SWORD
     2: STONE_PICKAXE
@@ -38,14 +38,3 @@ newbie:
       ==: org.bukkit.inventory.ItemStack
       v: 3120
       type: STONE_AXE
-test:
-  uses: 1
-  items:
-    1: STONE_SWORD
-    2: STONE_PICKAXE
-    3: STONE_SHOVEL
-    4:
-      ==: org.bukkit.inventory.ItemStack
-      v: 3120
-      type: STONE_AXE
-
