@@ -109,7 +109,6 @@ public class KitCommand implements TabExecutor {
 			// kit is on cooldown
 		if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId().toString() + "." + kitName + ".availableAt") != null) {
 			if (!KitUtils.isAviable(p, kitName)) {
-//				p.sendMessage(ChatUtils.format("&cKit is on cooldonw for &e" + KitUtils.aviableAt(p, kitName) + " &cseconds." ));
 				String msg = ChatUtils.getMessage("on-cooldown");
 				msg = msg.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, kitName)));
 				p.sendMessage(ChatUtils.format(msg));
@@ -125,36 +124,13 @@ public class KitCommand implements TabExecutor {
 				return true;
 			}
 		}
-		
-//		if (args.length > 1) {
-//			if (args[1].equalsIgnoreCase("-default")) {
-//				kit.setDefualtPersoKit(p.getUniqueId());
-//				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("persokit-default")));
-//			}
-//		}
-		
+	
 		List<ItemStack> items = new ArrayList<>();		
 		if (kit.isPersokit()) {
 			if (kit.getPersokits().get(p.getUniqueId()) != null) {
 				items = kit.getPersokits().get(p.getUniqueId());
 			}
 			else {				
-//				ComponentBuilder builder = new ComponentBuilder();		
-//				builder.append(new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("no-persokit-set") + "\n")).create());			
-//
-//				BaseComponent[] setOption = new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("create-option")))
-//						.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("create-option-hover"))).create()))
-//						.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/pkit " + kit.getName()))
-//						.create();
-//				builder.append(setOption);
-//				builder.append(new ComponentBuilder("    ").create());
-//				
-//				BaseComponent[] defaultOption = new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("default-option")))
-//						.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("default-option-hover"))).create()))
-//						.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/kit " + kit.getName() + " -default"))
-//						.create();
-//				builder.append(defaultOption);
-//				sender.spigot().sendMessage(builder.create());	
 				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-persokit-set")));
 				PlayerMenuUtility util = PersoKits.getPlayerMenuUtility(p);
 				double secs = 1.25;

@@ -51,14 +51,12 @@ public class KitMenu extends PersoKitsMenu {
 		inv.setItem(1, cdItem);
 		
 		ItemStack usesItem = new ItemBuilder(Material.DISPENSER)
-//				.name("&eSet uses of kit")
 				.name(MenuUtils.getText("kitmenu", "uses-item-name"))
 				.function("setUses")
 				.make();
 		inv.setItem(2, usesItem);
 		
 		ItemStack persoKit = new ItemBuilder(Material.PLAYER_HEAD)
-//				.name("&eToggle if kit is PersoKit")
 				.name(MenuUtils.getText("kitmenu", "togglePersoKit-item-name"))
 				.function("togglePersoKit")
 				.make();
@@ -66,7 +64,6 @@ public class KitMenu extends PersoKitsMenu {
 		
 		if (kit.isPersokit()) {
 			ItemStack persoItems = new ItemBuilder(Material.ENDER_CHEST)
-//					.name("&eSet option items")
 					.name(MenuUtils.getText("kitmenu", "options-item-name"))
 					.function("setPersoKitItems")
 					.make();
@@ -82,7 +79,6 @@ public class KitMenu extends PersoKitsMenu {
 		}	
 		
 		ItemStack saveKit = new ItemBuilder(Material.GREEN_CONCRETE)
-//				.name("&aSave kit")
 				.name(MenuUtils.getText("kitmenu", "save-kit-item-name"))
 				.function("saveKit")
 				.make();
@@ -110,7 +106,6 @@ public class KitMenu extends PersoKitsMenu {
 				pMenuUtil.setEditingKit(true);
 				pMenuUtil.setKitSetting("cooldown");
 				p.closeInventory();
-//				p.sendMessage(ChatUtils.format("&eEnter cooldown in seconds:"));
 				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("enter-cooldown")));
 				return;
 			}
@@ -118,8 +113,7 @@ public class KitMenu extends PersoKitsMenu {
 				pMenuUtil.setEditingKit(true);
 				pMenuUtil.setKitSetting("uses");
 				p.closeInventory();
-//				p.sendMessage(ChatUtils.format("&eEnter kit uses amount for each player:"));
-				String msg = ChatUtils.getMessage("persokit-enabled");
+				String msg = ChatUtils.getMessage("enter-uses");
 				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
 				p.sendMessage(ChatUtils.format(msg));
 				return;
@@ -128,18 +122,18 @@ public class KitMenu extends PersoKitsMenu {
 				PersoKit kit = PersoKits.kits.get(pMenuUtil.getKit());
 				if (kit.isPersokit()) {
 					kit.setPersokit(false);						
-//					p.sendMessage(ChatUtils.format("&cKit &e" + kit.getName() + " &cis no longer PersoKit!"));
 					String msg = ChatUtils.getMessage("persokit-disabled");
 					msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
 					p.sendMessage(ChatUtils.format(msg));
 				}
 				else {
 					kit.setPersokit(true);
-//					p.sendMessage(ChatUtils.format("&aKit &e" + kit.getName() + " &ais now PersoKit!"));
 					String msg = ChatUtils.getMessage("persokit-enabled");
 					msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
 					p.sendMessage(ChatUtils.format(msg));
 				}
+				inv.clear();
+				open();
 				return;
 			}	
 			else if (function.equals("setPersoKitItems")) {
@@ -154,7 +148,6 @@ public class KitMenu extends PersoKitsMenu {
 				}							
 				PersoKits.kits.get(pMenuUtil.getKit()).setItems(items);
 				p.closeInventory();
-//				p.sendMessage(ChatUtils.format("&aYou saved kit &e" + pMenuUtil.getKit() + "&a."));
 				String msg = ChatUtils.getMessage("saved-kit");
 				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
 				p.sendMessage(ChatUtils.format(msg));

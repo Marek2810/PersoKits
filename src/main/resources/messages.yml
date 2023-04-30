@@ -33,7 +33,7 @@ messages:
   # Message if player click on set amount of slots option in KitOption (menu with options for PersoKit)
   enter-slots: "&eEnter amout of slots for PersoKit:"
   # Message if player click on toggle PersoKit item in KitMenu
-  persokit-enabled: "&cKit &e%name% &cis no longer PersoKit!"  
+  persokit-enabled: "&aKit &e%name% &ais now PersoKit!" 
   persokit-disabled: "&cKit &e%name% &cis no longer PersoKit!"
   # Message if player click on item and not have empty slot in player PersoKit menu.
   no-slot: "&cYou do not have slot left for this item in PersoKit"
