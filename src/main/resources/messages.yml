@@ -56,9 +56,17 @@ messages:
   # Message if player click on next page button but is allready on last page
   allready-last-page: "&cYou are on last page."
   # Message if player click on previous page button but is allready on first page
-  allready-first-page: "&cYou are allready on first page." 
+  allready-first-page: "&cYou are allready on first page."
+  # When player is required to put number as input in chat but input is not number
+  requires-number: "&cYou must enter number."
+  # When player set cooldown of kit message
+  set-cooldown: "&aCooldown for kit set for: &e%cooldown% &aseconds."
+  # When player set usses of kit message  
+  set-uses: "&aUses of kit set to: &e%uses%&a."
+  # When player set slots of kit message  
+  set-uses: "&aSlots for persokit of kit set to: &e%slots%&a."
  
- # Items name for each option item in menu 
+# Items name for each option item in menu 
 guis:
   # Section with items used in more guis  
   globalitems:

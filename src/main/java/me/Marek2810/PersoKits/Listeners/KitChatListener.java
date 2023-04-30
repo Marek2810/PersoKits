@@ -7,6 +7,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import me.Marek2810.PersoKits.PersoKits;
 import me.Marek2810.PersoKits.Utils.ChatUtils;
+import me.Marek2810.PersoKits.Utils.KitUtils;
 import me.Marek2810.PersoKits.Utils.PersoKit;
 import me.Marek2810.PersoKits.Utils.PlayerMenuUtility;
 
@@ -22,29 +23,37 @@ public class KitChatListener implements Listener {
 		PersoKit kit = PersoKits.kits.get(menuUtil.getKit());		
 		if (setting.equalsIgnoreCase("cooldown")) {			
 			if (!ChatUtils.isDouble(e.getMessage())) {
-				p.sendMessage(ChatUtils.format("&cYou must enter number."));
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("requires-number")));
 				return;
 			}
 			kit.setCooldwon(Double.valueOf(e.getMessage()));
-			p.sendMessage(ChatUtils.format("&aCooldown for kit set for: " + e.getMessage() + " seconds."));
+			String msg = ChatUtils.getMessage("set-cooldown");
+			msg = msg.replace("%cooldown%", String.valueOf(KitUtils.aviableAt(p, e.getMessage())));
+			p.sendMessage(ChatUtils.format(msg));
 			menuUtil.setEditingKit(false);
 		}
 		else if (setting.equalsIgnoreCase("uses")) {
 			if (!ChatUtils.isInt(e.getMessage())) {
-				p.sendMessage(ChatUtils.format("&cYou must enter number."));
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("requires-number")));
 				return;
 			}
 			kit.setUses(Integer.valueOf(e.getMessage()));
-			p.sendMessage(ChatUtils.format("&aUses of kit set to: &e" + e.getMessage() + "&a."));
+//			p.sendMessage(ChatUtils.format("&aUses of kit set to: &e" + e.getMessage() + "&a."));
+			String msg = ChatUtils.getMessage("set-uses");
+			msg = msg.replace("%cooldown%", String.valueOf(KitUtils.aviableAt(p, e.getMessage())));
+			p.sendMessage(ChatUtils.format(msg));
 			menuUtil.setEditingKit(false);
 		}
 		else if (setting.equalsIgnoreCase("slots")) {
 			if (!ChatUtils.isInt(e.getMessage())) {
-				p.sendMessage(ChatUtils.format("&cYou must enter number."));
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("requires-number")));
 				return;
 			}
 			kit.setSlots(Integer.valueOf(e.getMessage()));
-			p.sendMessage(ChatUtils.format("&aSlots for persokit of kit set to: &e" + e.getMessage() + "&a."));
+//			p.sendMessage(ChatUtils.format("&aSlots for persokit of kit set to: &e" + e.getMessage() + "&a."));
+			String msg = ChatUtils.getMessage("set-slots");
+			msg = msg.replace("%slots%", String.valueOf(KitUtils.aviableAt(p, e.getMessage())));
+			p.sendMessage(ChatUtils.format(msg));
 			menuUtil.setEditingKit(false);
 		}
 		
