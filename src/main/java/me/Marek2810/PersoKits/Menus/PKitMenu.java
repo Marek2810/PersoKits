@@ -156,7 +156,7 @@ public class PKitMenu extends PaginatedMenu {
 			else if (function.equals("nextPage")) {	
 				if ((index+1) >= varOptionItems.size()) {
 //					p.sendMessage(ChatUtils.format("&cYou are on last page."));
-					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("allready-last-page")));
+					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("already-last-page")));
 					return;
 				}
 				page += 1;
@@ -166,8 +166,8 @@ public class PKitMenu extends PaginatedMenu {
 			}
 			else if (function.equals("previousPage")) {
 				if (page == 0) {
-//					p.sendMessage(ChatUtils.format("&cYou are allready on first page."));
-					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("allready-first-page")));
+//					p.sendMessage(ChatUtils.format("&cYou are already on first page."));
+					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("already-first-page")));
 					return;
 				}
 				page -= 1;
