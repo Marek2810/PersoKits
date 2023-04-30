@@ -42,10 +42,10 @@ public class KitCommand implements TabExecutor {
 					ComponentBuilder hoverBuilder = new ComponentBuilder();	
 					String color = "&a";
 					PersoKit kit = PersoKits.kits.get(name);
-					if (!KitUtils.haveUsses(p, kit)) {
+					if (!KitUtils.haveUses(p, kit)) {
 						color = "&c";
 						hoverBuilder.append(new ComponentBuilder(
-								ChatUtils.format(ChatUtils.getMessage("no-usses")))
+								ChatUtils.format(ChatUtils.getMessage("no-uses")))
 							.create());					
 					}
 					else if (!KitUtils.isAviable(p, name)) {
@@ -119,8 +119,8 @@ public class KitCommand implements TabExecutor {
 		PersoKit kit = PersoKits.kits.get(kitName);		
 			//check for uses
 		if (kit.getUses() >= 0) {
-			if (!KitUtils.haveUsses(p, kit)) {
-				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-usses")));
+			if (!KitUtils.haveUses(p, kit)) {
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-uses")));
 				return true;
 			}
 		}
@@ -177,7 +177,7 @@ public class KitCommand implements TabExecutor {
 			PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + "." + kitName + ".uses", playerUses+1);
 			PersoKits.dataFile.saveConfig();
 		}		
-		String msg = ChatUtils.getMessage("on-kit-recive");
+		String msg = ChatUtils.getMessage("on-kit-receive");
 		msg = msg.replace("%name%", kitName);
 		p.sendMessage(ChatUtils.format(msg));
 		return true;
