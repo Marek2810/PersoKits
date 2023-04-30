@@ -64,7 +64,7 @@ messages:
   # When player set usses of kit message  
   set-uses: "&aUses of kit set to: &e%uses%&a."
   # When player set slots of kit message  
-  set-uses: "&aSlots for persokit of kit set to: &e%slots%&a."
+  set-slots: "&aSlots for persokit of kit set to: &e%slots%&a."
  
 # Items name for each option item in menu 
 guis:
