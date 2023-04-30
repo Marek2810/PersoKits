@@ -1,62 +1,62 @@
 messages:
-  # If there is error in item configuration of kit
-  error: "&6[PersoKits] &cError while loading kit &e%name% &cwith item &e%itemKey%&c. Item is not loaded in kit."
-  # Only player can run this command.
+  # If there is an error in the kit item configuration
+  error: "&e[PersoKits] &cError while loading kit &e%name% &cwith item &e%itemKey%&c. Item is not loaded in kit."
+  # Only player can run this command
   only-player-command: "&cThis command can be run only by player."
   no-permission: "&cYou have no permissions to do that."
   # Text at the start of kits list (/kit command)
-  kits: "&6Kits: "
-  # Message show it kits list while hovering on kit if kit is available
+  kits: "&eKits: "
+  # Message if kits list while hovering on kit if kit is available
   available: "&aKit is available."
-  # Message show if player has not permission for any kit
-  no-kits: "&cThere is no kits available."
-  # Message show if kit not exist
-  no-exist: "&cKit not exist."
-  # No usses left for kit
-  no-usses: "&cYou have no usses left for this kit."
+  # Message if player has not permission for any kit
+  no-kits: "&cThere are no available kits."
+  # Message if kit does not exist
+  no-exist: "&cKit does not exist."
+  # No uses left for kit
+  no-uses: "&cYou have no uses left for this kit."
   # No space in iventory
-  no-space: "&cYou dont have enought space in inventory."
+  no-space: "&cYou dont have enough space in your inventory."
   # Kit is on cooldown
-  on-cooldown: "&cKit is on cooldonw for &e%time-left% &cseconds."
-  # Message when player recive kit
-  on-kit-recive: "&aYou recived kit &e%name%&a."
+  on-cooldown: "&cKit is on cooldown for &e%time-left% &cseconds."
+  # Message when player receive kit
+  on-kit-receive: "&aYou received kit &e%name%&a."
   # Kit has no items
   no-items: "&cThere are no items in kit."  
-  # This kit is not PersoKit
+  # This kit is not a PersoKit
   not-persokit: "&cKit is not PersoKit."
-  # If player tried recive kit, but not set PersoKit yet
-  no-persokit-set: "&eThis kit is PersoKit, but you did not set yours."
-  # Message if player click on set cooldown option in KitMenu
+  # If player tried receive to kit, but have not set PersoKit yet
+  no-persokit-set: "&eThis kit is a PersoKit, but you did not set yours."
+  # On set cooldown option in KitMenu
   enter-cooldown: "&eEnter cooldown in seconds:"
-  # Message if player click on set amount of uses option in KitEditor 
-  enter-uses: "&eEnter kit uses amount for each player:"
-  # Message if player click on set amount of slots option in KitOption (menu with options for PersoKit)
-  enter-slots: "&eEnter amout of slots for PersoKit:"
-  # Message if player click on toggle PersoKit item in KitMenu
-  persokit-enabled: "&aKit &e%name% &ais now PersoKit!" 
+  # On set amount of uses option in KitOption
+  enter-uses: "&eEnter amount of kit uses per player:"
+  # On set amount of slots option in KitEditor (menu with options for PersoKit)
+  enter-slots: "&eEnter amount of slots in PersoKit:"
+  # On toggle PersoKit in KitEditor
+  persokit-enabled: "&aKit &e%name% &ais now a PersoKit!"
   persokit-disabled: "&cKit &e%name% &cis no longer PersoKit!"
-  # Message if player click on item and not have empty slot in player PersoKit menu.
-  no-slot: "&cYou do not have slot left for this item in PersoKit"
+  # Message if player clicks on item and does not have empty slot in player PersoKit menu.
+  no-slot: "&cYou do not have any slots left for this item in your PersoKit."
   # Message if player click on save button in KitEditor
-  saved-kit: "&aYou saved kit &e%name%&a."
+  saved-kit: "&aYou saved the '&e%name%&a' kit."
   # Message if player click on save button in PersoKitEditor
-  saved-pkit: "&aYou saved PersoKit &e%name%&a."
+  saved-pkit: "&aYou saved the '&e%name%&a' PersoKit."
   # Message if player click on save button in KitOptionMenu
-  saved-options: "&aYou saved option items of kit &e%name%&a."
-  # Message if player click on next page button but is allready on last page
-  allready-last-page: "&cYou are on last page."
+  saved-options: "&aYou saved option items for '&e%name%&a'."
+  # Message if player click on next page button but is already on last page
+  already-last-page: "&cYou are already on the last page."
   # Message if player click on previous page button but is allready on first page
-  allready-first-page: "&cYou are allready on first page."
-  # When player is required to put number as input in chat but input is not number
+  already-first-page: "&cYou are already on the first page."
+  # When number input is required, but not recieved
   requires-number: "&cYou must enter number."
   # When player set cooldown of kit message
-  set-cooldown: "&aCooldown for kit set for: &e%cooldown% &aseconds."
+  set-cooldown: "&aCooldown for '&e%name%&a' set to &e%cooldown% &aseconds."
   # When player set usses of kit message  
-  set-uses: "&aUses of kit set to: &e%uses%&a."
+  set-uses: "&aUses for '&e%name%&a' set to &e%uses%&a."
   # When player set slots of kit message  
-  set-slots: "&aSlots for persokit of kit set to: &e%slots%&a."
+  set-slots: "&aSlots for '&e%name%&a' set to &e%slots%&a."
  
-# Items name for each option item in menu 
+ # Items name for each option item in menu 
 guis:
   # Section with items used in more guis  
   globalitems:
@@ -72,21 +72,21 @@ guis:
     slots: "&eSlots: &f"
     disabled: "&cdisabled"
     seconds: "second(s)"   
-  # List of kits of KitEditor (/kiteditor)
+  # List of kits for KitEditor (/kiteditor)
   kitsmenu:
     title: "&0Kits editor"    
   # Kit editor menu (/kiteditor <kit>)
   kitmenu:
     title: "&0Kit editor"
-    cooldown-item-name: "&eSet cooldown for kit"
-    uses-item-name: "&eSet uses of kit"
-    togglePersoKit-item-name: "&eToggle if kit is PersoKit"
-    options-item-name: "&eSet option items"
+    cooldown-item-name: "&eSet kit cooldown"
+    uses-item-name: "&eSet amount of kit uses"
+    togglePersoKit-item-name: "&eToggle PersoKit feature"
+    options-item-name: "&eSelect option items"
     save-kit-item-name: "&aSave kit"
   # Option items menu for PersoKit
   optionsmenu:
     title: "&0Kit editor"
-    slots-item-name: "&eSet slots amount"
+    slots-item-name: "&eSpecify amount of slots"
     save-kit-item-name: "&aSave kit"
   # List of PersoKits (/pkit)
   pkitsmenu:
@@ -94,5 +94,5 @@ guis:
   # Edit menu for PersoKit (/pkit <kit>)
   pkitmenu:
     title: "&0PersoKit editor"
-    free-slot-item-name: "&aFree slot for item"
-    save-kit-item-name: "&aSave and get kit"
+    free-slot-item-name: "&aFree item slot"
+    save-kit-item-name: "&aSave PersoKit"
