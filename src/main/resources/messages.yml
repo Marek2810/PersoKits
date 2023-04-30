@@ -105,4 +105,4 @@ guis:
   pkitmenu:
     title: "&0PersoKit editor"
     free-slot-item-name: "&aFree slot for item"
-    save-kit-item-name: "&aSave PersoKit"
+    save-kit-item-name: "&aSave and get kit"

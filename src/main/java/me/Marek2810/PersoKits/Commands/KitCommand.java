@@ -8,14 +8,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Marek2810.PersoKits.PersoKits;
+import me.Marek2810.PersoKits.Menus.PKitMenu;
 import me.Marek2810.PersoKits.Utils.ChatUtils;
 import me.Marek2810.PersoKits.Utils.InventoryUtils;
 import me.Marek2810.PersoKits.Utils.KitUtils;
 import me.Marek2810.PersoKits.Utils.PersoKit;
+import me.Marek2810.PersoKits.Utils.PlayerMenuUtility;
 import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 
@@ -35,8 +37,7 @@ public class KitCommand implements TabExecutor {
 			if (playerKits.size() > 0) {
 				ComponentBuilder builder = new ComponentBuilder();
 				builder.append(new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("kits"))).create());					
-				int i = 1;
-				
+				int i = 1;				
 				for (String name : playerKits) {
 					ComponentBuilder hoverBuilder = new ComponentBuilder();	
 					String color = "&a";
@@ -76,8 +77,7 @@ public class KitCommand implements TabExecutor {
 									ChatUtils.format("\n" + ChatUtils.getMessage("no-persokit-set")))
 								.create());
 						}
-					}
-					
+					}					
 					BaseComponent[] line = new ComponentBuilder(ChatUtils.format(color + name))
 							.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverBuilder.create()))
 							.create();
@@ -126,12 +126,12 @@ public class KitCommand implements TabExecutor {
 			}
 		}
 		
-		if (args.length > 1) {
-			if (args[1].equalsIgnoreCase("-default")) {
-				kit.setDefualtPersoKit(p.getUniqueId());
-				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("persokit-default")));
-			}
-		}
+//		if (args.length > 1) {
+//			if (args[1].equalsIgnoreCase("-default")) {
+//				kit.setDefualtPersoKit(p.getUniqueId());
+//				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("persokit-default")));
+//			}
+//		}
 		
 		List<ItemStack> items = new ArrayList<>();		
 		if (kit.isPersokit()) {
@@ -139,24 +139,34 @@ public class KitCommand implements TabExecutor {
 				items = kit.getPersokits().get(p.getUniqueId());
 			}
 			else {				
-				ComponentBuilder builder = new ComponentBuilder();		
-				builder.append(new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("no-persokit-set") + "\n")).create());			
-
-				BaseComponent[] setOption = new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("create-option")))
-						.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("create-option-hover"))).create()))
-						.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/pkit " + kit.getName()))
-						.create();
-				builder.append(setOption);
-				builder.append(new ComponentBuilder("    ").create());
-				
-				BaseComponent[] defaultOption = new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("default-option")))
-						.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("default-option-hover"))).create()))
-						.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/kit " + kit.getName() + " -default"))
-						.create();
-				builder.append(defaultOption);
-				sender.spigot().sendMessage(builder.create());				
+//				ComponentBuilder builder = new ComponentBuilder();		
+//				builder.append(new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("no-persokit-set") + "\n")).create());			
+//
+//				BaseComponent[] setOption = new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("create-option")))
+//						.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("create-option-hover"))).create()))
+//						.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/pkit " + kit.getName()))
+//						.create();
+//				builder.append(setOption);
+//				builder.append(new ComponentBuilder("    ").create());
+//				
+//				BaseComponent[] defaultOption = new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("default-option")))
+//						.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("default-option-hover"))).create()))
+//						.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/kit " + kit.getName() + " -default"))
+//						.create();
+//				builder.append(defaultOption);
+//				sender.spigot().sendMessage(builder.create());	
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-persokit-set")));
+				PlayerMenuUtility util = PersoKits.getPlayerMenuUtility(p);
+				double secs = 1.25;
+				double ticks = secs*20;
+				util.setpKit(kitName);
+				new BukkitRunnable() {			
+					public void run() {
+						new PKitMenu(util).open();
+					}
+				}.runTaskLater(PersoKits.getPlugin(), (int) ticks);				
 				return true;
-			}			
+			}
 		}
 		
 		//Is there items?

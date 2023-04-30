@@ -32,7 +32,10 @@ public class PKitMenu extends PaginatedMenu {
 		super(util);
 		PersoKit pkit = PersoKits.kits.get(util.getpKit());
 		if (pkit.getPersokits().get(util.getOwner().getUniqueId()) != null) {
-			varaintItems = PersoKits.kits.get(util.getpKit()).getPersokits().get(util.getOwner().getUniqueId());
+			varaintItems = pkit.getPersokits().get(util.getOwner().getUniqueId());
+		}
+		else {
+			varaintItems = pkit.getItems();
 		}
 		if (pkit.getOptions() != null) {
 			varOptionItems = new ArrayList<>(pkit.getOptions());
@@ -84,16 +87,14 @@ public class PKitMenu extends PaginatedMenu {
 			inv.addItem(barrier);
 		}		
 			
-		if (!varOptionItems.isEmpty()) {
-			List<ItemStack> options = varOptionItems;
-			for (int i = 0; i < getMaxItemsPerPage(); i++) {
-				index = getMaxItemsPerPage() * page + i;
-				if (index >= options.size()) break;
-				ItemStack menuItem = new ItemStack(options.get(index));
-				inv.addItem(new ItemBuilder(menuItem)
-						.function("addItem")
-						.make());					
-			}
+		List<ItemStack> options = varOptionItems;
+		for (int i = 0; i < getMaxItemsPerPage(); i++) {
+			index = getMaxItemsPerPage() * page + i;
+			if (index >= options.size()) break;
+			ItemStack menuItem = new ItemStack(options.get(index));
+			inv.addItem(new ItemBuilder(menuItem)
+					.function("addItem")
+					.make());
 		}
 		
 		ItemStack saveKit = new ItemBuilder(Material.GREEN_CONCRETE)
