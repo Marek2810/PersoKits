@@ -39,8 +39,9 @@ public class KitCommand implements TabExecutor {
 				
 				for (String name : playerKits) {
 					ComponentBuilder hoverBuilder = new ComponentBuilder();	
-					String color = "&a";				
-					if (!KitUtils.haveUsses(p, PersoKits.kits.get(name))) {
+					String color = "&a";
+					PersoKit kit = PersoKits.kits.get(name);
+					if (!KitUtils.haveUsses(p, kit)) {
 						color = "&c";
 						hoverBuilder.append(new ComponentBuilder(
 								ChatUtils.format(ChatUtils.getMessage("no-usses")))
@@ -54,10 +55,27 @@ public class KitCommand implements TabExecutor {
 								ChatUtils.format(msg))
 							.create());
 					}
+					else if (kit.getItems().isEmpty()) {
+						color = "&m";
+						String msg = ChatUtils.getMessage("no-items");
+						hoverBuilder.append(new ComponentBuilder(
+								ChatUtils.format(msg))
+							.create());
+					}
 					else {
 						hoverBuilder.append(new ComponentBuilder(
 								ChatUtils.format(ChatUtils.getMessage("available")))
 							.create());
+					}
+					
+					if (kit.isPersokit()) {
+						color += "&l";
+						if (!kit.getPersokits().containsKey(p.getUniqueId()) ) {
+							color += "&n";
+							hoverBuilder.append(new ComponentBuilder(
+									ChatUtils.format("\n" + ChatUtils.getMessage("no-persokit-set")))
+								.create());
+						}
 					}
 					
 					BaseComponent[] line = new ComponentBuilder(ChatUtils.format(color + name))

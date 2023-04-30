@@ -155,7 +155,7 @@ public class KitMenu extends PersoKitsMenu {
 				PersoKits.kits.get(pMenuUtil.getKit()).setItems(items);
 				p.closeInventory();
 //				p.sendMessage(ChatUtils.format("&aYou saved kit &e" + pMenuUtil.getKit() + "&a."));
-				String msg = ChatUtils.getMessage("persokit-enabled");
+				String msg = ChatUtils.getMessage("saved-kit");
 				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
 				p.sendMessage(ChatUtils.format(msg));
 				return;

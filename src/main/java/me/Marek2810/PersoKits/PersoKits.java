@@ -16,6 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.Marek2810.PersoKits.Commands.KitCommand;
 import me.Marek2810.PersoKits.Commands.KitEditorCommand;
 import me.Marek2810.PersoKits.Commands.PKitCommand;
+import me.Marek2810.PersoKits.Commands.PersoKitsCommand;
 import me.Marek2810.PersoKits.Files.CustomConfig;
 import me.Marek2810.PersoKits.Listeners.KitChatListener;
 import me.Marek2810.PersoKits.Listeners.MenuListener;
@@ -36,6 +37,8 @@ public class PersoKits extends JavaPlugin {
 	
 	public static final HashMap<String, PersoKit> kits = new HashMap<>();	
     private static final HashMap<Player, PlayerMenuUtility> playerMenuUtilityMap = new HashMap<>();
+   
+    public static final List<CustomConfig> customConfigs = new ArrayList<>();
 
 
 	@Override
@@ -44,14 +47,19 @@ public class PersoKits extends JavaPlugin {
 		console = getServer().getConsoleSender();
 		
 		kitsFile = new CustomConfig(this, "kits.yml");
+		customConfigs.add(kitsFile);
 		dataFile = new CustomConfig(this, "data.yml");
+		customConfigs.add(dataFile);
 		messagesFile = new CustomConfig(this, "messages.yml");
+		customConfigs.add(messagesFile);
 		pKitsFile = new CustomConfig(this, "persokits.yml");
+		customConfigs.add(pKitsFile);
 		loadKits();
 	
 		this.getCommand("kit").setExecutor(new KitCommand());
 		this.getCommand("kiteditor").setExecutor(new KitEditorCommand());
 		this.getCommand("pkit").setExecutor(new PKitCommand());
+		this.getCommand("persokits").setExecutor(new PersoKitsCommand());
 		
 		this.getServer().getPluginManager().registerEvents(new MenuListener(),this);
 		this.getServer().getPluginManager().registerEvents(new KitChatListener(),this);
@@ -60,7 +68,7 @@ public class PersoKits extends JavaPlugin {
 	
 	@Override
 	public void onDisable() {
-		
+		kits.clear();
 	}
 	
 	public static PersoKits getPlugin() {
