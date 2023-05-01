@@ -34,7 +34,7 @@ public class KitUtils {
 		return (int) (availableAt-System.currentTimeMillis())/1000;
 	}
 	
-	public static boolean haveUsses(Player p, PersoKit kit) {
+	public static boolean haveUses(Player p, PersoKit kit) {
 		int playerUses = 0;
 		String kitName = kit.getName();
 		if (kit.getUses() < 0 ) return true;
