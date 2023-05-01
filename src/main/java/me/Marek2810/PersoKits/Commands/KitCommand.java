@@ -57,7 +57,7 @@ public class KitCommand implements TabExecutor {
 							.create());
 					}
 					else if (kit.getItems().isEmpty()) {
-						color = "&m";
+						color = "&c&m";
 						String msg = ChatUtils.getMessage("no-items");
 						hoverBuilder.append(new ComponentBuilder(
 								ChatUtils.format(msg))
@@ -143,6 +143,8 @@ public class KitCommand implements TabExecutor {
 				}.runTaskLater(PersoKits.getPlugin(), (int) ticks);				
 				return true;
 			}
+		} else {
+			items = kit.getItems();
 		}
 		
 		//Is there items?
