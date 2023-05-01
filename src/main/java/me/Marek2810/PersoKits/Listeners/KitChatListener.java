@@ -28,6 +28,7 @@ public class KitChatListener implements Listener {
 			kit.setCooldwon(Double.valueOf(e.getMessage()));
 			String msg = ChatUtils.getMessage("set-cooldown");
 			msg = msg.replace("%cooldown%", e.getMessage());
+			msg = msg.replace("%name%", kit.getName());
 			p.sendMessage(ChatUtils.format(msg));
 			menuUtil.setEditingKit(false);
 		}
@@ -39,6 +40,7 @@ public class KitChatListener implements Listener {
 			kit.setUses(Integer.valueOf(e.getMessage()));
 			String msg = ChatUtils.getMessage("set-uses");
 			msg = msg.replace("%uses%", e.getMessage());
+			msg = msg.replace("%name%", kit.getName());
 			p.sendMessage(ChatUtils.format(msg));
 			menuUtil.setEditingKit(false);
 		}
@@ -50,6 +52,7 @@ public class KitChatListener implements Listener {
 			kit.setSlots(Integer.valueOf(e.getMessage()));
 			String msg = ChatUtils.getMessage("set-slots");
 			msg = msg.replace("%slots%", e.getMessage());
+			msg = msg.replace("%name%", kit.getName());
 			p.sendMessage(ChatUtils.format(msg));
 			menuUtil.setEditingKit(false);
 		}
