@@ -1,40 +1,41 @@
 # Player need "persokits.kit.<kitName>" (permission for kit) to get a kit.
 # Players with "persokits.kit.*" permission can get every kit.
 
-# Name of kit
-newbie:
-  # This will allow create own variant of kit from items in "options" section.
-  # Available options: true/false
-  persokit: true
-  # How many items can player select (from "options") for persokit.
-  slots: 4
-  # Cooldown for next use of kit in seconds.
-  cooldown: 30.5
-  # Max uses for kit per player.
-  # Lower then 0 (ex. -1) to disable this function.
-  # Setting to 0 or deleting this setting will disable kit.
-  # DO NOT DELTE THIS! DELETING THIS WILL RESULT THIS KIT AS DISABLED!
-  uses: -1  
-  # This items will player get if kit is not persokit or player did not create persokit.
-  # You can enter here Material or ItemStack or just edit kit in ingame menu.
-  # List of available Materials here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
-  # Default variant of kit
-  items:
+kits:
+  # Name of kit
+  newbie:
+    # This will allow create own variant of kit from items in "options" section.
+    # Available options: true/false
+    persokit: true
+    # How many items can player select (from "options") for persokit.
+    slots: 4
+    # Cooldown for next use of kit in seconds.
+    cooldown: 30.5
+    # Max uses for kit per player.
+    # Lower then 0 (ex. -1) to disable this function.
+    # Setting to 0 or deleting this setting will disable kit.
+    # DO NOT DELTE THIS! DELETING THIS WILL RESULT THIS KIT AS DISABLED!
+    uses: -1  
+    # This items will player get if kit is not persokit or player did not create persokit.
+    # You can enter here Material or ItemStack or just edit kit in ingame menu.
+    # List of available Materials here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+    # Default variant of kit
+    items:
     # Exampel for Material
-    1: STONE_SWORD
-    2: STONE_PICKAXE
-    3: STONE_SHOVEL
-    # Example from itemstack (set from in game menu)
-    4:
-      ==: org.bukkit.inventory.ItemStack
-      v: 3120
-      type: STONE_AXE
-  # Items from player can select for PersoKit
-  options:
-    1: STONE_SWORD
-    2: STONE_PICKAXE
-    3: STONE_SHOVEL
-    4:
-      ==: org.bukkit.inventory.ItemStack
-      v: 3120
-      type: STONE_AXE
+      1: STONE_SWORD
+      2: STONE_PICKAXE
+      3: STONE_SHOVEL
+      # Example from itemstack (set from in game menu)
+      4:
+        ==: org.bukkit.inventory.ItemStack
+        v: 3120
+        type: STONE_AXE
+    # Items from player can select for PersoKit
+    options:
+      1: STONE_SWORD
+      2: STONE_PICKAXE
+      3: STONE_SHOVEL
+      4:
+        ==: org.bukkit.inventory.ItemStack
+        v: 3120
+        type: STONE_AXE

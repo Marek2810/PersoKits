@@ -1,6 +1,8 @@
 messages:
   # If there is an error in the kit item configuration
-  error: "&e[PersoKits] &cError while loading kit &e%name% &cwith item &e%itemKey%&c. Item is not loaded in kit."
+  kit-loading-error: "&e[PersoKits] &cError while loading kit &e%name%&c."
+  item-error: "&e[PersoKits] &cError while loading kit &e%name% &cwith item &e%itemKey%&c. Item is not loaded in kit."
+  kit-loaded: "&e[PersoKits] &aKit &e%name% &aloaded successfuly."
   # Only player can run this command
   only-player-command: "&cThis command can be run only by player."
   no-permission: "&cYou have no permissions to do that."

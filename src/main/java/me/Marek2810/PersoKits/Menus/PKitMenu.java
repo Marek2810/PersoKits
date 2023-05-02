@@ -114,7 +114,7 @@ public class PKitMenu extends PaginatedMenu {
 			String function = item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(PersoKits.getPlugin(), "function"), PersistentDataType.STRING);
 			if (function.equals("savePersoKit")) {
 				PersoKit kit = PersoKits.kits.get(pMenuUtil.getpKit());
-				kit.setPersoKitVariant(p.getUniqueId(), varaintItems);
+				kit.addPersoKitVariant(p.getUniqueId(), varaintItems);
 				p.closeInventory();
 				String msg = ChatUtils.getMessage("saved-pkit");
 				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getpKit());

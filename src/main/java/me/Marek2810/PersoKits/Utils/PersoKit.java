@@ -12,27 +12,27 @@ import me.Marek2810.PersoKits.PersoKits;
 
 public class PersoKit {
 
-	protected String name;
-	protected List<ItemStack> items;
+	protected String name;	
 	protected double cooldwon;	
 	protected int uses;
 	protected boolean isPersokit;
 	protected int slots;
+	protected List<ItemStack> items;
 	protected List<ItemStack> options;
 	
 	protected HashMap<UUID, List<ItemStack>> persokits;	
 
-	public PersoKit(String name, List<ItemStack> items, double cd, int uses, boolean persokit, int slots,
-			List<ItemStack> options, HashMap<UUID, List<ItemStack>> persokits) {
+	public PersoKit(String name, double cooldwon, int uses, boolean isPersokit, int slots, 
+			List<ItemStack> items, List<ItemStack> options, HashMap<UUID, List<ItemStack>> persokits) {
 		this.name = name;
-		this.items = items;
-		this.cooldwon = cd;
+		this.cooldwon = cooldwon;
 		this.uses = uses;
-		this.isPersokit = persokit;
+		this.isPersokit = isPersokit;
 		this.slots = slots;
+		this.items = items;
 		this.options = options;
 		this.persokits = persokits;
-	}	
+	}
 
 	public String getName() {
 		return name;
@@ -48,15 +48,15 @@ public class PersoKit {
 	
 	public void setItems(List<ItemStack> items) {		
 		this.items = items;
-		Set<String> keys = PersoKits.kitsFile.getConfig().getConfigurationSection(name + ".items").getKeys(false);
+		Set<String> keys = PersoKits.kitsFile.getConfig().getConfigurationSection("kits." + name + ".items").getKeys(false);
 		int i = 1;
 		for (ItemStack item : items) {
 			if (keys.contains(String.valueOf(i))) keys.remove(String.valueOf(i));
-			PersoKits.kitsFile.getConfig().set(name + ".items." + i, item);
+			PersoKits.kitsFile.getConfig().set("kits." + name + ".items." + i, item);
 			i++;
 		}		
 		for (String key : keys) {
-			PersoKits.kitsFile.getConfig().set(name + ".items." + key, null);
+			PersoKits.kitsFile.getConfig().set("kits." + name + ".items." + key, null);
 		}
 		PersoKits.kitsFile.saveConfig();
 	}
@@ -66,7 +66,7 @@ public class PersoKit {
 	}
 
 	public void setUses(int uses) {
-		PersoKits.kitsFile.getConfig().set(name + ".uses", uses);
+		PersoKits.kitsFile.getConfig().set("kits." + name + ".uses", uses);
 		PersoKits.kitsFile.saveConfig();
 		this.uses = uses;
 	}
@@ -76,7 +76,7 @@ public class PersoKit {
 	}
 	
 	public void setCooldwon(double cooldwon) {
-		PersoKits.kitsFile.getConfig().set(name + ".cooldown", cooldwon);
+		PersoKits.kitsFile.getConfig().set("kits." + name + ".cooldown", cooldwon);
 		PersoKits.kitsFile.saveConfig();
 		this.cooldwon = cooldwon;
 	}
@@ -86,7 +86,7 @@ public class PersoKit {
 	}
 
 	public void setPersokit(boolean isPersokit) {
-		PersoKits.kitsFile.getConfig().set(name + ".persokit", isPersokit);
+		PersoKits.kitsFile.getConfig().set("kits." + name + ".persokit", isPersokit);
 		PersoKits.kitsFile.saveConfig();
 		this.isPersokit = isPersokit;
 	}
@@ -96,7 +96,7 @@ public class PersoKit {
 	}
 	
 	public void setSlots(int slots) {
-		PersoKits.kitsFile.getConfig().set(name + ".slots", slots);
+		PersoKits.kitsFile.getConfig().set("kits." + name + ".slots", slots);
 		PersoKits.kitsFile.saveConfig();
 		this.slots = slots;
 	}
@@ -107,15 +107,15 @@ public class PersoKit {
 
 	public void setOptions(List<ItemStack> options) {
 		this.options = options;
-		Set<String> keys = PersoKits.kitsFile.getConfig().getConfigurationSection(name + ".items").getKeys(false);
+		Set<String> keys = PersoKits.kitsFile.getConfig().getConfigurationSection("kits." + name + ".items").getKeys(false);
 		int i = 1;
 		for (ItemStack item : options) {
 			if (keys.contains(String.valueOf(i))) keys.remove(String.valueOf(i));
-			PersoKits.kitsFile.getConfig().set(name + ".options." + i, item);
+			PersoKits.kitsFile.getConfig().set("kits." + name + ".options." + i, item);
 			i++;
 		}		
 		for (String key : keys) {
-			PersoKits.kitsFile.getConfig().set(name + ".options." + key, null);
+			PersoKits.kitsFile.getConfig().set("kits." + name + ".options." + key, null);
 		}
 		PersoKits.kitsFile.saveConfig();
 	}
@@ -128,29 +128,22 @@ public class PersoKit {
 		this.persokits = persokits;
 	}
 	
-	public void setPersoKitVariant(UUID uuid, List<ItemStack> items) {		
+	public void addPersoKitVariant(UUID uuid, List<ItemStack> items) {		
 		this.persokits.put(uuid, items);
 		List<String> keys = new ArrayList<>();
-		if (PersoKits.pKitsFile.getConfig().getConfigurationSection(name + "." + uuid) != null) {
-			keys = new ArrayList<>(PersoKits.pKitsFile.getConfig().getConfigurationSection(name + "." + uuid).getKeys(false));
+		if (PersoKits.pKitsFile.getConfig().getConfigurationSection("pkits." + name + "." + uuid) != null) {
+			keys = new ArrayList<>(PersoKits.pKitsFile.getConfig().getConfigurationSection("pkits." + name + "." + uuid).getKeys(false));
 		}
 		int i = 1;
 		for (ItemStack item : items) {
 			if (keys.contains(String.valueOf(i))) keys.remove(String.valueOf(i));
-			PersoKits.pKitsFile.getConfig().set(name + "." + uuid + "." + i, item);
+			PersoKits.pKitsFile.getConfig().set("pkits." + name + "." + uuid + "." + i, item);
 			i++;
 		}		
 		for (String key : keys) {
-			PersoKits.pKitsFile.getConfig().set(name + "." + uuid + "." + key, null);
+			PersoKits.pKitsFile.getConfig().set("pkits." + name + "." + uuid + "." + key, null);
 		}
 		PersoKits.pKitsFile.saveConfig();
 		
-	}
-	
-	public void setDefualtPersoKit(UUID uuid) {
-		this.persokits.put(uuid, items);
-		PersoKits.pKitsFile.getConfig().set(name + "." + uuid, "default");
-		PersoKits.pKitsFile.saveConfig();
-	}
-		
+	}	
 }

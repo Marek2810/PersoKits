@@ -10,6 +10,7 @@ import org.bukkit.command.TabExecutor;
 import me.Marek2810.PersoKits.PersoKits;
 import me.Marek2810.PersoKits.Files.CustomConfig;
 import me.Marek2810.PersoKits.Utils.ChatUtils;
+import me.Marek2810.PersoKits.Utils.KitUtils;
 
 public class PersoKitsCommand implements TabExecutor {
 
@@ -24,7 +25,7 @@ public class PersoKitsCommand implements TabExecutor {
 				file.reloadConfig();
 			}
 			PersoKits.kits.clear();
-			PersoKits.loadKits();
+			KitUtils.loadKits();
 			sender.sendMessage(ChatUtils.format("&aPersoKits reloaded!"));
 		}
 			

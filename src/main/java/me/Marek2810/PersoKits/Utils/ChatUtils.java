@@ -8,7 +8,7 @@ public class ChatUtils {
 	public static String format(String s) {
 		return ChatColor.translateAlternateColorCodes('&', s);
 	}
-	
+
 	public static String getMessage(String name) {
 		return PersoKits.messagesFile.getConfig().getString("messages." + name);
 	}
