@@ -48,10 +48,6 @@ Will display menu with specific kit to edit.
 
 **""persokit.kit.*"** - permission to get all kits (players with op will have this permission)
 
-**"persokit.pkit.\<name\>"** - permission to set own variant of kit
-
-**"persokit.pkit.*"** - permission to set own variant of kit for all kits (players with op will have this permission)
-
 **""persokit.editor"** - permission to edit kits (players with op will have this permission)
 
 # TODO:
