@@ -1,10 +1,18 @@
-messages:
-  # If there is an error in the kit item configuration
-  kit-loading-error: "&e[PersoKits] &cError while loading kit &e%name%&c."
-  item-error: "&e[PersoKits] &cError while loading kit &e%name% &cwith item &e%itemKey%&c. Item is not loaded in kit."
-  kit-loaded: "&e[PersoKits] &aKit &e%name% &aloaded successfuly."
-  # Only player can run this command
+#Better to do not tucg
+prefix: "&c[&ePersoKits&c]"
+console-messages:
+  kits-loading: "%prefix% &aLoading kits..."
+  kit-loading: "%prefix% &aLoading kit &e%name%&a..."
+  kit-loading-kit: "%prefix% &aLoading kit &e%name%&a..."
+  kit-loading-items: "%prefix% &aLoading items for kit &e%name%&a..."
+  kit-loading-options: "%prefix% &aLoading options items for kit &e%name%&a..."
+  kit-loading-persokits: "%prefix% &aLoading PersoKits for kit &e%name%&a..."
+  kit-loading-error: "%prefix% &cError while loading kit &e%name%&c."
+  kit-loading-item-error: "%prefix% &cError while loading kit &e%name% &cwith item &e%itemKey%&c. Item is not loaded in kit."
+  kit-loaded: "%prefix% &aKit &e%name% &asuccessfuly loaded."
   only-player-command: "&cThis command can be run only by player."
+
+messages: 
   no-permission: "&cYou have no permissions to do that."
   # Text at the start of kits list (/kit command)
   kits: "&eKits: "

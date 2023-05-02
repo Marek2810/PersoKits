@@ -10,7 +10,20 @@ public class ChatUtils {
 	}
 
 	public static String getMessage(String name) {
-		return PersoKits.messagesFile.getConfig().getString("messages." + name);
+//		return PersoKits.messagesFile.getConfig().getString("messages." + name);
+		String msg = PersoKits.messagesFile.getConfig().getString("messages." + name);
+		msg = msg.replace("%prefix%", getPluginPrefix());
+		return msg;
+	}
+	
+	public static String getConsoleMessage(String name) {
+		String msg = PersoKits.messagesFile.getConfig().getString("console-messages." + name);
+		msg = msg.replace("%prefix%", getPluginPrefix());
+		return msg;
+	}
+	
+	public static String getPluginPrefix() {
+		return PersoKits.messagesFile.getConfig().getString("prefix");
 	}
 	
 	@SuppressWarnings("unused")
