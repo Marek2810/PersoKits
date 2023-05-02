@@ -1,5 +1,7 @@
 package me.Marek2810.PersoKits.Utils;
 
+import org.bukkit.entity.Player;
+
 import me.Marek2810.PersoKits.PersoKits;
 import net.md_5.bungee.api.ChatColor;
 
@@ -7,6 +9,16 @@ public class ChatUtils {
 
 	public static String format(String s) {
 		return ChatColor.translateAlternateColorCodes('&', s);
+	}
+	
+	public static String formatWithPlaceholders(Player p, String s, String kitName) {
+		PersoKit kit = PersoKits.kits.get(kitName);
+		s = s.replace("%name%", kit.getName());
+		s = s.replace("%uses%", String.valueOf(kit.getUses()));
+		s = s.replace("%slots%", String.valueOf(kit.getSlots()));
+		s = s.replace("%cooldown%", String.valueOf(kit.getCooldwon()));
+		s = s.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, kit.getName())));
+		return ChatColor.translateAlternateColorCodes('&', s);		
 	}
 
 	public static String getMessage(String name) {

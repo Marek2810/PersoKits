@@ -55,7 +55,7 @@ public class PKitsMenu extends PersoKitsMenu {
 			}
 			else if (function.equals("editKit")) {
 				String name = item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(PersoKits.getPlugin(), "kitName"), PersistentDataType.STRING);
-				pMenuUtil.setpKit(name);
+				pMenuUtil.setKit(name);
 				new PKitMenu(pMenuUtil).open();
 				return;
 			}

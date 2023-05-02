@@ -25,7 +25,7 @@ public class PKitCommand implements TabExecutor {
 			return true;			
 		}
 		// /kit - show all aviable kits for player
-		Player p = (Player) sender;		
+		Player p = (Player) sender;
 		if (args.length == 0) {		
 			List<String> playerKits = KitUtils.getAviableKitsForPlayer(p);
 			if (playerKits.size() > 0) {
@@ -55,13 +55,13 @@ public class PKitCommand implements TabExecutor {
 		}
 		
 			// no permissions for kit
-		if (!KitUtils.hasPersoPermission(p, kitName)) {
+		if (!KitUtils.hasPermission(p, kitName)) {
 			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-permission")));
 			return true;
 		}
 		
 		PlayerMenuUtility util = PersoKits.getPlayerMenuUtility(p);
-		util.setpKit(kitName);
+		util.setKit(kitName);
 		new PKitMenu(util).open();		
 		return true;
 	}

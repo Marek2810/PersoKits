@@ -38,20 +38,21 @@ public class KitCommand implements TabExecutor {
 				ComponentBuilder builder = new ComponentBuilder();
 				builder.append(new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("kits"))).create());					
 				int i = 1;				
-				for (String name : playerKits) {
+				for (String kitName : playerKits) {
 					ComponentBuilder hoverBuilder = new ComponentBuilder();	
 					String color = "&a";
-					PersoKit kit = PersoKits.kits.get(name);
+					PersoKit kit = PersoKits.kits.get(kitName);
 					if (!KitUtils.haveUses(p, kit)) {
 						color = "&c";
 						hoverBuilder.append(new ComponentBuilder(
 								ChatUtils.format(ChatUtils.getMessage("no-uses")))
 							.create());					
 					}
-					else if (!KitUtils.isAviable(p, name)) {
+					else if (!KitUtils.isAviable(p, kitName)) {
 						color = "&e";
 						String msg = ChatUtils.getMessage("on-cooldown");
-						msg = msg.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, name)));
+//						msg = msg.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, name)));
+						msg = ChatUtils.formatWithPlaceholders(p, msg, kitName);
 						hoverBuilder.append(new ComponentBuilder(
 								ChatUtils.format(msg))
 							.create());
@@ -78,7 +79,7 @@ public class KitCommand implements TabExecutor {
 								.create());
 						}
 					}					
-					BaseComponent[] line = new ComponentBuilder(ChatUtils.format(color + name))
+					BaseComponent[] line = new ComponentBuilder(ChatUtils.format(color + kitName))
 							.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverBuilder.create()))
 							.create();
 					builder.append(line);
@@ -110,7 +111,8 @@ public class KitCommand implements TabExecutor {
 		if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId().toString() + "." + kitName + ".availableAt") != null) {
 			if (!KitUtils.isAviable(p, kitName)) {
 				String msg = ChatUtils.getMessage("on-cooldown");
-				msg = msg.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, kitName)));
+//				msg = msg.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, kitName)));
+				msg = ChatUtils.formatWithPlaceholders(p, msg, kitName);
 				p.sendMessage(ChatUtils.format(msg));
 				return true;
 			}			
@@ -135,7 +137,7 @@ public class KitCommand implements TabExecutor {
 				PlayerMenuUtility util = PersoKits.getPlayerMenuUtility(p);
 				double secs = 1.25;
 				double ticks = secs*20;
-				util.setpKit(kitName);
+				util.setKit(kitName);
 				new BukkitRunnable() {			
 					public void run() {
 						new PKitMenu(util).open();
@@ -181,6 +183,7 @@ public class KitCommand implements TabExecutor {
 		}		
 		String msg = ChatUtils.getMessage("on-kit-receive");
 		msg = msg.replace("%name%", kitName);
+		
 		p.sendMessage(ChatUtils.format(msg));
 		return true;
 	}

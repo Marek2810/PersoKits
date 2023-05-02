@@ -114,7 +114,8 @@ public class KitMenu extends PersoKitsMenu {
 				pMenuUtil.setKitSetting("uses");
 				p.closeInventory();
 				String msg = ChatUtils.getMessage("enter-uses");
-				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
+//				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
+				msg = ChatUtils.formatWithPlaceholders(p, msg, PersoKits.getPlayerMenuUtility(p).getKit());
 				p.sendMessage(ChatUtils.format(msg));
 				return;
 			}
@@ -123,13 +124,15 @@ public class KitMenu extends PersoKitsMenu {
 				if (kit.isPersokit()) {
 					kit.setPersokit(false);						
 					String msg = ChatUtils.getMessage("persokit-disabled");
-					msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
+//					msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
+					msg = ChatUtils.formatWithPlaceholders(p, msg, PersoKits.getPlayerMenuUtility(p).getKit());
 					p.sendMessage(ChatUtils.format(msg));
 				}
 				else {
 					kit.setPersokit(true);
 					String msg = ChatUtils.getMessage("persokit-enabled");
-					msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
+//					msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
+					msg = ChatUtils.formatWithPlaceholders(p, msg, PersoKits.getPlayerMenuUtility(p).getKit());
 					p.sendMessage(ChatUtils.format(msg));
 				}
 				inv.clear();
@@ -149,7 +152,8 @@ public class KitMenu extends PersoKitsMenu {
 				PersoKits.kits.get(pMenuUtil.getKit()).setItems(items);
 				p.closeInventory();
 				String msg = ChatUtils.getMessage("saved-kit");
-				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
+//				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
+				msg = ChatUtils.formatWithPlaceholders(p, msg, PersoKits.getPlayerMenuUtility(p).getKit());
 				p.sendMessage(ChatUtils.format(msg));
 				return;
 			}						

@@ -30,7 +30,7 @@ public class PKitMenu extends PaginatedMenu {
 	
 	public PKitMenu(PlayerMenuUtility util) {
 		super(util);
-		PersoKit pkit = PersoKits.kits.get(util.getpKit());
+		PersoKit pkit = PersoKits.kits.get(util.getKit());
 		if (pkit.getPersokits().get(util.getOwner().getUniqueId()) != null) {
 			varaintItems = pkit.getPersokits().get(util.getOwner().getUniqueId());
 		}
@@ -56,7 +56,7 @@ public class PKitMenu extends PaginatedMenu {
 	public void setMenuItems() {
 		inv.setItem(0, backMenu);
 		
-		String name = pMenuUtil.getpKit();
+		String name = pMenuUtil.getKit();
 		PersoKit kit = PersoKits.kits.get(name);		
 		inv.setItem(4, MenuUtils.getMenuItem(name));
 	
@@ -113,16 +113,16 @@ public class PKitMenu extends PaginatedMenu {
 		if (item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(PersoKits.getPlugin(), "function"), PersistentDataType.STRING) != null) {
 			String function = item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(PersoKits.getPlugin(), "function"), PersistentDataType.STRING);
 			if (function.equals("savePersoKit")) {
-				PersoKit kit = PersoKits.kits.get(pMenuUtil.getpKit());
+				PersoKit kit = PersoKits.kits.get(pMenuUtil.getKit());
 				kit.addPersoKitVariant(p.getUniqueId(), varaintItems);
 				p.closeInventory();
 				String msg = ChatUtils.getMessage("saved-pkit");
-				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getpKit());
+				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
 				p.sendMessage(ChatUtils.format(msg));
 				return;
 			}
 			else if (function.equals("addItem")) {
-				if (PersoKits.kits.get(pMenuUtil.getpKit()).getSlots() <= varaintItems.size()) {
+				if (PersoKits.kits.get(pMenuUtil.getKit()).getSlots() <= varaintItems.size()) {
 					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-slot")));
 					return;
 				}	
