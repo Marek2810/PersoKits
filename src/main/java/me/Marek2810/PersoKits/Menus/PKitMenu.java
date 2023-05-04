@@ -10,10 +10,12 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Marek2810.PersoKits.PersoKits;
 import me.Marek2810.PersoKits.Utils.ChatUtils;
 import me.Marek2810.PersoKits.Utils.ItemBuilder;
+import me.Marek2810.PersoKits.Utils.KitUtils;
 import me.Marek2810.PersoKits.Utils.MenuUtils;
 import me.Marek2810.PersoKits.Utils.PaginatedMenu;
 import me.Marek2810.PersoKits.Utils.PersoKit;
@@ -117,8 +119,21 @@ public class PKitMenu extends PaginatedMenu {
 				kit.addPersoKitVariant(p.getUniqueId(), varaintItems);
 				p.closeInventory();
 				String msg = ChatUtils.getMessage("saved-pkit");
-				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
-				p.sendMessage(ChatUtils.format(msg));
+				msg = ChatUtils.formatWithPlaceholders(p, msg, kit.getName());
+				if(!kit.equals(PersoKits.firstJoinKit)) {
+					p.sendMessage(ChatUtils.format(msg));
+				}
+				else {
+					if (KitUtils.getFirstKitClaimbed(p)) {
+						p.sendMessage(ChatUtils.format(msg));
+					}
+				}
+				new BukkitRunnable() {			
+					public void run() {
+						p.performCommand("kit " + kit.getName());
+						cancel();
+					}
+				}.runTaskLater(PersoKits.getPlugin(), (int) 2);					
 				return;
 			}
 			else if (function.equals("addItem")) {

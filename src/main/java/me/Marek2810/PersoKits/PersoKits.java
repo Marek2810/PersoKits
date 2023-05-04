@@ -7,6 +7,7 @@ import java.util.List;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 import me.Marek2810.PersoKits.Commands.KitCommand;
 import me.Marek2810.PersoKits.Commands.KitEditorCommand;
@@ -30,7 +31,11 @@ public class PersoKits extends JavaPlugin {
 	public static CustomConfig dataFile;
 	public static CustomConfig messagesFile;
 	
+	public static boolean firstJoinKitStatus;
+	public static PersoKit firstJoinKit;
+	
 	public static final HashMap<String, PersoKit> kits = new HashMap<>();	
+	public static final HashMap<Player, BukkitTask> fistKitTasks = new HashMap<>();
     private static final HashMap<Player, PlayerMenuUtility> playerMenuUtilityMap = new HashMap<>();
    
     public static final List<CustomConfig> customConfigs = new ArrayList<>();
@@ -41,6 +46,7 @@ public class PersoKits extends JavaPlugin {
 		inst = this;		
 		console = getServer().getConsoleSender();
 		
+		saveDefaultConfig();
 		kitsFile = new CustomConfig(this, "kits.yml");
 		customConfigs.add(kitsFile);
 		dataFile = new CustomConfig(this, "data.yml");
@@ -50,6 +56,7 @@ public class PersoKits extends JavaPlugin {
 		pKitsFile = new CustomConfig(this, "persokits.yml");
 		customConfigs.add(pKitsFile);
 		KitUtils.loadKits();
+		KitUtils.loadFirstJoinKit();	
 	
 		this.getCommand("kit").setExecutor(new KitCommand());
 		this.getCommand("kiteditor").setExecutor(new KitEditorCommand());

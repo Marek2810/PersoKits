@@ -193,4 +193,52 @@ public class KitUtils {
 		return persokits;
 	}
 	
+	public static void loadFirstJoinKit() {
+		setFirstJoinKitStatus();
+		if (!getFirstJoinKitStatus()) {
+			PersoKits.firstJoinKit = null;
+			return;			
+		}
+		PersoKits.firstJoinKit = PersoKits.kits.get(PersoKits.kitsFile.getConfig().getString("first-join-kit"));
+		String msg = ChatUtils.getConsoleMessage("first-join-kit-set");
+//		PersoKits.console.sendMessage("Kit " +PersoKits.firstJoinKit.getName() + " set as first join kit.");
+		msg = msg.replace("%name%", PersoKits.firstJoinKit.getName());
+		PersoKits.console.sendMessage(ChatUtils.format(msg));		
+	}
+	
+	
+	public static void setFirstJoinKitStatus() {
+		if (PersoKits.kitsFile.getConfig().getString("first-join-kit") != null) {
+			if (PersoKits.kits.containsKey(PersoKits.kitsFile.getConfig().getString("first-join-kit"))) {
+				PersoKits.firstJoinKitStatus = true;
+//				PersoKits.console.sendMessage("First join kit ennabled.");
+				PersoKits.console.sendMessage(ChatUtils.format(ChatUtils.getConsoleMessage("first-join-kit-enabled")));
+				return;
+			}
+		}
+		PersoKits.firstJoinKitStatus = false;
+//		PersoKits.console.sendMessage("First join kit disabled.");
+		PersoKits.console.sendMessage(ChatUtils.format(ChatUtils.getConsoleMessage("first-join-kit-disabled")));
+	}
+	
+	public static PersoKit getFirstJoinKit() {
+		return PersoKits.firstJoinKit;
+	}
+	
+	public static boolean getFirstJoinKitStatus() {
+		return PersoKits.firstJoinKitStatus;
+	}
+	
+	public static boolean getFirstKitClaimbed(Player p) {
+		return PersoKits.dataFile.getConfig().getBoolean("players." + p.getUniqueId() + ".first-kit-claimbed");
+	}
+	
+	public static void setFirstKitClaimbed(Player p) {
+		PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + ".first-kit-claimbed", true);
+		PersoKits.dataFile.saveConfig();
+		if (PersoKits.fistKitTasks.get(p) != null) {
+			PersoKits.fistKitTasks.get(p).cancel();
+			PersoKits.fistKitTasks.remove(p);
+		}		
+	}
 }

@@ -1,6 +1,10 @@
 # Player need "persokits.kit.<kitName>" (permission for kit) to get a kit.
 # Players with "persokits.kit.*" permission can get every kit.
 
+# Enter the name of kit that players will receive when they join for first time
+# Leave empty or type disabled to disable this option
+first-join-kit: newbie
+
 kits:
   # Name of kit
   newbie:
