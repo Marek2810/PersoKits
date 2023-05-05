@@ -21,10 +21,9 @@ permissions:
   persokits.kit.*:
     description: Allows to get all kits
     default: op
-  persokits.pkit.*:
-    description: Allows to set PersoKit for all kits
-    default: op
   persokits.editor:
     description: Allows edit kits
     default: op
-
+  persokits.admin:
+    description: Allows reload plugin
+    default: op
