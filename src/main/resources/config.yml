@@ -3,7 +3,7 @@
 #If it IS a Persokit (player variant kit), player will not recieve kit, and rather get a reminder to create their kit.
 
 #Whether player should recieve message about kit on first join.
-first-join-kit-msg-enabled: ture
+first-join-kit-msg-enabled: true
 #Whether we should remind players with unclaimed first join kit.
 #Delay is seconds after join, Repeat-after decides how often it''ll be repeated.
 first-join-kit-reminder:
