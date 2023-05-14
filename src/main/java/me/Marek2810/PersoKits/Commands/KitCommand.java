@@ -51,7 +51,6 @@ public class KitCommand implements TabExecutor {
 					else if (!KitUtils.isAviable(p, kitName)) {
 						color = "&e";
 						String msg = ChatUtils.getMessage("on-cooldown");
-//						msg = msg.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, name)));
 						msg = ChatUtils.formatWithPlaceholders(p, msg, kitName);
 						hoverBuilder.append(new ComponentBuilder(
 								ChatUtils.format(msg))
@@ -107,24 +106,23 @@ public class KitCommand implements TabExecutor {
 			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-permission")));
 			return true;
 		}		
+		
+		PersoKit kit = PersoKits.kits.get(kitName);
+		
 			// kit is on cooldown
 		if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId().toString() + "." + kitName + ".availableAt") != null) {
 			if (!KitUtils.isAviable(p, kitName)) {
 				String msg = ChatUtils.getMessage("on-cooldown");
-//				msg = msg.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, kitName)));
 				msg = ChatUtils.formatWithPlaceholders(p, msg, kitName);
 				p.sendMessage(ChatUtils.format(msg));
 				return true;
-			}			
-		}
+			}	
+		}		
 		
-		PersoKit kit = PersoKits.kits.get(kitName);		
-			//check for uses
-		if (kit.getUses() >= 0) {
-			if (!KitUtils.haveUses(p, kit)) {
-				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-uses")));
-				return true;
-			}
+			//check for uses		
+		if (!KitUtils.haveUses(p, kit)) {
+			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-uses")));
+			return true;
 		}
 	
 		List<ItemStack> items = new ArrayList<>();		

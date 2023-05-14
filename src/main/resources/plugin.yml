@@ -27,3 +27,9 @@ permissions:
   persokits.admin:
     description: Allows reload plugin
     default: op
+  persokits.bypass.cooldown:
+    description: Bypass kit cooldown
+    default: op
+  persokits.bypass.uses:
+    description: Bypass kit uses
+    default: op

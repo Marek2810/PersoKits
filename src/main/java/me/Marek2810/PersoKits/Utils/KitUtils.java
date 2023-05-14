@@ -20,8 +20,15 @@ public class KitUtils {
 		if (p.hasPermission("persokits.kit." + name)) return true;
 		return false;
 	}
-
+	
+	public static boolean hasBypassPermission(Player p, String name) {
+		if (p.hasPermission("persokits.bypass.*")) return true;
+		if (p.hasPermission("persokits.bypass." + name)) return true;
+		return false;
+	}
+	
 	public static boolean isAviable(Player p, String kitName) {
+		if (hasBypassPermission(p, "cooldown")) return true;
 		long availableAt = PersoKits.dataFile.getConfig().getLong("players." + p.getUniqueId() + "." + kitName + ".availableAt");
 		if (availableAt < System.currentTimeMillis()) {
 			return true;
@@ -38,6 +45,7 @@ public class KitUtils {
 		int playerUses = 0;
 		String kitName = kit.getName();
 		if (kit.getUses() < 0 ) return true;
+		if (hasBypassPermission(p, "uses")) return true;
 		if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId() + "." + kitName + ".uses") != null) {
 			playerUses = PersoKits.dataFile.getConfig().getInt("players." + p.getUniqueId() + "." + kitName + ".uses");
 		}
@@ -68,14 +76,12 @@ public class KitUtils {
 				try {
 					kit = loadKit(kitName);
 				} catch (Exception e) {
-//					PersoKits.console.sendMessage(ChatUtils.format(" &cError while loading kit &e%name%&c."));
 					String errorMsg = ChatUtils.getConsoleMessage("kit-loading-error");
 					errorMsg = errorMsg.replace("%name%", kitName);
 					PersoKits.console.sendMessage(ChatUtils.format(errorMsg));
 
 				}
 				PersoKits.kits.put(kitName, kit);
-//				PersoKits.console.sendMessage(ChatUtils.format(" &aKit &e%name% &aloaded successfuly."));
 				String loadedMsg = ChatUtils.getConsoleMessage("kit-loaded");
 				loadedMsg = loadedMsg.replace("%name%", kitName);
 				PersoKits.console.sendMessage(ChatUtils.format(loadedMsg));
@@ -84,7 +90,6 @@ public class KitUtils {
 	}
 	
 	public static PersoKit loadKit(String name) {
-//		PersoKits.console.sendMessage(ChatUtils.format("&aLoading kit &e" + name + "&a..."));
 		String msg = ChatUtils.getConsoleMessage("kit-loading");
 		msg = msg.replace("%name%", name);
 		PersoKits.console.sendMessage(ChatUtils.format(msg));
@@ -111,7 +116,6 @@ public class KitUtils {
 	}
 
 	private static List<ItemStack> loadKitItems(String name) {
-//		PersoKits.console.sendMessage(ChatUtils.format("&aLoading items for kit &e" + name + "&a..."));
 		String loadingMsg = ChatUtils.getConsoleMessage("kit-loading-items");
 		loadingMsg = loadingMsg.replace("%name%", name);
 		PersoKits.console.sendMessage(ChatUtils.format(loadingMsg));
@@ -140,7 +144,6 @@ public class KitUtils {
 	}
 	
 	private static List<ItemStack> loadOptionItems(String name) {
-//		PersoKits.console.sendMessage(ChatUtils.format("&aLoading options items for kit &e" + name + "&a..."));
 		String loadingMsg = ChatUtils.getConsoleMessage("kit-loading-options");
 		loadingMsg = loadingMsg.replace("%name%", name);
 		PersoKits.console.sendMessage(ChatUtils.format(loadingMsg));
@@ -171,7 +174,6 @@ public class KitUtils {
 	public static HashMap<UUID, List<ItemStack>> loadPersoKits(String name) {
 		HashMap<UUID, List<ItemStack>> persokits = new HashMap<>();
 		if (PersoKits.kitsFile.getConfig().getBoolean("kits." + name + ".persokit")) {
-//			PersoKits.console.sendMessage(ChatUtils.format("&aLoading PersoKits for kit &e" + name + "&a..."));
 			String loadingMsg = ChatUtils.getConsoleMessage("kit-loading-persokits");
 			loadingMsg = loadingMsg.replace("%name%", name);
 			PersoKits.console.sendMessage(ChatUtils.format(loadingMsg));
@@ -201,7 +203,6 @@ public class KitUtils {
 		}
 		PersoKits.firstJoinKit = PersoKits.kits.get(PersoKits.kitsFile.getConfig().getString("first-join-kit"));
 		String msg = ChatUtils.getConsoleMessage("first-join-kit-set");
-//		PersoKits.console.sendMessage("Kit " +PersoKits.firstJoinKit.getName() + " set as first join kit.");
 		msg = msg.replace("%name%", PersoKits.firstJoinKit.getName());
 		PersoKits.console.sendMessage(ChatUtils.format(msg));		
 	}
@@ -211,13 +212,11 @@ public class KitUtils {
 		if (PersoKits.kitsFile.getConfig().getString("first-join-kit") != null) {
 			if (PersoKits.kits.containsKey(PersoKits.kitsFile.getConfig().getString("first-join-kit"))) {
 				PersoKits.firstJoinKitStatus = true;
-//				PersoKits.console.sendMessage("First join kit ennabled.");
 				PersoKits.console.sendMessage(ChatUtils.format(ChatUtils.getConsoleMessage("first-join-kit-enabled")));
 				return;
 			}
 		}
 		PersoKits.firstJoinKitStatus = false;
-//		PersoKits.console.sendMessage("First join kit disabled.");
 		PersoKits.console.sendMessage(ChatUtils.format(ChatUtils.getConsoleMessage("first-join-kit-disabled")));
 	}
 	
