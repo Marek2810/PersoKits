@@ -44,22 +44,21 @@ Will display menu with specific kit to edit.
 
 
 # Permissions:
-**""persokit.kit.\<name\>"** - permission to get kit 
+**persokit.kit.\<name\>** - permission to get kit 
 
-**""persokit.kit.*"** - permission to get all kits (players with op will have this permission)
+**persokit.kit.*** - permission to get all kits (players with op will have this permission)
+ 
+**persokits.bypass.cooldown** - bypass permission for cooldown set on kit (op has this permission)
+ 
+**persokits.bypass.uses** - bypass permission for uses set on kit (op has this permission)
 
-**""persokit.editor"** - permission to edit kits (players with op will have this permission)
+**persokit.editor** - permission to edit kits (players with op will have this permission)
 
 # TODO:
-- Add kit add/remove, rename future in kiteditor
+- Add kit add/remove, rename future in kiteditor  
  
-- Add bypass permission for CDs and usses (and slot amount for PersoKit?)  
-  
-- Make option to remove/add or rename kit in KitsEditor.
-
-- Format of saved items in kit.yml (long term probably)
-  
 - Make hologram selection for PersoKit.
 
-
+- Format of saved items in kit.yml (long term probably)
+ 
 - Add MySQL support.
