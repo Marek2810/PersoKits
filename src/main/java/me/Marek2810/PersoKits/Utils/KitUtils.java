@@ -239,5 +239,5 @@ public class KitUtils {
 			PersoKits.fistKitTasks.get(p).cancel();
 			PersoKits.fistKitTasks.remove(p);
 		}		
-	}
+	}	
 }

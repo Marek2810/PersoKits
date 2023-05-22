@@ -9,8 +9,8 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
 import me.Marek2810.PersoKits.PersoKits;
-import me.Marek2810.PersoKits.Menus.KitMenu;
-import me.Marek2810.PersoKits.Menus.KitsMenu;
+import me.Marek2810.PersoKits.Menus.KitEditMenu;
+import me.Marek2810.PersoKits.Menus.KitsEditorMenu;
 import me.Marek2810.PersoKits.Utils.ChatUtils;
 import me.Marek2810.PersoKits.Utils.PlayerMenuUtility;
 
@@ -29,7 +29,7 @@ public class KitEditorCommand implements TabExecutor {
 		}
 		PlayerMenuUtility util = PersoKits.getPlayerMenuUtility(p);
 		if (args.length == 0) {
-			new KitsMenu(util).open();
+			new KitsEditorMenu(util).open();
 			return true;
 		}
 		String kitName = args[0];
@@ -38,7 +38,7 @@ public class KitEditorCommand implements TabExecutor {
 			return true;
 		}
 		util.setKit(kitName);
-		new KitMenu(util).open();
+		new KitEditMenu(util).open();
 		return true;
 	}
 	

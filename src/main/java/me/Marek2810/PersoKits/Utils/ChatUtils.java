@@ -20,6 +20,15 @@ public class ChatUtils {
 		s = s.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, kit.getName())));
 		return ChatColor.translateAlternateColorCodes('&', s);		
 	}
+	
+	public static String formatWithPlaceholders(Player p, String s, PersoKit kit) {
+		s = s.replace("%name%", kit.getName());
+		s = s.replace("%uses%", String.valueOf(kit.getUses()));
+		s = s.replace("%slots%", String.valueOf(kit.getSlots()));
+		s = s.replace("%cooldown%", String.valueOf(kit.getCooldwon()));
+		s = s.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, kit.getName())));
+		return ChatColor.translateAlternateColorCodes('&', s);		
+	}
 
 	public static String getMessage(String name) {
 //		return PersoKits.messagesFile.getConfig().getString("messages." + name);

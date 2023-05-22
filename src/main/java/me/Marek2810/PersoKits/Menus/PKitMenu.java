@@ -26,7 +26,6 @@ public class PKitMenu extends PaginatedMenu {
 	private List<ItemStack> varaintItems = new ArrayList<>();
 	private List<ItemStack> varOptionItems = new ArrayList<>();
 	private ItemStack green = new ItemBuilder(Material.GREEN_STAINED_GLASS_PANE)
-//			.name("&aFree slot for item")
 			.name(MenuUtils.getText("pkitmenu", "free-slot-item-name"))
 			.make();
 	
@@ -170,7 +169,6 @@ public class PKitMenu extends PaginatedMenu {
 			}	
 			else if (function.equals("nextPage")) {	
 				if ((index+1) >= varOptionItems.size()) {
-//					p.sendMessage(ChatUtils.format("&cYou are on last page."));
 					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("already-last-page")));
 					return;
 				}
@@ -181,7 +179,6 @@ public class PKitMenu extends PaginatedMenu {
 			}
 			else if (function.equals("previousPage")) {
 				if (page == 0) {
-//					p.sendMessage(ChatUtils.format("&cYou are already on first page."));
 					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("already-first-page")));
 					return;
 				}

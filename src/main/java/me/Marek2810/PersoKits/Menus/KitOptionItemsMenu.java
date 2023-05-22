@@ -18,9 +18,9 @@ import me.Marek2810.PersoKits.Utils.PersoKit;
 import me.Marek2810.PersoKits.Utils.PersoKitsMenu;
 import me.Marek2810.PersoKits.Utils.PlayerMenuUtility;
 
-public class OptionsMenu extends PersoKitsMenu {
+public class KitOptionItemsMenu extends PersoKitsMenu {
 	
-	public OptionsMenu(PlayerMenuUtility util) {
+	public KitOptionItemsMenu(PlayerMenuUtility util) {
 		super(util);
 	}
 	
@@ -109,7 +109,7 @@ public class OptionsMenu extends PersoKitsMenu {
 				return;
 			}
 			else if (function.equals("backMenu")) {
-				new KitMenu(pMenuUtil).open();
+				new KitEditMenu(pMenuUtil).open();
 				return;
 			}			
 		}

@@ -75,6 +75,13 @@ messages:
   first-join-kit-reminder-hover: "Click to make yours!"
   # When player claim first join kit
   on-first-kit-receive: "&aYou received first join kit."
+  # When kit gets removed
+  kit-removed: "&cKit &e%name%&c removed."
+  # When click to add kit in menu
+  adding-kit: "&eName for new kit?"
+  # When player add kit
+  kit-added: "&aKit &e%name%&a added."
+  opening-settings: "&eOpening menu with settings to set new kit."
  
  # Items name for each option item in menu 
 guis:
@@ -116,3 +123,8 @@ guis:
     title: "&0PersoKit editor"
     free-slot-item-name: "&aFree item slot"
     save-kit-item-name: "&aSave PersoKit"
+  KitDeleteConfirmMenu:
+    title: "&0Delete kit?"
+    yes-item-name: "&aYes"
+    no-item-name: "&cNo"
+      

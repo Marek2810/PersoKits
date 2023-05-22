@@ -18,9 +18,9 @@ import me.Marek2810.PersoKits.Utils.PersoKit;
 import me.Marek2810.PersoKits.Utils.PersoKitsMenu;
 import me.Marek2810.PersoKits.Utils.PlayerMenuUtility;
 
-public class KitMenu extends PersoKitsMenu {
+public class KitEditMenu extends PersoKitsMenu {
 	
-	public KitMenu(PlayerMenuUtility util) {
+	public KitEditMenu(PlayerMenuUtility util) {
 		super(util);
 	}
 	
@@ -140,7 +140,7 @@ public class KitMenu extends PersoKitsMenu {
 				return;
 			}	
 			else if (function.equals("setPersoKitItems")) {
-				new OptionsMenu(pMenuUtil).open();
+				new KitOptionItemsMenu(pMenuUtil).open();
 				return;
 			}
 			else if (function.equals("saveKit")) {
@@ -162,7 +162,7 @@ public class KitMenu extends PersoKitsMenu {
 				return;
 			}
 			else if (function.equals("backMenu")) {
-				new KitsMenu(pMenuUtil).open();
+				new KitsEditorMenu(pMenuUtil).open();
 				return;
 			}
 			

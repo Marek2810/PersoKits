@@ -4,36 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import me.Marek2810.PersoKits.PersoKits;
 import me.Marek2810.PersoKits.Utils.ChatUtils;
-import me.Marek2810.PersoKits.Utils.KitUtils;
+import me.Marek2810.PersoKits.Utils.ItemBuilder;
 import me.Marek2810.PersoKits.Utils.MenuUtils;
 import me.Marek2810.PersoKits.Utils.PaginatedMenu;
 import me.Marek2810.PersoKits.Utils.PlayerMenuUtility;
 
-public class PKitsMenu extends PaginatedMenu {
+public class KitsEditorMenu extends PaginatedMenu {
 	
 	private Set<String> kitsSet = PersoKits.kits.keySet();
-	private List<String> kits = new ArrayList<>();
-	
-	public PKitsMenu(PlayerMenuUtility util) {
+
+	public KitsEditorMenu(PlayerMenuUtility util) {
 		super(util);
-		for (String name : kitsSet) {
-			if (!PersoKits.kits.get(name).isPersokit()) continue;
-			if (!KitUtils.hasPermission(owner, name)) continue;
-			kits.add(name);
-		}
 	}
 	
 	@Override
 	public String getTitle() {
-		return MenuUtils.getText("pkitsmenu", "title");
+		return MenuUtils.getText("kitsmenu", "title");
 	}
 
 	@Override
@@ -46,12 +43,28 @@ public class PKitsMenu extends PaginatedMenu {
 		int slots = getRows()*9;
 		maxItemsPerPage = slots-19;
 		
+		List<String> kits = new ArrayList<>(kitsSet);
 		for (int i = 0; i < getMaxItemsPerPage(); i++) {
 			index = getMaxItemsPerPage() * page + i;
 			if (index >= kits.size()) break;
 			ItemStack item = MenuUtils.getMenuItem(kits.get(index));
+			ItemMeta meta = item.getItemMeta();
+			List<String> lore = meta.getLore();
+			lore.add("");
+			lore.add(ChatUtils.format("&7[Shift-Right click] &8delete kit"));
+			meta.setLore(lore);
+			item.setItemMeta(meta);
 			inv.addItem(item);
-		}		
+		}
+		
+		if (inv.firstEmpty() > -1) {
+			ItemStack kitAddItem = new ItemBuilder(Material.GREEN_CONCRETE)
+					.name("&aAdd kit")
+					.function("addKit")
+					.make();
+			inv.addItem(kitAddItem);
+		}
+		
 	}
 
 	@Override
@@ -68,11 +81,26 @@ public class PKitsMenu extends PaginatedMenu {
 			else if (function.equals("editKit")) {
 				String name = item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(PersoKits.getPlugin(), "kitName"), PersistentDataType.STRING);
 				pMenuUtil.setKit(name);
-				new PKitMenu(pMenuUtil).open();
+				ClickType click = e.getClick();
+				if (click.equals(ClickType.SHIFT_RIGHT)) {
+					new KitDeleteConfirmMenu(pMenuUtil).open();
+					return;
+				}
+				else {					
+					new KitEditMenu(pMenuUtil).open();
+					return;
+				}				
+			}
+			else if (function.equals("addKit")) {
+				pMenuUtil.setEditingKit(true);
+				pMenuUtil.setKitSetting("addKit");
+				p.closeInventory();
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("adding-kit")));
+//				p.sendMessage("kit name?");
 				return;
 			}
 			else if (function.equals("nextPage")) {	
-				if ((index+1) >= kits.size()) {
+				if ((index+1) >= kitsSet.size()) {
 					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("already-last-page")));
 					return;
 				}

@@ -1,6 +1,7 @@
 package me.Marek2810.PersoKits.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -48,7 +49,10 @@ public class PersoKit {
 	
 	public void setItems(List<ItemStack> items) {		
 		this.items = items;
-		Set<String> keys = PersoKits.kitsFile.getConfig().getConfigurationSection("kits." + name + ".items").getKeys(false);
+		Set<String> keys = Collections.emptySet();
+		if (PersoKits.kitsFile.getConfig().getConfigurationSection("kits." + name + ".items") != null) {
+			keys = PersoKits.kitsFile.getConfig().getConfigurationSection("kits." + name + ".items").getKeys(false);
+		}
 		int i = 1;
 		for (ItemStack item : items) {
 			if (keys.contains(String.valueOf(i))) keys.remove(String.valueOf(i));
@@ -146,4 +150,19 @@ public class PersoKit {
 		PersoKits.pKitsFile.saveConfig();
 		
 	}	
+	
+	public PersoKit create() {
+		setPersokit(false);
+		setSlots(0);
+		setCooldwon(cooldwon);
+		setUses(uses);
+		setItems(items);
+		return this;
+	}
+	
+	public void remove() {
+		PersoKits.kitsFile.getConfig().set("kits." + name, null);
+		PersoKits.kitsFile.saveConfig();
+		PersoKits.kits.remove(name);
+	}
 }

@@ -9,8 +9,6 @@ public abstract class PaginatedMenu extends PersoKitsMenu {
 	protected int maxItemsPerPage;
 	protected int index = 0;
 	
-//	protected ItemStack nextPage = new ItemBuilder(Material.ARROW).name("&9Next page").function("nextPage").make();
-//	protected ItemStack previousPage = new ItemBuilder(Material.ARROW).name("&9Previous page").function("previousPage").make();
 	protected ItemStack nextPage = new ItemBuilder(Material.ARROW).name(MenuUtils.getText("globalitems", "next-page-item-name")).function("nextPage").make();
 	protected ItemStack previousPage = new ItemBuilder(Material.ARROW).name(MenuUtils.getText("globalitems", "previous-page-item-name")).function("previousPage").make();
 	
