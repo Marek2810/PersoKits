@@ -55,7 +55,7 @@ Will display menu with specific kit to edit.
 **persokit.editor** - permission to edit kits (players with op will have this permission)
 
 # TODO:
-- Add kit add/remove, rename future in kiteditor  
+- Edit PersoKit command
  
 - Make hologram selection for PersoKit.
 
