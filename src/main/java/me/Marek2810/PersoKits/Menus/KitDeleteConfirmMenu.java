@@ -33,6 +33,7 @@ public class KitDeleteConfirmMenu extends PersoKitsMenu {
 
 	@Override
 	public void setMenuItems() {
+		inv.setItem(0, backMenuItem);
 		inv.setItem(4, MenuUtils.getMenuItem(pMenuUtil.getKit()));
 		
 		ItemStack yesItem = new ItemBuilder(Material.GREEN_CONCRETE)
@@ -61,14 +62,20 @@ public class KitDeleteConfirmMenu extends PersoKitsMenu {
 				p.closeInventory();
 				String msg = ChatUtils.getMessage("kit-removed");
 				p.sendMessage(ChatUtils.formatWithPlaceholders(p, msg, kit));
-//				p.sendMessage(ChatUtils.format("Kit removed."));
 				return;
 			}
 			else if (function.equalsIgnoreCase("no")) {
 				p.closeInventory();
 				return;
 			}
- 			
+			else if (function.equals("editKit")) {					
+				new KitEditMenu(pMenuUtil).open();
+				return;								
+			}
+			else if (function.equals("backMenu")) {
+				new KitsEditorMenu(pMenuUtil).open();
+				return;
+			} 			
 		}
 	}
 

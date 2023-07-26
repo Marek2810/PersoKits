@@ -65,7 +65,7 @@ public class PersoKits extends JavaPlugin {
 		
 		this.getServer().getPluginManager().registerEvents(new MenuListener(),this);
 		this.getServer().getPluginManager().registerEvents(new KitChatListener(),this);
-		this.getServer().getPluginManager().registerEvents(new PlayerListener(),this);
+		this.getServer().getPluginManager().registerEvents(new PlayerListener(),this);		
 	}
 	
 	@Override

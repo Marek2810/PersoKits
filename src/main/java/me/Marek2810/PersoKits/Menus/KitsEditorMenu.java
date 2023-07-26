@@ -51,7 +51,7 @@ public class KitsEditorMenu extends PaginatedMenu {
 			ItemMeta meta = item.getItemMeta();
 			List<String> lore = meta.getLore();
 			lore.add("");
-			lore.add(ChatUtils.format("&7[Shift-Right click] &8delete kit"));
+			lore.add(ChatUtils.format(MenuUtils.getText("kitsmenu", "remove-lore-text")));
 			meta.setLore(lore);
 			item.setItemMeta(meta);
 			inv.addItem(item);

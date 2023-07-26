@@ -36,7 +36,7 @@ public class KitOptionItemsMenu extends PersoKitsMenu {
 
 	@Override
 	public void setMenuItems() {
-		inv.setItem(0, backMenu);
+		inv.setItem(0, backMenuItem);
 		
 		String name = pMenuUtil.getKit();
 		PersoKit kit = PersoKits.kits.get(name);
