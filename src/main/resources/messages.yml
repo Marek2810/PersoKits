@@ -14,8 +14,28 @@ console-messages:
   first-join-kit-enabled: "%prefix% &eFirst join kit &aennabled."
   first-join-kit-disabled: "%prefix% &eFirst join kit &cdisabled."  
   first-join-kit-set: "%prefix% &aKit &e%name% &aset as first join kit."
-
+  
+# These messages will show when someone type "/peroskit help" in chat
+help-messages:
+  command-color: "&c"
+  # Help for /kit command (whitout name argument)
+  kit: "&7list all available kits for the player. Kits marked according to whether they are available."
+  # Help for /kit <name> command
+  kit-name: "&7player receives the kit"
+  # Help for /pkit command (whitout name argument)
+  pkit: "&7a menu of all player-settable PersoKits"
+  # Help for /pkit <name> command
+  pkit-name: "&7editor where the player sets his own kit variant from available items"
+  # Help message for /kiteditor (whitout name argument)
+  kiteditor: "&7possibility to edit all kits (default variant, attributes, items for player variants) via editor"
+  # Help message for /kiteditor <name>
+  kiteditor-name: "&7will open kit editor for chosen kit"
+  
 messages: 
+  # Unknown command messages
+  unknown-command: "&cUnknown command."
+  unknown-command1: "&7Use &e/persokits help &7to display all commands."
+  # No permission message
   no-permission: "&cYou have no permissions to do that."
   # Text at the start of kits list (/kit command)
   kits: "&eKits: "
@@ -81,6 +101,7 @@ messages:
   adding-kit: "&eName for new kit?"
   # When player add kit
   kit-added: "&aKit &e%name%&a added."
+  # After player chose name for new kit
   opening-settings: "&eOpening menu with settings to set new kit."
  
  # Items name for each option item in menu 
@@ -101,7 +122,8 @@ guis:
     seconds: "second(s)"   
   # List of kits for KitEditor (/kiteditor)
   kitsmenu:
-    title: "&0Kits editor"    
+    title: "&0Kits editor"
+    remove-lore-text: 
   # Kit editor menu (/kiteditor <kit>)
   kitmenu:
     title: "&0Kit editor"

@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
+import org.bukkit.entity.Player;
 
 import me.Marek2810.PersoKits.PersoKits;
 import me.Marek2810.PersoKits.Files.CustomConfig;
@@ -20,28 +21,55 @@ public class PersoKitsCommand implements TabExecutor {
 			sender.sendMessage(ChatUtils.format("&a" + PersoKits.getPlugin().getName() + " &eby &aMarek2810"));
 			return true;
 		}
-		if (args[0].equalsIgnoreCase("reload")) {
-			for (CustomConfig file : PersoKits.customConfigs) {
-				file.reloadConfig();
+		else if (args.length == 1) {
+			if (args[0].equalsIgnoreCase("rl") || args[0].equalsIgnoreCase("reload")) {
+				for (CustomConfig file : PersoKits.customConfigs) {
+					file.reloadConfig();
+				}
+				PersoKits.kits.clear();
+				PersoKits.inst.reloadConfig();
+				KitUtils.loadKits();
+				sender.sendMessage(ChatUtils.format("&aPersoKits reloaded!"));
+				return true;
 			}
-			PersoKits.kits.clear();
-			PersoKits.inst.reloadConfig();
-			KitUtils.loadKits();
-			sender.sendMessage(ChatUtils.format("&aPersoKits reloaded!"));
+			else if (args[0].equalsIgnoreCase("h") || args[0].equalsIgnoreCase("help")) {
+				String commandColor = ChatUtils.getHelpMessage("command-color");
+				sender.sendMessage(ChatUtils.format("&ePersoKits help \n"));
+				sender.sendMessage(ChatUtils.format("&8--------------- \n"));
+				sender.sendMessage(ChatUtils.format(commandColor + "/kit &7- " + ChatUtils.getHelpMessage("kit") + "\n"));
+				sender.sendMessage(ChatUtils.format(commandColor + "/kit <name> &7- " + ChatUtils.getHelpMessage("kit-name") + "\n"));
+				sender.sendMessage(ChatUtils.format(commandColor + "/pkit &7- " + ChatUtils.getHelpMessage("pkit") + "\n"));
+				sender.sendMessage(ChatUtils.format(commandColor + "/pkit <name> &7- " + ChatUtils.getHelpMessage("pkit-name") + "\n"));
+				if (sender.hasPermission("persokits.kiteditor") || !(sender instanceof Player)) {
+					sender.sendMessage(ChatUtils.format(commandColor + "/kiteditor <name> &7- " + ChatUtils.getHelpMessage("kiteditor") + " \n"));
+					sender.sendMessage(ChatUtils.format(commandColor + "/kiteditor <name> &7- " + ChatUtils.getHelpMessage("kiteditor-name") + "\n"));
+				}
+				sender.sendMessage(ChatUtils.format("&8---------------"));
+				return true;
+			}
+			else {
+				sender.sendMessage(ChatUtils.format(ChatUtils.getMessage("unknown-command")));
+				sender.sendMessage(ChatUtils.format(ChatUtils.getMessage("unknown-command1")));
+				return true;
+			}
 		}
-			
-		
-		return true;
+		else {
+			sender.sendMessage(ChatUtils.format(ChatUtils.getMessage("unknown-command")));
+			sender.sendMessage(ChatUtils.format(ChatUtils.getMessage("unknown-command1")));
+			return true;
+		}
 	}
 	
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 		List<String> results = new ArrayList<>();
 		List<String> subCommands = new ArrayList<>();
+		subCommands.add("help");
+		subCommands.add("rl");
 		subCommands.add("reload");
-		for (String kitName : subCommands) {
-			if (kitName.startsWith(args[0]))
-				results.add(kitName);
+		for (String subCommand : subCommands) {
+			if (subCommand.startsWith(args[0]))
+				results.add(subCommand);
 		}
 		
 		return results;

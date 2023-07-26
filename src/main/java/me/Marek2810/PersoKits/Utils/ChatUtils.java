@@ -13,12 +13,7 @@ public class ChatUtils {
 	
 	public static String formatWithPlaceholders(Player p, String s, String kitName) {
 		PersoKit kit = PersoKits.kits.get(kitName);
-		s = s.replace("%name%", kit.getName());
-		s = s.replace("%uses%", String.valueOf(kit.getUses()));
-		s = s.replace("%slots%", String.valueOf(kit.getSlots()));
-		s = s.replace("%cooldown%", String.valueOf(kit.getCooldwon()));
-		s = s.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, kit.getName())));
-		return ChatColor.translateAlternateColorCodes('&', s);		
+		return formatWithPlaceholders(p, s, kit);
 	}
 	
 	public static String formatWithPlaceholders(Player p, String s, PersoKit kit) {
@@ -27,11 +22,10 @@ public class ChatUtils {
 		s = s.replace("%slots%", String.valueOf(kit.getSlots()));
 		s = s.replace("%cooldown%", String.valueOf(kit.getCooldwon()));
 		s = s.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, kit.getName())));
-		return ChatColor.translateAlternateColorCodes('&', s);		
+		return format(s);	
 	}
 
 	public static String getMessage(String name) {
-//		return PersoKits.messagesFile.getConfig().getString("messages." + name);
 		String msg = PersoKits.messagesFile.getConfig().getString("messages." + name);
 		msg = msg.replace("%prefix%", getPluginPrefix());
 		return msg;
@@ -41,6 +35,10 @@ public class ChatUtils {
 		String msg = PersoKits.messagesFile.getConfig().getString("console-messages." + name);
 		msg = msg.replace("%prefix%", getPluginPrefix());
 		return msg;
+	}
+	
+	public static String getHelpMessage(String name) {
+		return PersoKits.messagesFile.getConfig().getString("help-messages." + name);
 	}
 	
 	public static String getPluginPrefix() {
