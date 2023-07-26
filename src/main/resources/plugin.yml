@@ -13,7 +13,7 @@ commands:
   pkit:
     permission-message: You do not have permission!  
   kiteditor:
-    permission: persokits.editor
+    permission: persokits.kiteditor
     permission-message: You do not have permission!
     aliases: [kite, keditor]
     
@@ -21,7 +21,7 @@ permissions:
   persokits.kit.*:
     description: Allows to get all kits
     default: op
-  persokits.editor:
+  persokits.kiteditor:
     description: Allows edit kits
     default: op
   persokits.admin:

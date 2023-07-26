@@ -23,7 +23,7 @@ public class KitEditorCommand implements TabExecutor {
 			return true;			
 		}
 		Player p = (Player) sender;
-		if (!p.hasPermission("persokits.editor")) {
+		if (!p.hasPermission("persokits.kiteditor")) {
 			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-permission")));
 			return true;
 		}
