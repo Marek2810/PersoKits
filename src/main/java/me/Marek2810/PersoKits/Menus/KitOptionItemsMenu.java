@@ -45,7 +45,6 @@ public class KitOptionItemsMenu extends PersoKitsMenu {
 		inv.setItem(4, item);
 		
 		ItemStack kitSlots = new ItemBuilder(Material.BOOKSHELF)
-//				.name("&eSet slots amount")
 				.name((MenuUtils.getText("optionsmenu", "slots-item-name")))
 				.function("setSlots")
 				.make();
@@ -60,7 +59,7 @@ public class KitOptionItemsMenu extends PersoKitsMenu {
 		}	
 		
 		ItemStack saveKit = new ItemBuilder(Material.GREEN_CONCRETE)
-				.name("&aSave options")
+				.name((MenuUtils.getText("optionsmenu", "save-kit-item-name")))
 				.function("saveOptions")
 				.make();
 		
@@ -98,7 +97,6 @@ public class KitOptionItemsMenu extends PersoKitsMenu {
 				}							
 				PersoKits.kits.get(pMenuUtil.getKit()).setOptions(items);
 				p.closeInventory();				
-//				p.sendMessage(ChatUtils.format("&aYou saved option items of kit &e" + pMenuUtil.getKit() + "&a."));
 				String msg = ChatUtils.getMessage("saved-options");
 				msg = msg.replace("%name%", PersoKits.getPlayerMenuUtility(p).getKit());
 				p.sendMessage(ChatUtils.format(msg));

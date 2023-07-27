@@ -59,7 +59,7 @@ public class KitsEditorMenu extends PaginatedMenu {
 		
 		if (inv.firstEmpty() > -1) {
 			ItemStack kitAddItem = new ItemBuilder(Material.GREEN_CONCRETE)
-					.name("&aAdd kit")
+					.name(MenuUtils.getText("kitsmenu", "add-kit-item-name"))
 					.function("addKit")
 					.make();
 			inv.addItem(kitAddItem);

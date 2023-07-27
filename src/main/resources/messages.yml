@@ -123,7 +123,8 @@ guis:
   # List of kits for KitEditor (/kiteditor)
   kitsmenu:
     title: "&0Kits editor"
-    remove-lore-text: 
+    add-kit-item-name: "Add kit"
+    remove-lore-text: "&7[Shift-Right click] &8delete kit"
   # Kit editor menu (/kiteditor <kit>)
   kitmenu:
     title: "&0Kit editor"
@@ -136,7 +137,7 @@ guis:
   optionsmenu:
     title: "&0Kit editor"
     slots-item-name: "&eSpecify amount of slots"
-    save-kit-item-name: "&aSave kit"
+    save-kit-item-name: "&aSave options"
   # List of PersoKits (/pkit)
   pkitsmenu:
     title: "&0PerosoKits editor"

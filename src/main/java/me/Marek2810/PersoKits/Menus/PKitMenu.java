@@ -99,7 +99,6 @@ public class PKitMenu extends PaginatedMenu {
 		}
 		
 		ItemStack saveKit = new ItemBuilder(Material.GREEN_CONCRETE)
-//				.name("&aSave PersoKit")
 				.name(MenuUtils.getText("pkitmenu", "save-kit-item-name"))
 				.function("savePersoKit")
 				.make();		
