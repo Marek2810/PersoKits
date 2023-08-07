@@ -7,6 +7,7 @@
   
 <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>1.16</java.version>
 
   	<maven.compiler.source>16</maven.compiler.source>
     <maven.compiler.target>16</maven.compiler.target>
@@ -17,12 +18,12 @@
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
-      <version>1.17.1-R0.1-SNAPSHOT</version>
+      <version>1.18.2-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
-  <!-- Here we tell maven where it should look for the defined dependencies. -->
-  <!-- Right now, we only need the Spigot repository because we don't have other dependencies -->
+
+
   <repositories>
     <repository>
       <id>spigot-snapshots</id>
@@ -50,7 +51,7 @@
 		</plugin>
 	</plugins>
     <resources>
-      <!-- This tells Maven that it should "filter" all files in the resource directory. More on that later. -->
+
       <resource>
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
