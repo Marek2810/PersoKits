@@ -82,17 +82,17 @@ public class KitUtils {
 
 				}
 				PersoKits.kits.put(kitName, kit);
-				String loadedMsg = ChatUtils.getConsoleMessage("kit-loaded");
-				loadedMsg = loadedMsg.replace("%name%", kitName);
-				PersoKits.console.sendMessage(ChatUtils.format(loadedMsg));
+//				String loadedMsg = ChatUtils.getConsoleMessage("kit-loaded");
+//				loadedMsg = loadedMsg.replace("%name%", kitName);
+//				PersoKits.console.sendMessage(ChatUtils.format(loadedMsg));
 			}
 		}
 	}
 	
 	public static PersoKit loadKit(String name) {
-		String msg = ChatUtils.getConsoleMessage("kit-loading");
-		msg = msg.replace("%name%", name);
-		PersoKits.console.sendMessage(ChatUtils.format(msg));
+//		String msg = ChatUtils.getConsoleMessage("kit-loading");
+//		msg = msg.replace("%name%", name);
+//		PersoKits.console.sendMessage(ChatUtils.format(msg));
 		double cooldwon = PersoKits.kitsFile.getConfig().getDouble("kits." + name + ".cooldown");
 		int uses = PersoKits.kitsFile.getConfig().getInt("kits." + name + ".uses");
 		boolean isPersokit = PersoKits.kitsFile.getConfig().getBoolean("kits." + name + ".persokit");
@@ -116,9 +116,9 @@ public class KitUtils {
 	}
 
 	private static List<ItemStack> loadKitItems(String name) {
-		String loadingMsg = ChatUtils.getConsoleMessage("kit-loading-items");
-		loadingMsg = loadingMsg.replace("%name%", name);
-		PersoKits.console.sendMessage(ChatUtils.format(loadingMsg));
+//		String loadingMsg = ChatUtils.getConsoleMessage("kit-loading-items");
+//		loadingMsg = loadingMsg.replace("%name%", name);
+//		PersoKits.console.sendMessage(ChatUtils.format(loadingMsg));
 		List<ItemStack> items = new ArrayList<>();
 		if (PersoKits.kitsFile.getConfig().getConfigurationSection("kits." + name + ".items") != null) {
 			Set<String> itemKeys = PersoKits.kitsFile.getConfig().getConfigurationSection("kits." + name + ".items").getKeys(false);
@@ -144,9 +144,9 @@ public class KitUtils {
 	}
 	
 	private static List<ItemStack> loadOptionItems(String name) {
-		String loadingMsg = ChatUtils.getConsoleMessage("kit-loading-options");
-		loadingMsg = loadingMsg.replace("%name%", name);
-		PersoKits.console.sendMessage(ChatUtils.format(loadingMsg));
+//		String loadingMsg = ChatUtils.getConsoleMessage("kit-loading-options");
+//		loadingMsg = loadingMsg.replace("%name%", name);
+//		PersoKits.console.sendMessage(ChatUtils.format(loadingMsg));
 		List<ItemStack> items = new ArrayList<>();
 		if (PersoKits.kitsFile.getConfig().getConfigurationSection("kits." + name + ".options") != null) {
 			Set<String> itemKeys = PersoKits.kitsFile.getConfig().getConfigurationSection("kits." + name + ".options").getKeys(false);
@@ -174,9 +174,9 @@ public class KitUtils {
 	public static HashMap<UUID, List<ItemStack>> loadPersoKits(String name) {
 		HashMap<UUID, List<ItemStack>> persokits = new HashMap<>();
 		if (PersoKits.kitsFile.getConfig().getBoolean("kits." + name + ".persokit")) {
-			String loadingMsg = ChatUtils.getConsoleMessage("kit-loading-persokits");
-			loadingMsg = loadingMsg.replace("%name%", name);
-			PersoKits.console.sendMessage(ChatUtils.format(loadingMsg));
+//			String loadingMsg = ChatUtils.getConsoleMessage("kit-loading-persokits");
+//			loadingMsg = loadingMsg.replace("%name%", name);
+//			PersoKits.console.sendMessage(ChatUtils.format(loadingMsg));
 			if (PersoKits.pKitsFile.getConfig().getConfigurationSection("pkits." + name) != null) {
 				Set<String> pKits = PersoKits.pKitsFile.getConfig().getConfigurationSection("pkits." + name).getKeys(false);
 				for (String pKit : pKits) {					

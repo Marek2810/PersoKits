@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import me.Marek2810.PersoKits.Files.*;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,7 +14,6 @@ import me.Marek2810.PersoKits.Commands.KitCommand;
 import me.Marek2810.PersoKits.Commands.KitEditorCommand;
 import me.Marek2810.PersoKits.Commands.PKitCommand;
 import me.Marek2810.PersoKits.Commands.PersoKitsCommand;
-import me.Marek2810.PersoKits.Files.CustomConfig;
 import me.Marek2810.PersoKits.Listeners.KitChatListener;
 import me.Marek2810.PersoKits.Listeners.MenuListener;
 import me.Marek2810.PersoKits.Listeners.PlayerListener;
@@ -26,10 +26,10 @@ public class PersoKits extends JavaPlugin {
 	public static PersoKits inst;
 	public static ConsoleCommandSender console;
 	
-	public static CustomConfig kitsFile;
-	public static CustomConfig pKitsFile;
-	public static CustomConfig dataFile;
-	public static CustomConfig messagesFile;
+	public static CustomFile kitsFile;
+	public static CustomFile pKitsFile;
+	public static CustomFile dataFile;
+	public static CustomFile messagesFile;
 	
 	public static boolean firstJoinKitStatus;
 	public static PersoKit firstJoinKit;
@@ -38,7 +38,7 @@ public class PersoKits extends JavaPlugin {
 	public static final HashMap<Player, BukkitTask> fistKitTasks = new HashMap<>();
     private static final HashMap<Player, PlayerMenuUtility> playerMenuUtilityMap = new HashMap<>();
    
-    public static final List<CustomConfig> customConfigs = new ArrayList<>();
+    public static final List<CustomFile> customConfigs = new ArrayList<>();
 
 
 	@Override
@@ -46,26 +46,30 @@ public class PersoKits extends JavaPlugin {
 		inst = this;		
 		console = getServer().getConsoleSender();
 		
+		new ConfigFile(this);
 		saveDefaultConfig();
-		kitsFile = new CustomConfig(this, "kits.yml");
+
+		kitsFile = new KitsFile(this, "kits.yml");
 		customConfigs.add(kitsFile);
-		dataFile = new CustomConfig(this, "data.yml");
+		dataFile = new DataFile(this, "data.yml");
 		customConfigs.add(dataFile);
-		messagesFile = new CustomConfig(this, "messages.yml");
+		messagesFile = new MessagesFile(this, "messages.yml");
 		customConfigs.add(messagesFile);
-		pKitsFile = new CustomConfig(this, "persokits.yml");
+		pKitsFile = new PersoKitsFile(this, "persokits.yml");
 		customConfigs.add(pKitsFile);
 		KitUtils.loadKits();
-		KitUtils.loadFirstJoinKit();	
-	
+		KitUtils.loadFirstJoinKit();
+
 		this.getCommand("kit").setExecutor(new KitCommand());
 		this.getCommand("kiteditor").setExecutor(new KitEditorCommand());
 		this.getCommand("pkit").setExecutor(new PKitCommand());
 		this.getCommand("persokits").setExecutor(new PersoKitsCommand());
-		
+
 		this.getServer().getPluginManager().registerEvents(new MenuListener(),this);
 		this.getServer().getPluginManager().registerEvents(new KitChatListener(),this);
-		this.getServer().getPluginManager().registerEvents(new PlayerListener(),this);		
+		this.getServer().getPluginManager().registerEvents(new PlayerListener(),this);
+		
+		console.sendMessage("test: " + messagesFile.getConfig().getString("console-messages.kit-loading-item-error"));
 	}
 	
 	@Override

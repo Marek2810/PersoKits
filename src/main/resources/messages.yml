@@ -1,4 +1,6 @@
-#Better to do not tucg
+version: 1.1
+
+# %prefix% placeholder
 prefix: "&a[&ePersoKits&a]"
 console-messages:
   kits-loading: "%prefix% &aLoading kits..."
@@ -92,7 +94,7 @@ messages:
   # After clicking on message player will be able to make own kit.
   first-join-kit-reminder: "&eYou have not claimed your first kit claimed your first kit. Click to make yours!"
   # Hover text for "first-join-kit-reminder" message.
-  first-join-kit-reminder-hover: "Click to make yours!"
+  first-join-kit-reminder-hover: "&eClick to make yours!"
   # When player claim first join kit
   on-first-kit-receive: "&aYou received first join kit."
   # When kit gets removed
@@ -119,11 +121,11 @@ guis:
     persokit: "&ePersoKit: &f"
     slots: "&eSlots: &f"
     disabled: "&cdisabled"
-    seconds: "second(s)"   
+    seconds: "&fsecond(s)"
   # List of kits for KitEditor (/kiteditor)
   kitsmenu:
     title: "&0Kits editor"
-    add-kit-item-name: "Add kit"
+    add-kit-item-name: "&aAdd kit"
     remove-lore-text: "&7[Shift-Right click] &8delete kit"
   # Kit editor menu (/kiteditor <kit>)
   kitmenu:

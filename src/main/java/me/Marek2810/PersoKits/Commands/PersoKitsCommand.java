@@ -3,13 +3,13 @@ package me.Marek2810.PersoKits.Commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.Marek2810.PersoKits.Files.CustomFile;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
 import me.Marek2810.PersoKits.PersoKits;
-import me.Marek2810.PersoKits.Files.CustomConfig;
 import me.Marek2810.PersoKits.Utils.ChatUtils;
 import me.Marek2810.PersoKits.Utils.KitUtils;
 
@@ -23,7 +23,7 @@ public class PersoKitsCommand implements TabExecutor {
 		}
 		else if (args.length == 1) {
 			if (args[0].equalsIgnoreCase("rl") || args[0].equalsIgnoreCase("reload")) {
-				for (CustomConfig file : PersoKits.customConfigs) {
+				for (CustomFile file : PersoKits.customConfigs) {
 					file.reloadConfig();
 				}
 				PersoKits.kits.clear();
