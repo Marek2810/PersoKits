@@ -68,13 +68,14 @@ public class PersoKits extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new MenuListener(),this);
 		this.getServer().getPluginManager().registerEvents(new KitChatListener(),this);
 		this.getServer().getPluginManager().registerEvents(new PlayerListener(),this);
-		
-		console.sendMessage("test: " + messagesFile.getConfig().getString("console-messages.kit-loading-item-error"));
 	}
 	
 	@Override
 	public void onDisable() {
 		kits.clear();
+		fistKitTasks.clear();
+		playerMenuUtilityMap.clear();
+		customConfigs.clear();
 	}
 	
 	public static PersoKits getPlugin() {

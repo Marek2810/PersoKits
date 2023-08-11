@@ -19,7 +19,7 @@ public class KitEditorCommand implements TabExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatUtils.format(ChatUtils.getMessage("only-player-command")));
+			sender.sendMessage(ChatUtils.format(ChatUtils.getConsoleMessage("only-player-command")));
 			return true;			
 		}
 		Player p = (Player) sender;
