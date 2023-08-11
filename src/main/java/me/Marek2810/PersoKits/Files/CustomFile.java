@@ -2,6 +2,7 @@ package me.Marek2810.PersoKits.Files;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 
@@ -31,8 +32,12 @@ public abstract class CustomFile {
 				update();
 			}
 		}
-		InputStreamReader defConfigStream = new InputStreamReader(plugin.getResource(name));
-		configFile = YamlConfiguration.loadConfiguration(defConfigStream);
+
+		InputStream defaultStream = this.plugin.getResource(name);
+		if (defaultStream != null) {
+			YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defaultStream));
+			this.configFile.setDefaults(defaultConfig);
+		}
 	}
 	
 	public abstract boolean isUpdatable();

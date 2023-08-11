@@ -1,5 +1,5 @@
 #Better to do not touch
-version: 1.0
+version: 1.1
 
 #Options for "first-join-kit" in "kits.yml" if enabled.
 #If the kit IS NOT a PersoKit, they''ll recieve the kit, and no message is sent. (You can safely ignore settings below then)

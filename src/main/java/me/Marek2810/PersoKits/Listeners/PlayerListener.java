@@ -51,8 +51,6 @@ public class PlayerListener implements Listener {
 						
 			boolean firstJoinMessage = PersoKits.inst.getConfig().getBoolean("first-join-kit.msg-enabled");
 			boolean kitReminder = PersoKits.inst.getConfig().getBoolean("first-join-kit.reminder.enabled");
-			p.sendMessage("message: " + firstJoinMessage);
-			p.sendMessage("kitReminder: " + kitReminder);
 			if (!p.hasPlayedBefore()) {
 				if (firstJoinMessage && !kitReminder) {	
 					new BukkitRunnable() {			
@@ -67,9 +65,7 @@ public class PlayerListener implements Listener {
 			if (!kitReminder) return;							
 			double delay = PersoKits.inst.getConfig().getDouble("first-join-kit.reminder.delay-for-msg-after-join")*20;
 			double interval = PersoKits.inst.getConfig().getDouble("first-join-kit.reminder.repeat-after")*20;
-			p.sendMessage("delay: " + delay);
-			p.sendMessage("interval: "+  interval);
-			BukkitTask firstKitRemider = new BukkitRunnable() {			
+			BukkitTask firstKitRemider = new BukkitRunnable() {
 				public void run() {
 					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
 					p.spigot().sendMessage(builder.create());

@@ -15,7 +15,7 @@ public class ConfigFile extends CustomFile {
 
 	@Override
 	public String currentVersion() {
-		return "1.0";
+		return "1.1";
 	}
 
 	@Override
