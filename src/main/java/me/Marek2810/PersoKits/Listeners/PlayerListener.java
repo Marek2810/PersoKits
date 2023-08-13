@@ -35,8 +35,8 @@ public class PlayerListener implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent e) {
 		if (!PersoKits.firstJoinKitStatus) return;
 		Player p = e.getPlayer();
-		if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId() + ".first-kit-claimbed") == null) {
-			PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + ".first-kit-claimbed", false);
+		if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId() + ".first-kit-claimed") == null) {
+			PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + ".first-kit-claimed", false);
 			PersoKits.dataFile.saveConfig();
 		}		
 		if (KitUtils.getFirstKitClaimbed(p)) return;

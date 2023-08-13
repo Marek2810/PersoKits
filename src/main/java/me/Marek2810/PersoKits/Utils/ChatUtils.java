@@ -21,7 +21,7 @@ public class ChatUtils {
 		s = s.replace("%uses%", String.valueOf(kit.getUses()));
 		s = s.replace("%slots%", String.valueOf(kit.getSlots()));
 		s = s.replace("%cooldown%", String.valueOf(kit.getCooldwon()));
-		s = s.replace("%time-left%", String.valueOf(KitUtils.aviableAt(p, kit.getName())));
+		s = s.replace("%time-left%", String.valueOf(KitUtils.availableAt(p, kit.getName())));
 		return format(s);	
 	}
 

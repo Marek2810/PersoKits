@@ -27,7 +27,7 @@ public class PKitCommand implements TabExecutor {
 		// /kit - show all aviable kits for player
 		Player p = (Player) sender;
 		if (args.length == 0) {		
-			List<String> playerKits = KitUtils.getAviableKitsForPlayer(p);
+			List<String> playerKits = KitUtils.getAvailableKitsForPlayer(p);
 			if (playerKits.size() > 0) {
 				new PKitsMenu(PersoKits.getPlayerMenuUtility(p)).open();
 				return true;

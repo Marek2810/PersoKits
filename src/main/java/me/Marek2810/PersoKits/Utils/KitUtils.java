@@ -27,7 +27,7 @@ public class KitUtils {
 		return false;
 	}
 	
-	public static boolean isAviable(Player p, String kitName) {
+	public static boolean isAvailable(Player p, String kitName) {
 		if (hasBypassPermission(p, "cooldown")) return true;
 		long availableAt = PersoKits.dataFile.getConfig().getLong("players." + p.getUniqueId() + "." + kitName + ".availableAt");
 		if (availableAt < System.currentTimeMillis()) {
@@ -36,7 +36,7 @@ public class KitUtils {
 		return false;
 	}
 	
-	public static int aviableAt(Player p, String kitName) {
+	public static int availableAt(Player p, String kitName) {
 		long availableAt = PersoKits.dataFile.getConfig().getLong("players." + p.getUniqueId() + "." + kitName + ".availableAt");
 		return (int) (availableAt-System.currentTimeMillis())/1000;
 	}
@@ -55,7 +55,7 @@ public class KitUtils {
 		return true;
 	}
 	
-	public static List<String> getAviableKitsForPlayer(Player p) {
+	public static List<String> getAvailableKitsForPlayer(Player p) {
 		List<String> kits = new ArrayList<>();
 		for (String name : PersoKits.kits.keySet()) {
 			if (hasPermission(p, name)) {
@@ -219,21 +219,16 @@ public class KitUtils {
 		PersoKits.firstJoinKitStatus = false;
 		PersoKits.console.sendMessage(ChatUtils.format(ChatUtils.getConsoleMessage("first-join-kit-disabled")));
 	}
-	
-	public static PersoKit getFirstJoinKit() {
-		return PersoKits.firstJoinKit;
-	}
-	
 	public static boolean getFirstJoinKitStatus() {
 		return PersoKits.firstJoinKitStatus;
 	}
 	
 	public static boolean getFirstKitClaimbed(Player p) {
-		return PersoKits.dataFile.getConfig().getBoolean("players." + p.getUniqueId() + ".first-kit-claimbed");
+		return PersoKits.dataFile.getConfig().getBoolean("players." + p.getUniqueId() + ".first-kit-claimed");
 	}
 	
 	public static void setFirstKitClaimbed(Player p) {
-		PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + ".first-kit-claimbed", true);
+		PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + ".first-kit-claimed", true);
 		PersoKits.dataFile.saveConfig();
 		if (PersoKits.fistKitTasks.get(p) != null) {
 			PersoKits.fistKitTasks.get(p).cancel();

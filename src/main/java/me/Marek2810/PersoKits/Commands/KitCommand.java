@@ -33,7 +33,7 @@ public class KitCommand implements TabExecutor {
 		// /kit - show all available kits for player
 		Player p = (Player) sender;		
 		if (args.length == 0) {		
-			List<String> playerKits = KitUtils.getAviableKitsForPlayer(p);
+			List<String> playerKits = KitUtils.getAvailableKitsForPlayer(p);
 			if (playerKits.size() > 0) {
 				ComponentBuilder builder = new ComponentBuilder();
 				builder.append(new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("kits"))).create());					
@@ -48,7 +48,7 @@ public class KitCommand implements TabExecutor {
 								ChatUtils.format(ChatUtils.getMessage("no-uses")))
 							.create());					
 					}
-					else if (!KitUtils.isAviable(p, kitName)) {
+					else if (!KitUtils.isAvailable(p, kitName)) {
 						color = "&e";
 						String msg = ChatUtils.getMessage("on-cooldown");
 						msg = ChatUtils.formatWithPlaceholders(p, msg, kitName);
@@ -111,7 +111,7 @@ public class KitCommand implements TabExecutor {
 		
 			// kit is on cooldown
 		if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId().toString() + "." + kitName + ".availableAt") != null) {
-			if (!KitUtils.isAviable(p, kitName)) {
+			if (!KitUtils.isAvailable(p, kitName)) {
 				String msg = ChatUtils.getMessage("on-cooldown");
 				msg = ChatUtils.formatWithPlaceholders(p, msg, kitName);
 				p.sendMessage(ChatUtils.format(msg));
