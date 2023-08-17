@@ -55,7 +55,7 @@ Will display menu with specific kit to edit.
 **persokit.editor** - permission to edit kits (players with op will have this permission)
 
 # TODO:
-- Edit PersoKit command
+- Handle Task in reload
  
 - Make hologram selection for PersoKit.
 
