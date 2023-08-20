@@ -29,6 +29,7 @@ public class PersoKitsCommand implements TabExecutor {
 				PersoKits.kits.clear();
 				PersoKits.inst.reloadConfig();
 				KitUtils.loadKits();
+				KitUtils.loadFirstJoinKit();
 				sender.sendMessage(ChatUtils.format("&aPersoKits reloaded!"));
 				return true;
 			}

@@ -9,7 +9,7 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
 import me.Marek2810.PersoKits.PersoKits;
-import me.Marek2810.PersoKits.Menus.PKitMenu;
+import me.Marek2810.PersoKits.Menus.PKitEditMenu;
 import me.Marek2810.PersoKits.Menus.PKitsMenu;
 import me.Marek2810.PersoKits.Utils.ChatUtils;
 import me.Marek2810.PersoKits.Utils.KitUtils;
@@ -26,7 +26,7 @@ public class PKitCommand implements TabExecutor {
 		}
 		// /kit - show all aviable kits for player
 		Player p = (Player) sender;
-		if (args.length == 0) {		
+		if (args.length == 0) {
 			List<String> playerKits = KitUtils.getAvailableKitsForPlayer(p);
 			if (playerKits.size() > 0) {
 				new PKitsMenu(PersoKits.getPlayerMenuUtility(p)).open();
@@ -62,7 +62,7 @@ public class PKitCommand implements TabExecutor {
 		
 		PlayerMenuUtility util = PersoKits.getPlayerMenuUtility(p);
 		util.setKit(kitName);
-		new PKitMenu(util).open();		
+		new PKitEditMenu(util).open();
 		return true;
 	}
 	

@@ -39,7 +39,7 @@ public class PlayerListener implements Listener {
 			PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + ".first-kit-claimed", false);
 			PersoKits.dataFile.saveConfig();
 		}		
-		if (KitUtils.getFirstKitClaimbed(p)) return;
+		if (KitUtils.getFirstKitClaimed(p)) return;
 		if (PersoKits.firstJoinKit.isPersokit()) {
 			String msg = ChatUtils.getMessage("first-join-kit-reminder");
 			

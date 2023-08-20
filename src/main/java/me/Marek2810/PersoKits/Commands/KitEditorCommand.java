@@ -2,6 +2,7 @@ package me.Marek2810.PersoKits.Commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -10,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import me.Marek2810.PersoKits.PersoKits;
 import me.Marek2810.PersoKits.Menus.KitEditMenu;
-import me.Marek2810.PersoKits.Menus.KitsEditorMenu;
+import me.Marek2810.PersoKits.Menus.KitsMenu;
 import me.Marek2810.PersoKits.Utils.ChatUtils;
 import me.Marek2810.PersoKits.Utils.PlayerMenuUtility;
 
@@ -29,7 +30,7 @@ public class KitEditorCommand implements TabExecutor {
 		}
 		PlayerMenuUtility util = PersoKits.getPlayerMenuUtility(p);
 		if (args.length == 0) {
-			new KitsEditorMenu(util).open();
+			new KitsMenu(util).open();
 			return true;
 		}
 		String kitName = args[0];

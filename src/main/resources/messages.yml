@@ -19,7 +19,7 @@ console-messages:
   
 # These messages will show when someone type "/peroskit help" in chat
 help-messages:
-  command-color: "&c"
+  command-color: "&e"
   # Help for /kit command (whitout name argument)
   kit: "&7list all available kits for the player. Kits marked according to whether they are available."
   # Help for /kit <name> command
@@ -50,7 +50,7 @@ messages:
   # No uses left for kit
   no-uses: "&cYou have no uses left for this kit."
   # No space in iventory
-  no-space: "&cYou dont have enough space in your inventory."
+  no-space: "&cYou don't have enough space in your inventory."
   # Kit is on cooldown
   on-cooldown: "&cKit is on cooldown for &e%time-left% &cseconds."
   # Message when player receive kit
@@ -120,6 +120,9 @@ guis:
     uses: "&eUses: &f"
     persokit: "&ePersoKit: &f"
     slots: "&eSlots: &f"
+    fistJoinKit: "&eFirstJoinKit: "
+    true: "&atrue"
+    false: "&cfalse"
     disabled: "&cdisabled"
     seconds: "&fsecond(s)"
   # List of kits for KitEditor (/kiteditor)
@@ -134,10 +137,16 @@ guis:
     uses-item-name: "&eSet amount of kit uses"
     togglePersoKit-item-name: "&eToggle PersoKit feature"
     options-item-name: "&eSelect option items"
-    save-kit-item-name: "&aSave kit"
+    save-kit-item-name: "&aSave kit items"
+    first-join-kit-item-name: "&eSet as first join kit"
+    first-join-kit-item-lore-disabled: "&cFirst join kit is disabled!"
+    first-join-kit-item-lore-click-to-set: "&eClicking this will set &a%name% &eas firs join kit."
+    first-join-kit-item-lore-this-kit: "&aThis kit is first join kit."
+    first-join-kit-item-lore-click-to-disable: "&eClicking this will disable first join kit function."
+    first-join-kit-item-lore-another-kit: "&eKit &a%firstJoinKitName% &eis first join kit."
   # Option items menu for PersoKit
   optionsmenu:
-    title: "&0Kit editor"
+    title: "&0Kit option items editor"
     slots-item-name: "&eSpecify amount of slots"
     save-kit-item-name: "&aSave options"
   # List of PersoKits (/pkit)
@@ -147,7 +156,7 @@ guis:
   pkitmenu:
     title: "&0PersoKit editor"
     free-slot-item-name: "&aFree item slot"
-    save-kit-item-name: "&aSave PersoKit"
+    save-kit-item-name: "&aSave and get PersoKit"
   KitDeleteConfirmMenu:
     title: "&0Delete kit?"
     yes-item-name: "&aYes"

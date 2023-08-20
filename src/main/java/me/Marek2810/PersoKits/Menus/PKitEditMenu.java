@@ -2,6 +2,7 @@ package me.Marek2810.PersoKits.Menus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -21,26 +22,25 @@ import me.Marek2810.PersoKits.Utils.PaginatedMenu;
 import me.Marek2810.PersoKits.Utils.PersoKit;
 import me.Marek2810.PersoKits.Utils.PlayerMenuUtility;
 
-public class PKitMenu extends PaginatedMenu {
+public class PKitEditMenu extends PaginatedMenu {
 	
-	private List<ItemStack> varaintItems = new ArrayList<>();
-	private List<ItemStack> varOptionItems = new ArrayList<>();
+	private List<ItemStack> kitVariant = new ArrayList<>();
+	private List<ItemStack> optionItems = new ArrayList<>();
+
+	private PersoKit pkit;
 	private ItemStack green = new ItemBuilder(Material.GREEN_STAINED_GLASS_PANE)
 			.name(MenuUtils.getText("pkitmenu", "free-slot-item-name"))
 			.make();
 	
-	public PKitMenu(PlayerMenuUtility util) {
+	public PKitEditMenu(PlayerMenuUtility util) {
 		super(util);
-		PersoKit pkit = PersoKits.kits.get(util.getKit());
+		pkit = PersoKits.kits.get(util.getKit());
 		if (pkit.getPersokits().get(util.getOwner().getUniqueId()) != null) {
-			varaintItems = pkit.getPersokits().get(util.getOwner().getUniqueId());
+			kitVariant = new ArrayList<>(pkit.getPersokits().get(util.getOwner().getUniqueId()));
 		}
 		else {
-			varaintItems = pkit.getItems();
+			kitVariant = new ArrayList<>(pkit.getItems());
 		}
-		if (pkit.getOptions() != null) {
-			varOptionItems = new ArrayList<>(pkit.getOptions());
-		}				
 	}
 	
 	@Override
@@ -58,24 +58,26 @@ public class PKitMenu extends PaginatedMenu {
 		inv.setItem(0, backMenuItem);
 		
 		String name = pMenuUtil.getKit();
-		PersoKit kit = PersoKits.kits.get(name);		
 		inv.setItem(4, MenuUtils.getMenuItem(name));
 	
 		int slots = getRows()*9;
-		maxItemsPerPage = slots-19-kit.getSlots();
-		
+		maxItemsPerPage = slots-19-pkit.getSlots();
+
+		if (this.pkit.getOptions() != null) {
+			optionItems = new ArrayList<>(this.pkit.getOptions());
+		}
+
 		if (page == 0) {
-			for (ItemStack persoItem : varaintItems) {
-				ItemStack menuItem = new ItemStack(persoItem);
-				if (varOptionItems.contains(persoItem)) varOptionItems.remove(persoItem);
-				inv.addItem(new ItemBuilder(menuItem)
+			for (ItemStack persoItem : kitVariant) {
+				optionItems.remove(persoItem);
+				inv.addItem(new ItemBuilder(new ItemStack(persoItem))
 						.function("removeItem")
 						.make());
 			}
-			
-			int lastSlot = inv.firstEmpty();
-			if (kit.getSlots() > varaintItems.size()) {			
-				for (int i = 0; i < kit.getSlots()-varaintItems.size(); i++) {
+
+			int lastSlot;
+			if (pkit.getSlots() > kitVariant.size()) {
+				for (int i = 0; i < pkit.getSlots()- kitVariant.size(); i++) {
 					lastSlot = inv.firstEmpty();
 					if (lastSlot >= slots-9 || inv.firstEmpty() < 0) break;
 					inv.setItem(lastSlot, green);
@@ -88,7 +90,7 @@ public class PKitMenu extends PaginatedMenu {
 			inv.addItem(barrier);
 		}		
 			
-		List<ItemStack> options = varOptionItems;
+		List<ItemStack> options = optionItems;
 		for (int i = 0; i < getMaxItemsPerPage(); i++) {
 			index = getMaxItemsPerPage() * page + i;
 			if (index >= options.size()) break;
@@ -114,7 +116,7 @@ public class PKitMenu extends PaginatedMenu {
 			String function = item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(PersoKits.getPlugin(), "function"), PersistentDataType.STRING);
 			if (function.equals("savePersoKit")) {
 				PersoKit kit = PersoKits.kits.get(pMenuUtil.getKit());
-				kit.addPersoKitVariant(p.getUniqueId(), varaintItems);
+				kit.addPersoKitVariant(p.getUniqueId(), kitVariant);
 				p.closeInventory();
 				String msg = ChatUtils.getMessage("saved-pkit");
 				msg = ChatUtils.formatWithPlaceholders(p, msg, kit.getName());
@@ -122,7 +124,7 @@ public class PKitMenu extends PaginatedMenu {
 					p.sendMessage(ChatUtils.format(msg));
 				}
 				else {
-					if (KitUtils.getFirstKitClaimbed(p)) {
+					if (KitUtils.getFirstKitClaimed(p)) {
 						p.sendMessage(ChatUtils.format(msg));
 					}
 				}
@@ -135,15 +137,15 @@ public class PKitMenu extends PaginatedMenu {
 				return;
 			}
 			else if (function.equals("addItem")) {
-				if (PersoKits.kits.get(pMenuUtil.getKit()).getSlots() <= varaintItems.size()) {
+				if (PersoKits.kits.get(pMenuUtil.getKit()).getSlots() <= kitVariant.size()) {
 					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-slot")));
 					return;
-				}	
+				}
 				ItemMeta meta = item.getItemMeta();
 				meta.getPersistentDataContainer().remove(new NamespacedKey(PersoKits.getPlugin(), "function"));
 				item.setItemMeta(meta);
-				varaintItems.add(item);
-				varOptionItems.remove(item);
+				kitVariant.add(item);
+				optionItems.remove(item);
 				inv.clear();
 				super.open();
 				return;
@@ -152,8 +154,8 @@ public class PKitMenu extends PaginatedMenu {
 				ItemMeta meta = item.getItemMeta();
 				meta.getPersistentDataContainer().remove(new NamespacedKey(PersoKits.getPlugin(), "function"));
 				item.setItemMeta(meta);
-				varaintItems.remove(item);
-				varOptionItems.add(item);
+				kitVariant.remove(item);
+				optionItems.add(item);
 				inv.clear();
 				super.open();
 				return;
@@ -167,7 +169,7 @@ public class PKitMenu extends PaginatedMenu {
 				return;
 			}	
 			else if (function.equals("nextPage")) {	
-				if ((index+1) >= varOptionItems.size()) {
+				if ((index+1) >= optionItems.size()) {
 					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("already-last-page")));
 					return;
 				}
@@ -188,6 +190,4 @@ public class PKitMenu extends PaginatedMenu {
 			}
 		}
 	}
-	
-	
 }

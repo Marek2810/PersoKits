@@ -52,8 +52,8 @@ public class KitDeleteConfirmMenu extends PersoKitsMenu {
 	@Override
 	public void handleMenu(InventoryClickEvent e) {
 		if (e.getCurrentItem() == null) return;
-		ItemStack item = e.getCurrentItem();	
-		Player p = (Player) e.getWhoClicked();		
+		ItemStack item = e.getCurrentItem();
+		Player p = (Player) e.getWhoClicked();
 		if (item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(PersoKits.getPlugin(), "function"), PersistentDataType.STRING) != null) {
 			String function = item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(PersoKits.getPlugin(), "function"), PersistentDataType.STRING);
 			if (function.equalsIgnoreCase("yes")) {
@@ -73,7 +73,7 @@ public class KitDeleteConfirmMenu extends PersoKitsMenu {
 				return;								
 			}
 			else if (function.equals("backMenu")) {
-				new KitsEditorMenu(pMenuUtil).open();
+				new KitsMenu(pMenuUtil).open();
 				return;
 			} 			
 		}

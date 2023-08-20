@@ -111,9 +111,13 @@ public class PersoKit {
 
 	public void setOptions(List<ItemStack> options) {
 		this.options = options;
-		Set<String> keys = PersoKits.kitsFile.getConfig().getConfigurationSection("kits." + name + ".items").getKeys(false);
+		Set<String> keys = Collections.emptySet();
+		if (PersoKits.kitsFile.getConfig().getConfigurationSection("kits." + name + ".options") != null) {
+			keys = PersoKits.kitsFile.getConfig().getConfigurationSection("kits." + name + ".options").getKeys(false);
+		}
 		int i = 1;
 		for (ItemStack item : options) {
+			if (item == null) continue;
 			if (keys.contains(String.valueOf(i))) keys.remove(String.valueOf(i));
 			PersoKits.kitsFile.getConfig().set("kits." + name + ".options." + i, item);
 			i++;
@@ -132,7 +136,8 @@ public class PersoKit {
 		this.persokits = persokits;
 	}
 	
-	public void addPersoKitVariant(UUID uuid, List<ItemStack> items) {		
+	public void addPersoKitVariant(UUID uuid, List<ItemStack> items) {
+		if (this.persokits.get(uuid) != null) this.persokits.remove(uuid);
 		this.persokits.put(uuid, items);
 		List<String> keys = new ArrayList<>();
 		if (PersoKits.pKitsFile.getConfig().getConfigurationSection("pkits." + name + "." + uuid) != null) {

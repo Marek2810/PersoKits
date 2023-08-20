@@ -1,8 +1,6 @@
 package me.Marek2810.PersoKits;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import me.Marek2810.PersoKits.Files.*;
 import org.bukkit.command.ConsoleCommandSender;
@@ -34,7 +32,7 @@ public class PersoKits extends JavaPlugin {
 	public static boolean firstJoinKitStatus;
 	public static PersoKit firstJoinKit;
 	
-	public static final HashMap<String, PersoKit> kits = new HashMap<>();	
+	public static final LinkedHashMap<String, PersoKit> kits = new LinkedHashMap<>();
 	public static final HashMap<Player, BukkitTask> fistKitTasks = new HashMap<>();
     private static final HashMap<Player, PlayerMenuUtility> playerMenuUtilityMap = new HashMap<>();
    
@@ -76,6 +74,8 @@ public class PersoKits extends JavaPlugin {
 		fistKitTasks.clear();
 		playerMenuUtilityMap.clear();
 		customConfigs.clear();
+		firstJoinKitStatus = false;
+		firstJoinKit = null;
 	}
 	
 	public static PersoKits getPlugin() {

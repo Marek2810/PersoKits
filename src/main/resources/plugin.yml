@@ -1,7 +1,7 @@
 name:  ${project.name}
 author: Marek2810
 main: me.Marek2810.PersoKits.PersoKits
-version: ${project.version} 
+version: ${project.version}
 api-version: 1.13
 
 commands:

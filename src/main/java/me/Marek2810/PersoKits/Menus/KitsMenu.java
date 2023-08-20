@@ -20,11 +20,11 @@ import me.Marek2810.PersoKits.Utils.MenuUtils;
 import me.Marek2810.PersoKits.Utils.PaginatedMenu;
 import me.Marek2810.PersoKits.Utils.PlayerMenuUtility;
 
-public class KitsEditorMenu extends PaginatedMenu {
+public class KitsMenu extends PaginatedMenu {
 	
 	private Set<String> kitsSet = PersoKits.kits.keySet();
 
-	public KitsEditorMenu(PlayerMenuUtility util) {
+	public KitsMenu(PlayerMenuUtility util) {
 		super(util);
 	}
 	
@@ -70,6 +70,8 @@ public class KitsEditorMenu extends PaginatedMenu {
 	@Override
 	public void handleMenu(InventoryClickEvent e) {
 		if (e.getCurrentItem() == null) return;
+
+
 		ItemStack item = e.getCurrentItem();	
 		Player p = (Player) e.getWhoClicked();		
 		if (item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(PersoKits.getPlugin(), "function"), PersistentDataType.STRING) != null) {
@@ -96,7 +98,6 @@ public class KitsEditorMenu extends PaginatedMenu {
 				pMenuUtil.setKitSetting("addKit");
 				p.closeInventory();
 				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("adding-kit")));
-//				p.sendMessage("kit name?");
 				return;
 			}
 			else if (function.equals("nextPage")) {	
@@ -105,7 +106,6 @@ public class KitsEditorMenu extends PaginatedMenu {
 					return;
 				}
 				page += 1;
-				inv.clear();
 				super.open();
 				return;
 			}
@@ -115,11 +115,9 @@ public class KitsEditorMenu extends PaginatedMenu {
 					return;
 				}
 				page -= 1;
-				inv.clear();
 				super.open();
 				return;
 			}
 		}
-	}	
-
+	}
 }

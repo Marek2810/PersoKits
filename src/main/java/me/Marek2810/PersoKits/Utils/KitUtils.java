@@ -66,7 +66,7 @@ public class KitUtils {
 		return kits;
 	}
 	
-	public static void loadKits() {		
+	public static void loadKits() {
 		if (PersoKits.kitsFile.getConfig().getConfigurationSection("kits") != null) {
 			String msg = ChatUtils.getConsoleMessage("kits-loading");
 			PersoKits.console.sendMessage(ChatUtils.format(msg));
@@ -75,13 +75,12 @@ public class KitUtils {
 			for (String kitName : kits) {
 				try {
 					kit = loadKit(kitName);
+					PersoKits.kits.put(kitName, kit);
 				} catch (Exception e) {
 					String errorMsg = ChatUtils.getConsoleMessage("kit-loading-error");
 					errorMsg = errorMsg.replace("%name%", kitName);
 					PersoKits.console.sendMessage(ChatUtils.format(errorMsg));
-
 				}
-				PersoKits.kits.put(kitName, kit);
 //				String loadedMsg = ChatUtils.getConsoleMessage("kit-loaded");
 //				loadedMsg = loadedMsg.replace("%name%", kitName);
 //				PersoKits.console.sendMessage(ChatUtils.format(loadedMsg));
@@ -223,11 +222,11 @@ public class KitUtils {
 		return PersoKits.firstJoinKitStatus;
 	}
 	
-	public static boolean getFirstKitClaimbed(Player p) {
+	public static boolean getFirstKitClaimed(Player p) {
 		return PersoKits.dataFile.getConfig().getBoolean("players." + p.getUniqueId() + ".first-kit-claimed");
 	}
 	
-	public static void setFirstKitClaimbed(Player p) {
+	public static void setFirstKitClaimed(Player p) {
 		PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + ".first-kit-claimed", true);
 		PersoKits.dataFile.saveConfig();
 		if (PersoKits.fistKitTasks.get(p) != null) {

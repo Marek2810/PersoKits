@@ -18,6 +18,7 @@ public class ChatUtils {
 	
 	public static String formatWithPlaceholders(Player p, String s, PersoKit kit) {
 		s = s.replace("%name%", kit.getName());
+		if (PersoKits.firstJoinKit != null)	s = s.replace("%firstJoinKitName%", PersoKits.firstJoinKit.getName());
 		s = s.replace("%uses%", String.valueOf(kit.getUses()));
 		s = s.replace("%slots%", String.valueOf(kit.getSlots()));
 		s = s.replace("%cooldown%", String.valueOf(kit.getCooldwon()));

@@ -2,6 +2,7 @@ package me.Marek2810.PersoKits.Commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -11,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Marek2810.PersoKits.PersoKits;
-import me.Marek2810.PersoKits.Menus.PKitMenu;
+import me.Marek2810.PersoKits.Menus.PKitEditMenu;
 import me.Marek2810.PersoKits.Utils.ChatUtils;
 import me.Marek2810.PersoKits.Utils.InventoryUtils;
 import me.Marek2810.PersoKits.Utils.KitUtils;
@@ -31,7 +32,7 @@ public class KitCommand implements TabExecutor {
 			return true;
 		}
 		// /kit - show all available kits for player
-		Player p = (Player) sender;		
+		Player p = (Player) sender;
 		if (args.length == 0) {		
 			List<String> playerKits = KitUtils.getAvailableKitsForPlayer(p);
 			if (playerKits.size() > 0) {
@@ -137,11 +138,11 @@ public class KitCommand implements TabExecutor {
 					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-persokit-set")));
 				}
 				else {
-					if (KitUtils.getFirstKitClaimbed(p)) {
+					if (KitUtils.getFirstKitClaimed(p)) {
 						p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-persokit-set")));
 					}
 					else {
-						new PKitMenu(util).open();
+						new PKitEditMenu(util).open();
 						return true;
 					}
 				}
@@ -149,7 +150,7 @@ public class KitCommand implements TabExecutor {
 				double ticks = secs*20;				
 				new BukkitRunnable() {			
 					public void run() {
-						new PKitMenu(util).open();
+						new PKitEditMenu(util).open();
 						cancel();
 					}
 				}.runTaskLater(PersoKits.getPlugin(), (int) ticks);				
@@ -193,8 +194,8 @@ public class KitCommand implements TabExecutor {
 		}
 		if (PersoKits.firstJoinKitStatus) {
 			if (kit.equals(PersoKits.firstJoinKit)) {
-				if (!KitUtils.getFirstKitClaimbed(p)) {
-					KitUtils.setFirstKitClaimbed(p);
+				if (!KitUtils.getFirstKitClaimed(p)) {
+					KitUtils.setFirstKitClaimed(p);
 					if (PersoKits.firstJoinKit.isPersokit()) {
 						p.sendMessage(ChatUtils.format(ChatUtils.getMessage("on-first-kit-receive")));
 					}					

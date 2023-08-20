@@ -26,15 +26,17 @@ public class MenuUtils {
 			lore.add(ChatUtils.format(MenuUtils.getText("kititem", "slots") + kit.getSlots()));
 		}
 		else {
-			lore.add(ChatUtils.format(MenuUtils.getText("kititem", "persokit") + "&c" + kit.isPersokit()));
-		}
-		ItemStack item = new ItemBuilder(mat)
+			lore.add(ChatUtils.format(MenuUtils.getText("kititem", "persokit") + "&c" + kit.isPersokit()));		}
+
+		boolean isFirstJoinKit = PersoKits.firstJoinKit != null && PersoKits.firstJoinKit.equals(kit);
+        lore.add(ChatUtils.format(MenuUtils.getText("kititem", "fistJoinKit") + MenuUtils.getText("kititem",  Boolean.toString(isFirstJoinKit))));
+
+        return new ItemBuilder(mat)
 				.name("&a" + name)
 				.lore(lore)
 				.addData("kitName", name)
 				.function("editKit")
 				.make();
-		return item;
 	}
 	
 	public static String getText(String gui, String name) {

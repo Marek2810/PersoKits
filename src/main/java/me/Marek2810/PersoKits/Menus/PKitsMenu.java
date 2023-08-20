@@ -44,7 +44,7 @@ public class PKitsMenu extends PaginatedMenu {
 	@Override
 	public void setMenuItems() {
 		int slots = getRows()*9;
-		maxItemsPerPage = slots-19;
+		maxItemsPerPage = slots-18;
 		
 		for (int i = 0; i < getMaxItemsPerPage(); i++) {
 			index = getMaxItemsPerPage() * page + i;
@@ -68,7 +68,7 @@ public class PKitsMenu extends PaginatedMenu {
 			else if (function.equals("editKit")) {
 				String name = item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(PersoKits.getPlugin(), "kitName"), PersistentDataType.STRING);
 				pMenuUtil.setKit(name);
-				new PKitMenu(pMenuUtil).open();
+				new PKitEditMenu(pMenuUtil).open();
 				return;
 			}
 			else if (function.equals("nextPage")) {	
@@ -77,7 +77,6 @@ public class PKitsMenu extends PaginatedMenu {
 					return;
 				}
 				page += 1;
-				inv.clear();
 				super.open();
 				return;
 			}
@@ -87,7 +86,6 @@ public class PKitsMenu extends PaginatedMenu {
 					return;
 				}
 				page -= 1;
-				inv.clear();
 				super.open();
 				return;
 			}
