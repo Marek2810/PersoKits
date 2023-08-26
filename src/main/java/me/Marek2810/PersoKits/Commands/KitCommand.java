@@ -128,10 +128,7 @@ public class KitCommand implements TabExecutor {
 	
 		List<ItemStack> items = new ArrayList<>();		
 		if (kit.isPersokit()) {
-			if (kit.getPersokits().get(p.getUniqueId()) != null) {
-				items = kit.getPersokits().get(p.getUniqueId());
-			}
-			else {
+			if  (kit.getPersokits().get(p.getUniqueId()) == null || kit.getPersokits().get(p.getUniqueId()).isEmpty()) {
 				PlayerMenuUtility util = PersoKits.getPlayerMenuUtility(p);
 				util.setKit(kitName);
 				if(!kit.equals(PersoKits.firstJoinKit)) {
@@ -155,6 +152,9 @@ public class KitCommand implements TabExecutor {
 					}
 				}.runTaskLater(PersoKits.getPlugin(), (int) ticks);				
 				return true;
+			}
+			else {
+				items = kit.getPersokits().get(p.getUniqueId());
 			}
 		} else {
 			items = kit.getItems();
