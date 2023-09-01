@@ -26,7 +26,8 @@ public class MenuUtils {
 			lore.add(ChatUtils.format(MenuUtils.getText("kititem", "slots") + kit.getSlots()));
 		}
 		else {
-			lore.add(ChatUtils.format(MenuUtils.getText("kititem", "persokit") + "&c" + kit.isPersokit()));		}
+			lore.add(ChatUtils.format(MenuUtils.getText("kititem", "persokit") + "&c" + kit.isPersokit()));
+		}
 
 		boolean isFirstJoinKit = PersoKits.firstJoinKit != null && PersoKits.firstJoinKit.equals(kit);
         lore.add(ChatUtils.format(MenuUtils.getText("kititem", "fistJoinKit") + MenuUtils.getText("kititem",  Boolean.toString(isFirstJoinKit))));

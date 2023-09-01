@@ -8,7 +8,7 @@ first-join-kit: newbie
 kits:
   # Name of kit
   newbie:
-    # This will allow create own variant of kit from items in "options" section.
+    # This will allow to create own variant of kit from items in "options" section.
     # Available options: true/false
     persokit: true
     # How many items can player select (from "options") for persokit.
@@ -16,11 +16,11 @@ kits:
     # Cooldown for next use of kit in seconds.
     cooldown: 30.5
     # Max uses for kit per player.
-    # Lower then 0 (ex. -1) to disable this function.
+    # Lower than 0 (ex. -1) to disable this function.
     # Setting to 0 or deleting this setting will disable kit.
     # DO NOT DELTE THIS! DELETING THIS WILL RESULT THIS KIT AS DISABLED!
     uses: -1  
-    # This items will player get if kit is not persokit or player did not create persokit.
+    # These items will player get if kit is not persokit or player did not create persokit.
     # You can enter here Material or ItemStack or just edit kit in ingame menu.
     # List of available Materials here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
     # Default variant of kit

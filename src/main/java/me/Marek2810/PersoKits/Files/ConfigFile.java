@@ -15,12 +15,16 @@ public class ConfigFile extends CustomFile {
 
 	@Override
 	public String currentVersion() {
-		return "1.1";
+		return "1.2";
 	}
 
 	@Override
 	public void update() {
-		if (oldConfigFile.get("version") == null ) {
+		String oldVersion = "1.0";
+		if (oldConfigFile.get("version") != null ) {
+			oldVersion = oldConfigFile.getString("version");
+		}
+		if (oldVersion.equalsIgnoreCase("1.0")) {
 			if (oldConfigFile.get("first-join-kit-msg-enabled") != null) {
 				getConfig().set("first-join-kit.msg-enabled", oldConfigFile.get("first-join-kit-msg-enabled"));
 			}
@@ -33,8 +37,12 @@ public class ConfigFile extends CustomFile {
 			if (oldConfigFile.get("first-join-kit-reminder.repeat-after") != null) {
 				getConfig().set("first-join-kit.reminder.repeat-after", oldConfigFile.get("first-join-kit-reminder.repeat-after"));
 			}
-			saveConfig();
 		}
+		else if (oldVersion.equalsIgnoreCase("1.1")) {
+			getConfig().set("first-join-kit.delay-for-msg-after-join", oldConfigFile.get("first-join-kit.reminder.delay-for-msg-after-join"));
+		}
+		getConfig().set("version", currentVersion());
+		saveConfig();
 		baseUpdate();
 	}
 }

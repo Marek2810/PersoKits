@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.Marek2810.PersoKits.Files.CustomFile;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -26,10 +27,31 @@ public class PersoKitsCommand implements TabExecutor {
 				for (CustomFile file : PersoKits.customConfigs) {
 					file.reloadConfig();
 				}
+				boolean changed = false;
 				PersoKits.kits.clear();
 				PersoKits.inst.reloadConfig();
 				KitUtils.loadKits();
 				KitUtils.loadFirstJoinKit();
+				changed = (PersoKits.oldFirstJoinKitStatus == PersoKits.firstJoinKitStatus);
+				sender.sendMessage("changed: " + changed);
+				if (changed) {
+					if (!PersoKits.firstJoinKitStatus) {
+						List<Player> playerList = new ArrayList<>(PersoKits.firstKitTasks.keySet());
+						for (Player player : playerList) {
+							PersoKits.firstKitTasks.get(player).cancel();
+						}
+						PersoKits.firstKitTasks.clear();
+					}
+					else {
+						if (PersoKits.reminderStatus) {
+							for (Player p : Bukkit.getServer().getOnlinePlayers()) {
+								if (KitUtils.getFirstKitClaimed(p)) continue;
+								KitUtils.setupReminder(p);
+							}
+						}
+					}
+				}
+				PersoKits.oldFirstJoinKitStatus = PersoKits.firstJoinKitStatus;
 				sender.sendMessage(ChatUtils.format("&aPersoKits reloaded!"));
 				return true;
 			}
@@ -42,7 +64,7 @@ public class PersoKitsCommand implements TabExecutor {
 				sender.sendMessage(ChatUtils.format(commandColor + "/pkit &7- " + ChatUtils.getHelpMessage("pkit") + "\n"));
 				sender.sendMessage(ChatUtils.format(commandColor + "/pkit <name> &7- " + ChatUtils.getHelpMessage("pkit-name") + "\n"));
 				if (sender.hasPermission("persokits.kiteditor") || !(sender instanceof Player)) {
-					sender.sendMessage(ChatUtils.format(commandColor + "/kiteditor <name> &7- " + ChatUtils.getHelpMessage("kiteditor") + " \n"));
+					sender.sendMessage(ChatUtils.format(commandColor + "/kiteditor &7- " + ChatUtils.getHelpMessage("kiteditor") + " \n"));
 					sender.sendMessage(ChatUtils.format(commandColor + "/kiteditor <name> &7- " + ChatUtils.getHelpMessage("kiteditor-name") + "\n"));
 				}
 				sender.sendMessage(ChatUtils.format("&8---------------"));

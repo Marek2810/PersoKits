@@ -2,15 +2,17 @@
 version: 1.1
 
 #Options for "first-join-kit" in "kits.yml" if enabled.
-#If the kit IS NOT a PersoKit, they''ll recieve the kit, and no message is sent. (You can safely ignore settings below then)
-#If it IS a Persokit (player variant kit), player will not recieve kit, and rather get a reminder to create their kit.
+#If the kit IS NOT a PersoKit, they''ll receive the kit, and no message is sent. (You can safely ignore settings below then)
+#If it IS a Persokit (player variant kit), player will not receive kit, and rather get a reminder to create their kit.
 
 first-join-kit:
-#Whether player should recieve message about kit on first join.
+#Whether player should receive message about kit on first join.
   msg-enabled: true
+#Delay in seconds after joining for message to display.
+#This setting will also delay a reminder. So, the first message will appear set seconds after joining.
+  delay-for-msg-after-join: 10
 #Whether we should remind players with unclaimed first join kit.
 #Delay is seconds after join, Repeat-after decides how often it''ll be repeated.
   reminder:
     enabled: true
-    delay-for-msg-after-join: 10
     repeat-after: 300

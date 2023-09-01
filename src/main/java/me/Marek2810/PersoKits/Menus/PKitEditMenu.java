@@ -2,7 +2,6 @@ package me.Marek2810.PersoKits.Menus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

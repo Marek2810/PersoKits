@@ -30,10 +30,13 @@ public class PersoKits extends JavaPlugin {
 	public static CustomFile messagesFile;
 	
 	public static boolean firstJoinKitStatus;
+	public static boolean oldFirstJoinKitStatus;
+	public static boolean fistJoinMsgStatus;
+	public static boolean reminderStatus;
 	public static PersoKit firstJoinKit;
 	
 	public static final LinkedHashMap<String, PersoKit> kits = new LinkedHashMap<>();
-	public static final HashMap<Player, BukkitTask> fistKitTasks = new HashMap<>();
+	public static final HashMap<Player, BukkitTask> firstKitTasks = new HashMap<>();
     private static final HashMap<Player, PlayerMenuUtility> playerMenuUtilityMap = new HashMap<>();
    
     public static final List<CustomFile> customConfigs = new ArrayList<>();
@@ -57,6 +60,8 @@ public class PersoKits extends JavaPlugin {
 		customConfigs.add(pKitsFile);
 		KitUtils.loadKits();
 		KitUtils.loadFirstJoinKit();
+		KitUtils.setReminderStatus();
+		KitUtils.setFistJoinMsgStatus();
 
 		this.getCommand("kit").setExecutor(new KitCommand());
 		this.getCommand("kiteditor").setExecutor(new KitEditorCommand());
@@ -71,7 +76,7 @@ public class PersoKits extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		kits.clear();
-		fistKitTasks.clear();
+		firstKitTasks.clear();
 		playerMenuUtilityMap.clear();
 		customConfigs.clear();
 		firstJoinKitStatus = false;

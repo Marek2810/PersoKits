@@ -2,7 +2,6 @@ package me.Marek2810.PersoKits.Commands;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -46,14 +45,11 @@ public class KitEditorCommand implements TabExecutor {
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 		List<String> results = new ArrayList<>();
-		List<String> kits = new ArrayList<>();
-		for (String name : PersoKits.kits.keySet()) {
-			kits.add(name);			
-		}
+        List<String> kits = new ArrayList<>(PersoKits.kits.keySet());
 		for (String kitName : kits) {
 			if (kitName.startsWith(args[0]))
 				results.add(kitName);
-		}		
+		}
 		return results;
 	}
 }

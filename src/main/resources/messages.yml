@@ -43,7 +43,7 @@ messages:
   kits: "&eKits: "
   # Message if kits list while hovering on kit if kit is available
   available: "&aKit is available."
-  # Message if player has not permission for any kit
+  # Message if player has no permission for any kit
   no-kits: "&cThere are no available kits."
   # Message if kit does not exist
   no-exist: "&cKit does not exist."
@@ -59,7 +59,7 @@ messages:
   no-items: "&cThere are no items in kit."  
   # This kit is not a PersoKit
   not-persokit: "&cKit is not PersoKit."
-  # If player tried receive to kit, but have not set PersoKit yet
+  # If player tried to receive to kit, but have not set PersoKit yet
   no-persokit-set: "&eThis kit is a PersoKit, but you did not set yours."
   # On set cooldown option in KitMenu
   enter-cooldown: "&eEnter cooldown in seconds:"

@@ -2,7 +2,6 @@ package me.Marek2810.PersoKits.Commands;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -33,7 +32,7 @@ public class KitCommand implements TabExecutor {
 		}
 		// /kit - show all available kits for player
 		Player p = (Player) sender;
-		if (args.length == 0) {		
+		if (args.length == 0) {
 			List<String> playerKits = KitUtils.getAvailableKitsForPlayer(p);
 			if (playerKits.size() > 0) {
 				ComponentBuilder builder = new ComponentBuilder();

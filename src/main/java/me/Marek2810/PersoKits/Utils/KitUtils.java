@@ -6,12 +6,18 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import me.Marek2810.PersoKits.PersoKits;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 public class KitUtils {
 
@@ -71,7 +77,7 @@ public class KitUtils {
 			String msg = ChatUtils.getConsoleMessage("kits-loading");
 			PersoKits.console.sendMessage(ChatUtils.format(msg));
 			Set<String> kits = PersoKits.kitsFile.getConfig().getConfigurationSection("kits").getKeys(false);
-			PersoKit kit = null;
+			PersoKit kit;
 			for (String kitName : kits) {
 				try {
 					kit = loadKit(kitName);
@@ -229,9 +235,61 @@ public class KitUtils {
 	public static void setFirstKitClaimed(Player p) {
 		PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + ".first-kit-claimed", true);
 		PersoKits.dataFile.saveConfig();
-		if (PersoKits.fistKitTasks.get(p) != null) {
-			PersoKits.fistKitTasks.get(p).cancel();
-			PersoKits.fistKitTasks.remove(p);
-		}		
-	}	
+		if (PersoKits.firstKitTasks.get(p) != null) {
+			PersoKits.firstKitTasks.get(p).cancel();
+			PersoKits.firstKitTasks.remove(p);
+		}
+	}
+
+	public static void setReminderStatus() {
+		PersoKits.reminderStatus = PersoKits.inst.getConfig().getBoolean("first-join-kit.reminder.enabled");
+	}
+
+	public static void setFistJoinMsgStatus() {
+		PersoKits.reminderStatus = PersoKits.inst.getConfig().getBoolean("first-join-kit.msg-enabled");
+	}
+
+	public static void sendFistJoinMsg(Player p) {
+		if (KitUtils.getFirstKitClaimed(p)) return;
+		String msg = ChatUtils.getMessage("first-join-kit-reminder");
+
+		ComponentBuilder hoverBuilder = new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("first-join-kit-reminder-hover")));
+
+		double delay = PersoKits.inst.getConfig().getDouble("first-join-kit.delay-for-msg-after-join")*20;
+
+		ComponentBuilder builder = new ComponentBuilder(ChatUtils.format(msg))
+				.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/kit " + PersoKits.firstJoinKit.getName()))
+				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverBuilder.create()));
+
+		new BukkitRunnable() {
+			public void run() {
+				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
+				p.spigot().sendMessage(builder.create());
+				cancel();
+			}
+		}.runTaskLater(PersoKits.getPlugin(), (long)delay*20);
+
+	}
+
+	public static void setupReminder(Player p) {
+		if (KitUtils.getFirstKitClaimed(p)) return;
+		String msg = ChatUtils.getMessage("first-join-kit-reminder");
+
+		ComponentBuilder hoverBuilder = new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("first-join-kit-reminder-hover")));
+
+		ComponentBuilder builder = new ComponentBuilder(ChatUtils.format(msg))
+				.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/kit " + PersoKits.firstJoinKit.getName()))
+				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverBuilder.create()));
+
+		double delay = PersoKits.inst.getConfig().getDouble("first-join-kit.delay-for-msg-after-join")*20;
+		double interval = PersoKits.inst.getConfig().getDouble("first-join-kit.reminder.repeat-after")*20;
+		BukkitTask firstKitReminder = new BukkitRunnable() {
+			public void run() {
+				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
+				p.spigot().sendMessage(builder.create());
+			}
+		}.runTaskTimer(PersoKits.getPlugin(), (int)delay, (int)interval);
+		PersoKits.firstKitTasks.put(p, firstKitReminder);
+	}
+
 }
