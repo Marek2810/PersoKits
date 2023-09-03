@@ -83,6 +83,7 @@ public abstract class CustomFile {
 	}
 
 	public void baseUpdate() {
+		if (configFile == null) return;
 		for (String path : configFile.getKeys(true)) {
 			if (path.equals("version")) continue;
 			if (configFile.isConfigurationSection(path)) continue;

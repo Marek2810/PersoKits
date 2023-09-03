@@ -34,65 +34,15 @@ public class KitCommand implements TabExecutor {
 		Player p = (Player) sender;
 		if (args.length == 0) {
 			List<String> playerKits = KitUtils.getAvailableKitsForPlayer(p);
-			if (playerKits.size() > 0) {
-				ComponentBuilder builder = new ComponentBuilder();
-				builder.append(new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("kits"))).create());					
-				int i = 1;				
-				for (String kitName : playerKits) {
-					ComponentBuilder hoverBuilder = new ComponentBuilder();	
-					String color = "&a";
-					PersoKit kit = PersoKits.kits.get(kitName);
-					if (!KitUtils.haveUses(p, kit)) {
-						color = "&c";
-						hoverBuilder.append(new ComponentBuilder(
-								ChatUtils.format(ChatUtils.getMessage("no-uses")))
-							.create());					
-					}
-					else if (!KitUtils.isAvailable(p, kitName)) {
-						color = "&e";
-						String msg = ChatUtils.getMessage("on-cooldown");
-						msg = ChatUtils.formatWithPlaceholders(p, msg, kitName);
-						hoverBuilder.append(new ComponentBuilder(
-								ChatUtils.format(msg))
-							.create());
-					}
-					else if (kit.getItems().isEmpty()) {
-						color = "&c&m";
-						String msg = ChatUtils.getMessage("no-items");
-						hoverBuilder.append(new ComponentBuilder(
-								ChatUtils.format(msg))
-							.create());
-					}
-					else {
-						hoverBuilder.append(new ComponentBuilder(
-								ChatUtils.format(ChatUtils.getMessage("available")))
-							.create());
-					}
-					
-					if (kit.isPersokit()) {
-						color += "&l";
-						if (!kit.getPersokits().containsKey(p.getUniqueId()) ) {
-							color += "&n";
-							hoverBuilder.append(new ComponentBuilder(
-									ChatUtils.format("\n" + ChatUtils.getMessage("no-persokit-set")))
-								.create());
-						}
-					}					
-					BaseComponent[] line = new ComponentBuilder(ChatUtils.format(color + kitName))
-							.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverBuilder.create()))
-							.create();
-					builder.append(line);
-					if (i != playerKits.size()) builder.append(", ");					
-					i++;
-				}
-				sender.spigot().sendMessage(builder.create());	
-				return true;
-			}	
+			if (!playerKits.isEmpty()) {
+//				sender.spigot().sendMessage(builder.create());
+				sender.spigot().sendMessage(KitUtils.getKitsMessage(p).create());
+            }
 			else {
 				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-kits")));
-				return true;
-			}			
-		}		
+            }
+            return true;
+        }
 
 		// /kit <name> 
 			//kot not exist
@@ -101,61 +51,52 @@ public class KitCommand implements TabExecutor {
 			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-exist")));
 			return true;
 		}
-			// no permissions for kit
-		if (!KitUtils.hasPermission(p, kitName)) {
-			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-permission")));
-			return true;
-		}		
 		
 		PersoKit kit = PersoKits.kits.get(kitName);
-		
-			// kit is on cooldown
-		if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId().toString() + "." + kitName + ".availableAt") != null) {
-			if (!KitUtils.isAvailable(p, kitName)) {
+
+			// no permissions for kit
+		if (!kit.permittedToUse(p)) {
+			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-permission")));
+			return true;
+		}
+
+		//check for uses
+		if (!kit.haveUses(p)) {
+			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-uses")));
+			return true;
+		}
+
+		// kit is on cooldown
+		if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId() + "." + kitName + ".availableAt") != null) {
+			if (!kit.isAvailable(p)) {
 				String msg = ChatUtils.getMessage("on-cooldown");
 				msg = ChatUtils.formatWithPlaceholders(p, msg, kitName);
 				p.sendMessage(ChatUtils.format(msg));
 				return true;
 			}	
-		}		
-		
-			//check for uses		
-		if (!KitUtils.haveUses(p, kit)) {
-			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-uses")));
-			return true;
 		}
 	
-		List<ItemStack> items = new ArrayList<>();		
+		List<ItemStack> items = new ArrayList<>();
 		if (kit.isPersokit()) {
-			if  (kit.getPersokits().get(p.getUniqueId()) == null || kit.getPersokits().get(p.getUniqueId()).isEmpty()) {
+			if (kit.getPlayerPersoKit(p).isEmpty()) {
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-persokit-set")));
 				PlayerMenuUtility util = PersoKits.getPlayerMenuUtility(p);
 				util.setKit(kitName);
-				if(!kit.equals(PersoKits.firstJoinKit)) {
-					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-persokit-set")));
-				}
-				else {
-					if (KitUtils.getFirstKitClaimed(p)) {
-						p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-persokit-set")));
-					}
-					else {
-						new PKitEditMenu(util).open();
-						return true;
-					}
-				}
 				double secs = 1.25;
-				double ticks = secs*20;				
-				new BukkitRunnable() {			
-					public void run() {
+				double ticks = secs*20;
+				new BukkitRunnable() {
+				public void run() {
 						new PKitEditMenu(util).open();
 						cancel();
 					}
-				}.runTaskLater(PersoKits.getPlugin(), (int) ticks);				
+				}.runTaskLater(PersoKits.getPlugin(), (int) ticks);
 				return true;
 			}
 			else {
-				items = kit.getPersokits().get(p.getUniqueId());
+				items = kit.getPlayerPersoKit(p);
 			}
-		} else {
+		}
+		else {
 			items = kit.getItems();
 		}
 		
@@ -178,29 +119,19 @@ public class KitCommand implements TabExecutor {
 		
 			//setting CD
 		if (kit.getCooldwon() != 0) {			
-			long time = System.currentTimeMillis();
-			long at = (int)(kit.getCooldwon()*1000)+time;						
-			PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + "." + kitName + ".availableAt", at);	
-			PersoKits.dataFile.saveConfig();
+			kit.setPlayerCooldown(p);
 		}
 		if (kit.getUses() >= 0) {
-			int playerUses = 0;
-			if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId() + "." + kitName + ".uses") != null) {
-				playerUses = PersoKits.dataFile.getConfig().getInt("players." + p.getUniqueId() + "." + kitName + ".uses");
-			}
-			PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + "." + kitName + ".uses", playerUses+1);
-			PersoKits.dataFile.saveConfig();
+			kit.setPlayerUses(p);
 		}
-		if (PersoKits.firstJoinKitStatus) {
-			if (kit.equals(PersoKits.firstJoinKit)) {
-				if (!KitUtils.getFirstKitClaimed(p)) {
-					KitUtils.setFirstKitClaimed(p);
-					if (PersoKits.firstJoinKit.isPersokit()) {
-						p.sendMessage(ChatUtils.format(ChatUtils.getMessage("on-first-kit-receive")));
-					}					
-					return true;
+		if (PersoKits.firstJoinKitStatus && kit.equals(PersoKits.firstJoinKit)) {
+			if (!KitUtils.getFirstKitClaimed(p)) {
+				KitUtils.setFirstKitClaimed(p);
+				if (PersoKits.firstJoinKit.isPersokit()) {
+					p.sendMessage(ChatUtils.format(ChatUtils.getMessage("on-first-kit-receive")));
 				}
-			}			
+				return true;
+			}
 		}
 		
 		String msg = ChatUtils.getMessage("on-kit-receive");

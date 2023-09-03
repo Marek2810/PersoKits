@@ -26,7 +26,7 @@ public class PKitsMenu extends PaginatedMenu {
 		super(util);
 		for (String name : kitsSet) {
 			if (!PersoKits.kits.get(name).isPersokit()) continue;
-			if (!KitUtils.hasPermission(owner, name)) continue;
+			if (!PersoKits.kits.get(name).permittedToUse(util.getOwner())) continue;
 			kits.add(name);
 		}
 	}

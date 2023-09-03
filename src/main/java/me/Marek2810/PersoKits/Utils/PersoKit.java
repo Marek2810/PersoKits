@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import me.Marek2810.PersoKits.PersoKits;
@@ -170,4 +171,69 @@ public class PersoKit {
 		PersoKits.kitsFile.saveConfig();
 		PersoKits.kits.remove(name);
 	}
+
+	public boolean permittedToUse(Player p) {
+		if (p.hasPermission("persokits.kit.*")) return true;
+		if (p.hasPermission("persokits.kit." + getName())) return true;
+		return false;
+	}
+
+	public boolean hasBypassPermission(Player p, String permName) {
+		if (p.hasPermission("persokits.bypass.*")) return true;
+		if (p.hasPermission("persokits.bypass." + permName)) return true;
+		return false;
+	}
+
+	public boolean isAvailable(Player p) {
+		if (hasBypassPermission(p, "cooldown")) return true;
+		long availableAt = PersoKits.dataFile.getConfig().getLong("players." + p.getUniqueId() + "." + getName() + ".availableAt");
+		if (availableAt < System.currentTimeMillis()) {
+			return true;
+		}
+		return false;
+	}
+
+	public int availableAt(Player p) {
+		long availableAt = PersoKits.dataFile.getConfig().getLong("players." + p.getUniqueId() + "." + getName() + ".availableAt");
+		return (int) (availableAt-System.currentTimeMillis())/1000;
+	}
+
+	public boolean haveUses(Player p) {
+		int playerUses = 0;
+		if (getUses() < 0 ) return true;
+		if (hasBypassPermission(p, "uses")) return true;
+		if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId() + "." + getName() + ".uses") != null) {
+			playerUses = PersoKits.dataFile.getConfig().getInt("players." + p.getUniqueId() + "." + getName() + ".uses");
+		}
+		if (playerUses >= getUses()) {
+			return false;
+		}
+		return true;
+	}
+
+	public void setPlayerCooldown(Player p) {
+		long time = System.currentTimeMillis();
+		long at = (int)(getCooldwon()*1000)+time;
+		PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + "." + getName() + ".availableAt", at);
+		PersoKits.dataFile.saveConfig();
+	}
+
+	public void setPlayerUses(Player p) {
+		int playerUses = 0;
+		if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId() + "." + getName() + ".uses") != null) {
+			playerUses = PersoKits.dataFile.getConfig().getInt("players." + p.getUniqueId() + "." + getName() + ".uses");
+		}
+		PersoKits.dataFile.getConfig().set("players." + p.getUniqueId() + "." + getName() + ".uses", playerUses+1);
+		PersoKits.dataFile.saveConfig();
+	}
+
+	public List<ItemStack> getPlayerPersoKit(Player p) {
+		List<ItemStack> returnKit = new ArrayList<>();
+		if (getPersokits().get(p.getUniqueId()) == null) {
+			return returnKit;
+		}
+		returnKit = getPersokits().get(p.getUniqueId());
+		return returnKit;
+	}
+
 }

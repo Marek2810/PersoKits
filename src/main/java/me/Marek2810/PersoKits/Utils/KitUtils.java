@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -21,50 +22,10 @@ import org.bukkit.scheduler.BukkitTask;
 
 public class KitUtils {
 
-	public static boolean hasPermission(Player p, String name) {
-		if (p.hasPermission("persokits.kit.*")) return true;
-		if (p.hasPermission("persokits.kit." + name)) return true;
-		return false;
-	}
-	
-	public static boolean hasBypassPermission(Player p, String name) {
-		if (p.hasPermission("persokits.bypass.*")) return true;
-		if (p.hasPermission("persokits.bypass." + name)) return true;
-		return false;
-	}
-	
-	public static boolean isAvailable(Player p, String kitName) {
-		if (hasBypassPermission(p, "cooldown")) return true;
-		long availableAt = PersoKits.dataFile.getConfig().getLong("players." + p.getUniqueId() + "." + kitName + ".availableAt");
-		if (availableAt < System.currentTimeMillis()) {
-			return true;
-		}
-		return false;
-	}
-	
-	public static int availableAt(Player p, String kitName) {
-		long availableAt = PersoKits.dataFile.getConfig().getLong("players." + p.getUniqueId() + "." + kitName + ".availableAt");
-		return (int) (availableAt-System.currentTimeMillis())/1000;
-	}
-	
-	public static boolean haveUses(Player p, PersoKit kit) {
-		int playerUses = 0;
-		String kitName = kit.getName();
-		if (kit.getUses() < 0 ) return true;
-		if (hasBypassPermission(p, "uses")) return true;
-		if (PersoKits.dataFile.getConfig().get("players." + p.getUniqueId() + "." + kitName + ".uses") != null) {
-			playerUses = PersoKits.dataFile.getConfig().getInt("players." + p.getUniqueId() + "." + kitName + ".uses");
-		}
-		if (playerUses >= kit.getUses()) {			
-			return false;
-		}
-		return true;
-	}
-	
 	public static List<String> getAvailableKitsForPlayer(Player p) {
 		List<String> kits = new ArrayList<>();
 		for (String name : PersoKits.kits.keySet()) {
-			if (hasPermission(p, name)) {
+			if (PersoKits.kits.get(name).permittedToUse(p)) {
 				kits.add(name);
 			}			
 		}
@@ -290,6 +251,61 @@ public class KitUtils {
 			}
 		}.runTaskTimer(PersoKits.getPlugin(), (int)delay, (int)interval);
 		PersoKits.firstKitTasks.put(p, firstKitReminder);
+	}
+
+	public static ComponentBuilder getKitsMessage(Player p) {
+		List<String> playerKits = getAvailableKitsForPlayer(p);
+		ComponentBuilder builder = new ComponentBuilder();
+		builder.append(new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("kits"))).create());
+		int i = 1;
+		for (String kitName : playerKits) {
+			ComponentBuilder hoverBuilder = new ComponentBuilder();
+			String color = "&a";
+			PersoKit kit = PersoKits.kits.get(kitName);
+			if (!kit.haveUses(p)) {
+				color = "&c";
+				hoverBuilder.append(new ComponentBuilder(
+						ChatUtils.format(ChatUtils.getMessage("no-uses")))
+						.create());
+			}
+			else if (!kit.isAvailable(p)) {
+				color = "&e";
+				String msg = ChatUtils.getMessage("on-cooldown");
+				msg = ChatUtils.formatWithPlaceholders(p, msg, kitName);
+				hoverBuilder.append(new ComponentBuilder(
+						ChatUtils.format(msg))
+						.create());
+			}
+			else if (kit.getItems().isEmpty()) {
+				color = "&c&m";
+				String msg = ChatUtils.getMessage("no-items");
+				hoverBuilder.append(new ComponentBuilder(
+						ChatUtils.format(msg))
+						.create());
+			}
+			else {
+				hoverBuilder.append(new ComponentBuilder(
+						ChatUtils.format(ChatUtils.getMessage("available")))
+						.create());
+			}
+
+			if (kit.isPersokit()) {
+				color += "&l";
+				if (!kit.getPersokits().containsKey(p.getUniqueId()) ) {
+					color += "&n";
+					hoverBuilder.append(new ComponentBuilder(
+							ChatUtils.format("\n" + ChatUtils.getMessage("no-persokit-set")))
+							.create());
+				}
+			}
+			BaseComponent[] line = new ComponentBuilder(ChatUtils.format(color + kitName))
+					.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverBuilder.create()))
+					.create();
+			builder.append(line);
+			if (i != playerKits.size()) builder.append(", ");
+			i++;
+		}
+		return builder;
 	}
 
 }

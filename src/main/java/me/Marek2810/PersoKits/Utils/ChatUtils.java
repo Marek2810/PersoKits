@@ -22,7 +22,7 @@ public class ChatUtils {
 		s = s.replace("%uses%", String.valueOf(kit.getUses()));
 		s = s.replace("%slots%", String.valueOf(kit.getSlots()));
 		s = s.replace("%cooldown%", String.valueOf(kit.getCooldwon()));
-		s = s.replace("%time-left%", String.valueOf(KitUtils.availableAt(p, kit.getName())));
+		s = s.replace("%time-left%", String.valueOf(kit.availableAt(p)));
 		return format(s);	
 	}
 
@@ -33,8 +33,8 @@ public class ChatUtils {
 	}
 	
 	public static String getConsoleMessage(String name) {
-		String msg = PersoKits.messagesFile.getConfig().getString("console-messages." + name);
-		msg = msg.replace("%prefix%", getPluginPrefix());
+		String msg = PersoKits.consoleMessagesFile.getConfig().getString("console-messages." + name);
+		msg = msg.replace("%prefix%",  PersoKits.consoleMessagesFile.getConfig().getString("prefix"));
 		return msg;
 	}
 	

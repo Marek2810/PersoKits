@@ -55,7 +55,7 @@ public class PKitCommand implements TabExecutor {
 		}
 		
 			// no permissions for kit
-		if (!KitUtils.hasPermission(p, kitName)) {
+		if (!kit.permittedToUse(p)) {
 			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("no-permission")));
 			return true;
 		}
