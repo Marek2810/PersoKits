@@ -70,16 +70,12 @@ public class KitChatListener implements Listener {
 				p.sendMessage("Kit exist");
 				return;
 			}
-			List<ItemStack> emptyItemList = new ArrayList<>();
-			HashMap<UUID, List<ItemStack>> persoKitsMap = new HashMap<>();
-			PersoKit newKit = new PersoKit(kitName, 0, -1, false, 0, emptyItemList, emptyItemList, persoKitsMap).create();
+			PersoKit newKit = new PersoKit(kitName, 0, -1, false, 0, new ArrayList<>(), new ArrayList<>(), new HashMap<>()).create();
 			PersoKits.kits.put(kitName, newKit);
 			String msg = ChatUtils.getMessage("kit-added");
-//			p.sendMessage("Kit added.");
 			p.sendMessage(ChatUtils.formatWithPlaceholders(p, msg, newKit));
 			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("opening-settings")));
-//			p.sendMessage("Opening menu with settings.");
-			menuUtil.setEditingKit(false); 
+			menuUtil.setEditingKit(false);
 			menuUtil.setKit(newKit.getName());
 						
 			new BukkitRunnable() {
