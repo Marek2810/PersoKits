@@ -42,7 +42,7 @@ public class PlayerListener implements Listener {
 			return;
         }
 		else {
-			p.performCommand("kit " + PersoKits.firstJoinKit.getName());
+			p.performCommand("firstjoinkit");
 			return;
         }
     }

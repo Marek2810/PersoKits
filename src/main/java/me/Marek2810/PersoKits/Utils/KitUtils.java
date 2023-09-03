@@ -203,44 +203,37 @@ public class KitUtils {
 		PersoKits.reminderStatus = PersoKits.inst.getConfig().getBoolean("first-join-kit.msg-enabled");
 	}
 
-	public static void sendFistJoinMsg(Player p) {
-		if (KitUtils.getFirstKitClaimed(p)) return;
+
+	public static ComponentBuilder getFirstKitMessage() {
 		String msg = ChatUtils.getMessage("first-join-kit-reminder");
 
 		ComponentBuilder hoverBuilder = new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("first-join-kit-reminder-hover")));
 
-		double delay = PersoKits.inst.getConfig().getDouble("first-join-kit.delay-for-msg-after-join")*20;
-
-		ComponentBuilder builder = new ComponentBuilder(ChatUtils.format(msg))
-				.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/kit " + PersoKits.firstJoinKit.getName()))
+        return new ComponentBuilder(ChatUtils.format(msg))
+				.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/firstjoinkit"))
 				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverBuilder.create()));
+	}
 
+	public static void sendFistJoinMsg(Player p) {
+		if (KitUtils.getFirstKitClaimed(p)) return;
+		double delay = PersoKits.inst.getConfig().getDouble("first-join-kit.delay-for-msg-after-join")*20;
 		new BukkitRunnable() {
 			public void run() {
 				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
-				p.spigot().sendMessage(builder.create());
+				p.spigot().sendMessage(getFirstKitMessage().create());
 				cancel();
 			}
 		}.runTaskLater(PersoKits.getPlugin(), (long)delay*20);
-
 	}
 
 	public static void setupReminder(Player p) {
 		if (KitUtils.getFirstKitClaimed(p)) return;
-		String msg = ChatUtils.getMessage("first-join-kit-reminder");
-
-		ComponentBuilder hoverBuilder = new ComponentBuilder(ChatUtils.format(ChatUtils.getMessage("first-join-kit-reminder-hover")));
-
-		ComponentBuilder builder = new ComponentBuilder(ChatUtils.format(msg))
-				.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/kit " + PersoKits.firstJoinKit.getName()))
-				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverBuilder.create()));
-
 		double delay = PersoKits.inst.getConfig().getDouble("first-join-kit.delay-for-msg-after-join")*20;
 		double interval = PersoKits.inst.getConfig().getDouble("first-join-kit.reminder.repeat-after")*20;
 		BukkitTask firstKitReminder = new BukkitRunnable() {
 			public void run() {
 				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
-				p.spigot().sendMessage(builder.create());
+				p.spigot().sendMessage(getFirstKitMessage().create());
 			}
 		}.runTaskTimer(PersoKits.getPlugin(), (int)delay, (int)interval);
 		PersoKits.firstKitTasks.put(p, firstKitReminder);

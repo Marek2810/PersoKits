@@ -2,16 +2,13 @@ package me.Marek2810.PersoKits;
 
 import java.util.*;
 
+import me.Marek2810.PersoKits.Commands.*;
 import me.Marek2810.PersoKits.Files.*;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
-import me.Marek2810.PersoKits.Commands.KitCommand;
-import me.Marek2810.PersoKits.Commands.KitEditorCommand;
-import me.Marek2810.PersoKits.Commands.PKitCommand;
-import me.Marek2810.PersoKits.Commands.PersoKitsCommand;
 import me.Marek2810.PersoKits.Listeners.KitChatListener;
 import me.Marek2810.PersoKits.Listeners.MenuListener;
 import me.Marek2810.PersoKits.Listeners.PlayerListener;
@@ -68,6 +65,7 @@ public class PersoKits extends JavaPlugin {
 		this.getCommand("kiteditor").setExecutor(new KitEditorCommand());
 		this.getCommand("pkit").setExecutor(new PKitCommand());
 		this.getCommand("persokits").setExecutor(new PersoKitsCommand());
+		this.getCommand("firstjoinkit").setExecutor(new FirstKitCommand());
 
 		this.getServer().getPluginManager().registerEvents(new MenuListener(),this);
 		this.getServer().getPluginManager().registerEvents(new KitChatListener(),this);

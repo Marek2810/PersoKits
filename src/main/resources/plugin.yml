@@ -5,6 +5,8 @@ version: ${project.version}
 api-version: 1.13
 
 commands:
+  firstjoinkit:
+    permission-message: You do not have permission!
   persokits:
     permission: persokits.admin
     permission-message: You do not have permission!
