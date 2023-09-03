@@ -27,31 +27,23 @@ public class PersoKitsCommand implements TabExecutor {
 				for (CustomFile file : PersoKits.customConfigs) {
 					file.reloadConfig();
 				}
-				boolean changed = false;
 				PersoKits.kits.clear();
 				PersoKits.inst.reloadConfig();
 				KitUtils.loadKits();
 				KitUtils.loadFirstJoinKit();
-				changed = (PersoKits.oldFirstJoinKitStatus == PersoKits.firstJoinKitStatus);
-				sender.sendMessage("changed: " + changed);
-				if (changed) {
-					if (!PersoKits.firstJoinKitStatus) {
-						List<Player> playerList = new ArrayList<>(PersoKits.firstKitTasks.keySet());
-						for (Player player : playerList) {
-							PersoKits.firstKitTasks.get(player).cancel();
-						}
-						PersoKits.firstKitTasks.clear();
-					}
-					else {
-						if (PersoKits.reminderStatus) {
-							for (Player p : Bukkit.getServer().getOnlinePlayers()) {
-								if (KitUtils.getFirstKitClaimed(p)) continue;
-								KitUtils.setupReminder(p);
-							}
+				List<Player> playerList = new ArrayList<>(PersoKits.firstKitTasks.keySet());
+				for (Player player : playerList) {
+					PersoKits.firstKitTasks.get(player).cancel();
+				}
+				PersoKits.firstKitTasks.clear();
+				if (PersoKits.firstJoinKitStatus) {
+					if (PersoKits.reminderStatus) {
+						for (Player p : Bukkit.getServer().getOnlinePlayers()) {
+							if (KitUtils.getFirstKitClaimed(p)) continue;
+							KitUtils.setupReminder(p);
 						}
 					}
 				}
-				PersoKits.oldFirstJoinKitStatus = PersoKits.firstJoinKitStatus;
 				sender.sendMessage(ChatUtils.format("&aPersoKits reloaded!"));
 				return true;
 			}

@@ -31,7 +31,6 @@ public class PersoKits extends JavaPlugin {
 	public static CustomFile consoleMessagesFile;
 	
 	public static boolean firstJoinKitStatus;
-	public static boolean oldFirstJoinKitStatus;
 	public static boolean fistJoinMsgStatus;
 	public static boolean reminderStatus;
 	public static PersoKit firstJoinKit;
@@ -64,7 +63,6 @@ public class PersoKits extends JavaPlugin {
 		KitUtils.loadFirstJoinKit();
 		KitUtils.setReminderStatus();
 		KitUtils.setFistJoinMsgStatus();
-
 
 		this.getCommand("kit").setExecutor(new KitCommand());
 		this.getCommand("kiteditor").setExecutor(new KitEditorCommand());
