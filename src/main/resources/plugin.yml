@@ -14,7 +14,8 @@ commands:
   kit:    
     permission-message: You do not have permission!
   pkit:
-    permission-message: You do not have permission!  
+    permission-message: You do not have permission!
+    aliases: [persokit]
   kiteditor:
     permission: persokits.kiteditor
     permission-message: You do not have permission!
