@@ -1,4 +1,4 @@
-name:  ${project.name}
+name:  PersoKits
 author: Marek2810
 main: me.Marek2810.PersoKits.PersoKits
 version: ${project.version}

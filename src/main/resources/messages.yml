@@ -35,11 +35,11 @@ messages:
   no-exist: "&cKit does not exist."
   # No uses left for kit
   no-uses: "&cYou have no uses left for this kit."
-  # No space in iventory
+  # No space in inventory
   no-space: "&cYou don't have enough space in your inventory."
   # Kit is on cooldown
   on-cooldown: "&cKit is on cooldown for &e%time-left% &cseconds."
-  # Message when player receive kit
+  # Message when player receives kit
   on-kit-receive: "&aYou received kit &e%name%&a."
   # Kit has no items
   no-items: "&cThere are no items in kit."  
@@ -49,28 +49,30 @@ messages:
   no-persokit-set: "&eThis kit is a PersoKit, but you did not set yours."
   # On set cooldown option in KitMenu
   enter-cooldown: "&eEnter cooldown in seconds:"
-  # On set amount of uses option in KitOption
+  # On set amount of a use option in KitOption
   enter-uses: "&eEnter amount of kit uses per player:"
   # On set amount of slots option in KitEditor (menu with options for PersoKit)
   enter-slots: "&eEnter amount of slots in PersoKit:"
   # On toggle PersoKit in KitEditor
   persokit-enabled: "&aKit &e%name% &ais now a PersoKit!"
   persokit-disabled: "&cKit &e%name% &cis no longer PersoKit!"
-  # Message if player clicks on item and does not have empty slot in player PersoKit menu.
+  # Message if player clicks on an item and does not have an empty slot in a player PersoKit menu.
   no-slot: "&cYou do not have any slots left for this item in your PersoKit."
-  # Message if player click on save button in KitEditor
+  # Message if player clicks on save button in KitEditor
   saved-kit: "&aYou saved the &e%name%&a kit."
-  # Message if player click on save button in PersoKitEditor
+  # Message if player clicks on save button in PersoKitEditor
   saved-pkit: "&aYou saved the &e%name%&a PersoKit."
-  # Message if player click on save button in KitOptionMenu
+  # Message if player clicks on save button in KitOptionMenu
   saved-options: "&aYou saved option items for &e%name%&a."
-  # Message if player click on next page button but is already on last page
+  # Message if player clicks on next page button but is already on the last page
   already-last-page: "&cYou are already on the last page."
-  # Message if player click on previous page button but is allready on first page
+  # Message if player clicks on the previous page button but is already on the first page
   already-first-page: "&cYou are already on the first page."
-  # When number input is required, but not recieved
+  # When number input is required, but not received
   requires-number: "&cYou must enter number."
-  # When player set cooldown of kit message
+  # When play input dose not match requirement.
+
+  # When player set cooldown of a kit message
   set-cooldown: "&aCooldown for &e%name%&a set to &e%cooldown% &aseconds."
   # When player set usses of kit message  
   set-uses: "&aUses for &e%name%&a set to &e%uses%&a."
@@ -85,14 +87,14 @@ messages:
   on-first-kit-receive: "&aYou received first join kit."
   # When kit gets removed
   kit-removed: "&cKit &e%name%&c removed."
-  # When click to add kit in menu
+  # When click to add kit in a menu
   adding-kit: "&eName for new kit?"
   # When player add kit
   kit-added: "&aKit &e%name%&a added."
   # After player chose name for new kit
   opening-settings: "&eOpening menu with settings to set new kit."
  
- # Items name for each option item in menu 
+ # Items name for each option item in a menu
 guis:
   # Section with items used in more guis  
   globalitems:
@@ -100,7 +102,7 @@ guis:
     next-page-item-name: "&9Next page"
     back-item-name: "&cPrevious menu"
     close-item-name: "&cClose menu"
-  # Lore of item represent kit
+  # Lore of item represents kit
   kititem:
     cooldown: "&eCooldown: &f"
     uses: "&eUses: &f"
