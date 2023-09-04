@@ -90,6 +90,7 @@ public class KitOptionItemsMenu extends PaginatedMenu {
 				pMenuUtil.setKitSetting("slots");
 				p.closeInventory();
 				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("enter-slots")));
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("cancel-editing")));
 				return;
 			}
 			else if (function.equals("saveOptions")) {

@@ -2,14 +2,11 @@ package me.Marek2810.PersoKits.Listeners;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.Marek2810.PersoKits.PersoKits;
@@ -27,6 +24,12 @@ public class KitChatListener implements Listener {
 		if (!menuUtil.isEditingKit()) return;
 		String setting = menuUtil.getKitSetting();
 		e.setCancelled(true);
+		if (e.getMessage().equalsIgnoreCase("-cancel")) {
+			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("editing-canceled")));
+			menuUtil.setEditingKit(false);
+			menuUtil.setKitSetting(null);
+			return;
+		}
 		PersoKit kit = PersoKits.kits.get(menuUtil.getKit());		
 		if (setting.equalsIgnoreCase("cooldown")) {			
 			if (!ChatUtils.isDouble(e.getMessage())) {
@@ -39,6 +42,7 @@ public class KitChatListener implements Listener {
 			msg = msg.replace("%name%", kit.getName());
 			p.sendMessage(ChatUtils.format(msg));
 			menuUtil.setEditingKit(false);
+			menuUtil.setKitSetting(null);
 		}
 		else if (setting.equalsIgnoreCase("uses")) {
 			if (!ChatUtils.isInt(e.getMessage())) {
@@ -51,6 +55,7 @@ public class KitChatListener implements Listener {
 			msg = msg.replace("%name%", kit.getName());
 			p.sendMessage(ChatUtils.format(msg));
 			menuUtil.setEditingKit(false);
+			menuUtil.setKitSetting(null);
 		}
 		else if (setting.equalsIgnoreCase("slots")) {
 			if (!ChatUtils.isInt(e.getMessage())) {
@@ -63,6 +68,7 @@ public class KitChatListener implements Listener {
 			msg = msg.replace("%name%", kit.getName());
 			p.sendMessage(ChatUtils.format(msg));
 			menuUtil.setEditingKit(false);
+			menuUtil.setKitSetting(null);
 		}
 		else if (setting.equalsIgnoreCase("addKit")) {
 			String kitName = e.getMessage();
@@ -76,6 +82,7 @@ public class KitChatListener implements Listener {
 			p.sendMessage(ChatUtils.formatWithPlaceholders(p, msg, newKit));
 			p.sendMessage(ChatUtils.format(ChatUtils.getMessage("opening-settings")));
 			menuUtil.setEditingKit(false);
+			menuUtil.setKitSetting(null);
 			menuUtil.setKit(newKit.getName());
 						
 			new BukkitRunnable() {
@@ -87,7 +94,6 @@ public class KitChatListener implements Listener {
 					
 			
 		}
-		
 	}
 
 }

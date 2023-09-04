@@ -1,4 +1,4 @@
-version: 1.1
+version: 1.2
 
 # %prefix% placeholder
 prefix: "&a[&ePersoKits&a]"
@@ -53,6 +53,10 @@ messages:
   enter-uses: "&eEnter amount of kit uses per player:"
   # On set amount of slots option in KitEditor (menu with options for PersoKit)
   enter-slots: "&eEnter amount of slots in PersoKit:"
+  # Canceling editing of kit in chat
+  cancel-editing: "&eOr type &6-cancel &eto cancel."
+  # Canceling editing of kit in chat
+  editing-canceled: "&aAction canceled!"
   # On toggle PersoKit in KitEditor
   persokit-enabled: "&aKit &e%name% &ais now a PersoKit!"
   persokit-disabled: "&cKit &e%name% &cis no longer PersoKit!"
@@ -70,8 +74,6 @@ messages:
   already-first-page: "&cYou are already on the first page."
   # When number input is required, but not received
   requires-number: "&cYou must enter number."
-  # When play input dose not match requirement.
-
   # When player set cooldown of a kit message
   set-cooldown: "&aCooldown for &e%name%&a set to &e%cooldown% &aseconds."
   # When player set usses of kit message  

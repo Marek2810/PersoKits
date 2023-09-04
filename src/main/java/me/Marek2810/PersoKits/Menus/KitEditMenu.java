@@ -130,7 +130,10 @@ public class KitEditMenu extends PersoKitsMenu {
 				pMenuUtil.setEditingKit(true);
 				pMenuUtil.setKitSetting("cooldown");
 				p.closeInventory();
-				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("enter-cooldown")));
+				String msg = ChatUtils.getMessage("enter-cooldown");
+				msg = ChatUtils.formatWithPlaceholders(p, msg, PersoKits.getPlayerMenuUtility(p).getKit());
+				p.sendMessage(ChatUtils.format(msg));
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("cancel-editing")));
 				return;
 			}
 			else if (function.equals("setUses")) {
@@ -140,6 +143,7 @@ public class KitEditMenu extends PersoKitsMenu {
 				String msg = ChatUtils.getMessage("enter-uses");
 				msg = ChatUtils.formatWithPlaceholders(p, msg, PersoKits.getPlayerMenuUtility(p).getKit());
 				p.sendMessage(ChatUtils.format(msg));
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("cancel-editing")));
 				return;
 			}
 			else if (function.equals("togglePersoKit")) {

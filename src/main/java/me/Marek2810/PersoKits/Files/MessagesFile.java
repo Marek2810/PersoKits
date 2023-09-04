@@ -15,7 +15,7 @@ public class MessagesFile extends CustomFile {
 
 	@Override
 	public String currentVersion() {
-		return "1.1";
+		return "1.2";
 	}
 
 	@Override

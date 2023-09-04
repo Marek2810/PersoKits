@@ -98,6 +98,7 @@ public class KitsMenu extends PaginatedMenu {
 				pMenuUtil.setKitSetting("addKit");
 				p.closeInventory();
 				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("adding-kit")));
+				p.sendMessage(ChatUtils.format(ChatUtils.getMessage("cancel-editing")));
 				return;
 			}
 			else if (function.equals("nextPage")) {	
